@@ -2,6 +2,7 @@ package it.unimib.lets_green;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -17,7 +18,9 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import it.unimib.lets_green.ui.dashboard.DashboardFragment;
 import it.unimib.lets_green.ui.home.HomeFragment;
+import it.unimib.lets_green.ui.notifications.NotificationsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +42,12 @@ public class MainActivity extends AppCompatActivity {
 
         mToolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(mToolbar);
+
+        /* inserire la selezione del fragment in base al bottone premuto */
+
+        if(savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().add(R.id.scene_root, new HomeFragment()).commit();
+        }
     }
 
     @Override
@@ -47,4 +56,37 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.top_bar_menu, menu);
         return true;
     }
+
+    /*
+    private final BottomNavigationView.OnNavigationItemSelectedListener listener= new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected( MenuItem item) {
+            Fragment selected_fragment =null;
+            switch (item.getItemId()){
+
+                case R.id.:
+                    selected_fragment =HomeFragment.newInstance();
+                    break;
+
+                case R.id.:
+                    selected_fragment = DashboardFragment.newInstance();
+                    break;
+
+                case R.id.settings:
+                    selected_fragment = NotificationsFragment.newInstance();
+                    break;
+            }
+            if (selected_fragment != null) {
+                FragmentManager fm= getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.replace(R.id.scene_root, selected_fragment);
+                ft.addToBackStack("attività");
+                ft.commit();
+
+            }
+            return true;
+        }
+    };
+
+     */
 }
