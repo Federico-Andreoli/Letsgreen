@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,9 +10,7 @@
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp">
-        <!-- non è il massimo, si dovrebbe trovare il modo di mettere il margine
-        relativo all'action bar, anche se non dovrebbe dare problemi. -lori -->
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <com.google.android.material.tabs.TabItem
@@ -42,4 +40,28 @@
 
     </com.google.android.material.tabs.TabLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tabs"
+        android:fillViewport="true">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla metus massa, pellentesque eget leo ut, bibendum luctus augue. Ut a volutpat dui. Aenean placerat sem quam, in fermentum lacus euismod vel. Etiam erat massa, scelerisque vel tincidunt nec, euismod varius nibh. Vestibulum tincidunt, lectus quis mattis egestas, ante mauris gravida nisi, id scelerisque urna dolor id urna. Donec posuere eros ut magna dictum feugiat. Fusce a augue et felis aliquet molestie. Nam vulputate nulla sit amet euismod scelerisque. Nunc nec lacus eget augue egestas vestibulum.
+
+        Duis molestie varius orci, id volutpat felis varius ut. Cras dictum ultricies quam ut aliquam. Aliquam at elit eu sapien posuere pretium nec egestas tortor. Morbi vehicula ut elit eu dictum. Nulla pretium massa ac facilisis molestie. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nunc est quam, tristique quis interdum at, bibendum vel metus. Morbi vehicula interdum enim, nec hendrerit enim interdum eu.
+
+        Curabitur sed molestie ante. Sed facilisis elit felis, et rhoncus tortor hendrerit ac. Nam vehicula arcu sed mauris tristique rhoncus. Fusce vestibulum sem nec augue imperdiet, vitae pulvinar lorem posuere. Proin a ornare sapien, quis molestie leo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Phasellus feugiat elit tortor, ut commodo magna blandit nec.
+
+        In pellentesque risus non felis malesuada euismod. Mauris pharetra aliquam accumsan. Curabitur rhoncus ac nibh ac hendrerit. Quisque id lacus scelerisque, tincidunt velit id, congue sem. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean gravida, lorem sed rutrum luctus, nulla libero aliquet augue, sit amet viverra dui justo a turpis. Suspendisse vitae dui tortor. Suspendisse potenti. Maecenas a tempor tortor, id dapibus felis. Proin condimentum, nulla at mollis lobortis, ex orci porta eros, vel rutrum massa ex ac quam. In hac habitasse platea dictumst. In in feugiat lectus, vitae laoreet risus. Phasellus volutpat tellus sed enim placerat fringilla. Fusce vel velit rhoncus, tempor nulla eu, accumsan felis. Nulla vulputate dui vitae vehicula hendrerit.
+
+        Vivamus laoreet aliquam eros vitae consequat. Integer eleifend mi in nulla eleifend, a interdum enim sollicitudin. Maecenas ac fermentum massa, non rutrum nisl. In accumsan lacus quis nisi lobortis cursus. Pellentesque auctor lectus cursus urna porta, et lacinia dui elementum. Sed risus mauris, feugiat vel velit et, egestas pellentesque est. Sed lobortis porttitor odio vel mattis." />
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

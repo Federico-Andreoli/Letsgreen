@@ -1,6 +1,7 @@
 package it.unimib.lets_green.ui.dashboard;
 
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

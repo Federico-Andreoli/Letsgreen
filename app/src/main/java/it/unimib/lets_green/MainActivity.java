@@ -6,8 +6,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -15,8 +17,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import org.jetbrains.annotations.NotNull;
 
 import it.unimib.lets_green.ui.dashboard.DashboardFragment;
 import it.unimib.lets_green.ui.home.HomeFragment;
@@ -37,17 +42,40 @@ public class MainActivity extends AppCompatActivity {
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        /*
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        tolta perchè entrava in conflitto con la top app bar personalizzata -lori
+         */
         NavigationUI.setupWithNavController(navView, navController);
 
         mToolbar = findViewById(R.id.main_toolbar);
         setSupportActionBar(mToolbar);
 
-        /* inserire la selezione del fragment in base al bottone premuto */
+        /* inserire la selezione del fragment in base al bottone premuto
 
         if(savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().add(R.id.scene_root, new HomeFragment()).commit();
         }
+        */
+
+       /* NavHostFragment navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment);
+        NavController navController = navHostFragment.getNavController();
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        NavigationUI.setupWithNavController(bottomNav, navController);
+
+        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
+            @Override
+            public void onDestinationChanged(@NonNull NavController controller,
+                                             @NonNull NavDestination destination, @Nullable Bundle arguments) {
+                if(destination.getId() == R.id.full_screen_destination) {
+                    toolbar.setVisibility(View.GONE);
+                    bottomNavigationView.setVisibility(View.GONE);
+                } else {
+                    toolbar.setVisibility(View.VISIBLE);
+                    bottomNavigationView.setVisibility(View.VISIBLE);
+                }
+            }
+        });*/
     }
 
     @Override
@@ -87,6 +115,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
+*/
 
-     */
 }
