@@ -49,6 +49,7 @@ public class DashboardFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
+        /*
         startActivity(new Intent(getActivity(),MainActivity.class));
 
         cat1Fragment = new Cat1Fragment();
@@ -72,7 +73,7 @@ public class DashboardFragment extends Fragment {
                     tab.setText("cat3");
                     break;
             }
-        }).attach();
+        }).attach(); */
 
         //tabLayout.setupWithViewPager(viewPager);
 
@@ -87,7 +88,7 @@ public class DashboardFragment extends Fragment {
         return root;
     }
 
-    private class ViewPagerAdapter extends FragmentStateAdapter {
+    /*private class ViewPagerAdapter extends FragmentStateAdapter {
 
         public ViewPagerAdapter(@NonNull @NotNull DashboardFragment dashboardFragment) {
             super(dashboardFragment);
@@ -113,5 +114,5 @@ public class DashboardFragment extends Fragment {
         public int getItemCount() {
             return 3;
         }
-    }
+    }*/
 }
