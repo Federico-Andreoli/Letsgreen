@@ -10,6 +10,8 @@
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:tabMode="scrollable"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintTop_toTopOf="parent">
 
 
@@ -28,25 +30,21 @@
             android:layout_height="wrap_content"
             android:text="Cat3" />
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cat4" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cat5" />
-
     </com.google.android.material.tabs.TabLayout>
 
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tabs"
-        android:fillViewport="true">
+        app:layout_constraintTop_toBottomOf="@id/tabs">
 
         <TextView
             android:id="@+id/textView"
@@ -62,6 +60,8 @@
         In pellentesque risus non felis malesuada euismod. Mauris pharetra aliquam accumsan. Curabitur rhoncus ac nibh ac hendrerit. Quisque id lacus scelerisque, tincidunt velit id, congue sem. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean gravida, lorem sed rutrum luctus, nulla libero aliquet augue, sit amet viverra dui justo a turpis. Suspendisse vitae dui tortor. Suspendisse potenti. Maecenas a tempor tortor, id dapibus felis. Proin condimentum, nulla at mollis lobortis, ex orci porta eros, vel rutrum massa ex ac quam. In hac habitasse platea dictumst. In in feugiat lectus, vitae laoreet risus. Phasellus volutpat tellus sed enim placerat fringilla. Fusce vel velit rhoncus, tempor nulla eu, accumsan felis. Nulla vulputate dui vitae vehicula hendrerit.
 
         Vivamus laoreet aliquam eros vitae consequat. Integer eleifend mi in nulla eleifend, a interdum enim sollicitudin. Maecenas ac fermentum massa, non rutrum nisl. In accumsan lacus quis nisi lobortis cursus. Pellentesque auctor lectus cursus urna porta, et lacinia dui elementum. Sed risus mauris, feugiat vel velit et, egestas pellentesque est. Sed lobortis porttitor odio vel mattis." />
+
     </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
