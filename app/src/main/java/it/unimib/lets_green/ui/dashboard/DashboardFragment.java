@@ -19,11 +19,9 @@ import it.unimib.lets_green.R;
 
 public class DashboardFragment extends Fragment {
 
-    private DashboardViewModel dashboardViewModel;
-
     DemoCollectionAdapter demoCollectionAdapter;
     private ViewPager2 viewPager;
-    private TabLayout tabLayout;
+    private FragmentStateAdapter pagerAdapter;
 
     @Override
     public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -34,8 +32,7 @@ public class DashboardFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
+        DashboardViewModel dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
         return root;
     }
@@ -45,7 +42,7 @@ public class DashboardFragment extends Fragment {
         demoCollectionAdapter = new DemoCollectionAdapter(this);
         viewPager = view.findViewById(R.id.view_pager);
         viewPager.setAdapter(demoCollectionAdapter);
-
+        pagerAdapter = new DemoCollectionAdapter(this);
         TabLayout tabLayout = view.findViewById(R.id.tabs);
         new TabLayoutMediator(tabLayout, viewPager,
                 (tab, position) -> tab.setText("OBJECT " + (position + 1))
