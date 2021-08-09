@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.dashboard.DemoObjectFragment">
+    tools:context=".ui.dashboard.Cat1Fragment">
+
 
     <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/catalogue_view"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
-
+        android:id="@+id/cat1_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

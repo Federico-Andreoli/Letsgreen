@@ -21,13 +21,11 @@ public class DashboardFragment extends Fragment {
 
     DemoCollectionAdapter demoCollectionAdapter;
     private ViewPager2 viewPager;
-    private FragmentStateAdapter pagerAdapter;
 
     @Override
     public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -39,35 +37,55 @@ public class DashboardFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        demoCollectionAdapter = new DemoCollectionAdapter(this);
+        demoCollectionAdapter = new DemoCollectionAdapter(this, 3);
         viewPager = view.findViewById(R.id.view_pager);
         viewPager.setAdapter(demoCollectionAdapter);
-        pagerAdapter = new DemoCollectionAdapter(this);
+        FragmentStateAdapter pagerAdapter = new DemoCollectionAdapter(this, 3);
         TabLayout tabLayout = view.findViewById(R.id.tabs);
         new TabLayoutMediator(tabLayout, viewPager,
-                (tab, position) -> tab.setText("OBJECT " + (position + 1))
+                (tab, position) -> tab.setText("CAT " + (position + 1))
         ).attach();
     }
+
 }
 
 class DemoCollectionAdapter extends FragmentStateAdapter {
-    public DemoCollectionAdapter(Fragment fragment) {
+
+    private int tabsNum;
+
+    public DemoCollectionAdapter(Fragment fragment, int tabsNum) {
         super(fragment);
+        this.tabsNum = tabsNum;
     }
+
     @NonNull
     @Override
     public Fragment createFragment(int position) {
+        /*
+        da eliminare --lori
         // Return a NEW fragment instance in createFragment(int)
         Fragment fragment = new DemoObjectFragment();
         Bundle args = new Bundle();
         // Our object is just an integer :-P
         args.putInt(DemoObjectFragment.ARG_OBJECT, position + 1);
         fragment.setArguments(args);
-        return fragment;
+        */
+
+        switch (position) {
+            case 0:
+                return new Cat1Fragment();
+            case 1:
+                return new Cat2Fragment();
+            case 2:
+                return new Cat3Fragment();
+            default:
+                return null;
+        }
     }
 
     @Override
     public int getItemCount() {
         return 3;
     }
+
 }
