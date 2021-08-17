@@ -62,5 +62,14 @@
         android:id="@+id/register"
         android:name="it.unimib.lets_green.Register"
         android:label="fragment__register"
-        tools:layout="@layout/fragment__register" />
+        tools:layout="@layout/fragment__register" >
+        <action
+            android:id="@+id/action_register_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="it.unimib.lets_green.UserProfileFragment"
+        android:label="fragment_user_profile"
+        tools:layout="@layout/fragment_user_profile" />
 </navigation>

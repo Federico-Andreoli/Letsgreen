@@ -1,9 +1,13 @@
 package it.unimib.lets_green;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +16,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 
 public class Register extends Fragment {
-
+    private static final String TAG = "NewsFragment";
+    private FirebaseAuth mAuth;
     EditText userEmail, userPassword, confirmPassword;
     Button registerUser;
 
@@ -25,12 +36,14 @@ public class Register extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment__register, container, false);
-        return view;
 
+        mAuth = FirebaseAuth.getInstance();
         userEmail = view.findViewById(R.id.textInputEmail);
         userPassword = view.findViewById(R.id.textInputPassword1);
         confirmPassword = view.findViewById(R.id.textInputPassword2);
         registerUser= view.findViewById(R.id.containedButton);
+
+
 
         registerUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,28 +52,79 @@ public class Register extends Fragment {
             }
         });
 
+
+        return view;
+
 }
 
-    private void startUserRegistration() {
+
+
+
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            reload();
+        }
+    }
+
+        private void startUserRegistration() {
 
         String email = userEmail.getText().toString().trim();
         String password = userPassword.getText().toString().trim();
         String password2 = confirmPassword.getText().toString().trim();
 
         if(email.isEmpty()){  /*controllo che la mail non sia vuota*/
-            Toast.makeText(this, "inserisci mail", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "inserisci mail", Toast.LENGTH_SHORT).show();
         }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){ /*verifica se la mail è ben formulata*/
-            Toast.makeText(this, "inserire un'email valida", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "inserire un'email valida", Toast.LENGTH_SHORT).show();
         }else if(password.isEmpty()){   /*verifica che la password non sia vuota*/
-            Toast.makeText(this, "inserisci una password valida", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "inserisci una password valida", Toast.LENGTH_SHORT).show();
         }else if(password.length()<6){   /*verifica che la password sia almeno di 6 caratteri*/
-            Toast.makeText(this, "password troppo corta", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "password troppo corta", Toast.LENGTH_SHORT).show();
         }else if(password.compareTo(password2)!=0){ /*verifica che le password sono uguali*/
-            Toast.makeText(this, "le password sono diverse", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "le password sono diverse", Toast.LENGTH_SHORT).show();
         }else{
-
-
+            Log.d(TAG, "registrazione effettuata");
+            createAccount(email,password);
 
         }
     }
+
+    private void createAccount(String email, String password) {
+        // [START create_user_with_email]
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "createUserWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(getActivity(), "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
+                    }
+                });
+        // [END create_user_with_email]
+    }
+
+    private void updateUI(FirebaseUser user) {
+        if (user == null) {
+        } else {
+            Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.userProfileFragment);
+        }
+    }
+
+    private void reload() {
+
+    }
+
+
 }
