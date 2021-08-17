@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    tools:context=".fragment_register">
+    tools:context=".Register">
 
     <Button
         android:id="@+id/containedButton"
@@ -26,7 +26,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textFieldemail"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-        android:layout_width="347dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
@@ -38,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputEditText"
+            android:id="@+id/textInputEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout_editor_absoluteX="0dp"
@@ -48,7 +48,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textFieldpassword"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="5dp"
@@ -66,6 +66,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textFieldemail">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputPassword1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -75,7 +76,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textFieldConfermaPassword"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="5dp"
@@ -91,6 +92,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textFieldpassword">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputPassword2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
