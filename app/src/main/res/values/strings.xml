@@ -33,4 +33,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main2">MainActivity</string>
     <string name="title_activity_prova_home">MainActivity</string>
+    <string name="title_Login">Login</string>
 </resources>

@@ -11,10 +11,12 @@
         android:id="@+id/containedButton"
         android:layout_width="347dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="15dp"
+
+
+        android:layout_marginEnd="32dp"
         android:layout_marginBottom="262dp"
-
-
         android:paddingTop="1dp"
         android:text="@string/register"
         app:layout_constraintBottom_toBottomOf="parent"

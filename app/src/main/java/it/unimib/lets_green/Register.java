@@ -44,7 +44,6 @@ public class Register extends Fragment {
         registerUser= view.findViewById(R.id.containedButton);
 
 
-
         registerUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,7 +80,7 @@ public class Register extends Fragment {
             Toast.makeText(getActivity(), "inserire un'email valida", Toast.LENGTH_SHORT).show();
         }else if(password.isEmpty()){   /*verifica che la password non sia vuota*/
             Toast.makeText(getActivity(), "inserisci una password valida", Toast.LENGTH_SHORT).show();
-        }else if(password.length()<6){   /*verifica che la password sia almeno di 6 caratteri*/
+        }else if(password.length()<8){   /*verifica che la password sia almeno di 8 caratteri*/
             Toast.makeText(getActivity(), "password troppo corta", Toast.LENGTH_SHORT).show();
         }else if(password.compareTo(password2)!=0){ /*verifica che le password sono uguali*/
             Toast.makeText(getActivity(), "le password sono diverse", Toast.LENGTH_SHORT).show();
@@ -114,6 +113,8 @@ public class Register extends Fragment {
                 });
         // [END create_user_with_email]
     }
+
+
 
     private void updateUI(FirebaseUser user) {
         if (user == null) {
