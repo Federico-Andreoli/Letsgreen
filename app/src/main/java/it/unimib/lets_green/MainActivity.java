@@ -38,6 +38,7 @@ import it.unimib.lets_green.ui.notifications.NotificationsFragment;
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
+    private String ciao;
 
 
     @Override
