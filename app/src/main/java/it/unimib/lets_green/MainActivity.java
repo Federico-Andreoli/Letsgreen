@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -29,6 +30,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import org.jetbrains.annotations.NotNull;
 
+import it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase;
 import it.unimib.lets_green.ui.dashboard.DashboardFragment;
 import it.unimib.lets_green.ui.home.HomeFragment;
 import it.unimib.lets_green.ui.notifications.NotificationsFragment;
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.bottom_navigation);
