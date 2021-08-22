@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,6 +27,8 @@ public class Cat1Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_cat1, container, false);
+
+
     }
 
     @Override
@@ -38,10 +42,13 @@ public class Cat1Fragment extends Fragment {
 
         RecyclerView recyclerView = view.findViewById(R.id.cat1_view);
         CatalogueRecyclerViewAdapter catalogRecyclerViewAdapter = new CatalogueRecyclerViewAdapter(stringList, new CatalogueRecyclerViewAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(String s) {
-                Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
-            }
+
+        @Override
+        public void onItemClick(String s) {
+            Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+            Navigation.findNavController(view).navigate(R.id.plantFragment);
+        }
+
         });
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recyclerView.setAdapter(catalogRecyclerViewAdapter);

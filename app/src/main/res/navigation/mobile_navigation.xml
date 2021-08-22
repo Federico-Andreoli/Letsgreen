@@ -72,4 +72,9 @@
         android:name="it.unimib.lets_green.UserProfileFragment"
         android:label="fragment_user_profile"
         tools:layout="@layout/fragment_user_profile" />
+    <fragment
+        android:id="@+id/plantFragment"
+        android:name="it.unimib.lets_green.ui.dashboard.PlantFragment"
+        android:label="fragment_plant"
+        tools:layout="@layout/fragment_plant" />
 </navigation>
