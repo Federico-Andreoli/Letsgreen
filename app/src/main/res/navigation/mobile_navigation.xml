@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_navigation_home_to_fragment_login"
             app:destination="@id/fragment_login" />
+        <action
+            android:id="@+id/action_navigation_home_to_carbonFragment"
+            app:destination="@id/carbonFragment" />
     </fragment>
 
     <fragment
@@ -77,4 +80,8 @@
         android:name="it.unimib.lets_green.ui.dashboard.PlantFragment"
         android:label="fragment_plant"
         tools:layout="@layout/fragment_plant" />
+    <fragment
+        android:id="@+id/carbonFragment"
+        android:name="it.unimib.lets_green.CarbonFragment"
+        android:label="CarbonFragment" />
 </navigation>

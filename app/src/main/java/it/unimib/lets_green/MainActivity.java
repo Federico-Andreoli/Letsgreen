@@ -18,6 +18,7 @@ import com.google.android.material.tabs.TabLayout;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
     private String ciao;
-
+    private CardView carbonCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,14 @@ public class MainActivity extends AppCompatActivity {
 
         mToolbar = findViewById(R.id.topAppBar);
         setSupportActionBar(mToolbar);
+        carbonCard = findViewById(R.id.cardViewPollution);
+        carbonCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                navController.navigate(R.id.carbonFragment);
+            }
+        });
     }
 
 
