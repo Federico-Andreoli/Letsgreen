@@ -1,6 +1,5 @@
-package it.unimib.lets_green;
+package it.unimib.lets_green.ui.home;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,6 +20,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.auth.User;
+
+import it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase;
+import it.unimib.lets_green.R;
 
 
 public class Register extends Fragment {
@@ -55,9 +58,6 @@ public class Register extends Fragment {
         return view;
 
 }
-
-
-
 
     public void onStart() {
         super.onStart();
@@ -101,6 +101,7 @@ public class Register extends Fragment {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            FirestoreDatabase.initializeData(user.getUid().toString());
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -115,13 +116,13 @@ public class Register extends Fragment {
     }
 
 
-
     private void updateUI(FirebaseUser user) {
-        if (user == null) {
-        } else {
+        if (user != null) {
             Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.userProfileFragment);
         }
     }
+
+
 
     private void reload() {
 
