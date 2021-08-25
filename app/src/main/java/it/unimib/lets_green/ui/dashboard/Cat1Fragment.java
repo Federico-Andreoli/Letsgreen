@@ -42,7 +42,7 @@ public class Cat1Fragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        List<String> stringList = new ArrayList<String>();
+        List<Plant> plants = new ArrayList<Plant>();
 
         /*
         for(int i = 0; i < 20; i++) {
@@ -55,26 +55,35 @@ public class Cat1Fragment extends Fragment {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        Log.d(TAG, document.getId() + " => " + document.getData());
-                        stringList.add(document.getId());
+                        //Log.d(TAG, document.getId() + " => " + document.getData());
+                        plants.add(new Plant(document.getId().toString(), document.getData().get("common_name").toString(), document.getData().get("species").toString()));
                     }
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
                 }
+                Log.d(TAG, plants.toString());
+                Log.d(TAG, plants.get(0).getName());
             }
         });
 
         RecyclerView recyclerView = view.findViewById(R.id.cat1_view);
-        CatalogueRecyclerViewAdapter catalogRecyclerViewAdapter = new CatalogueRecyclerViewAdapter(stringList, new CatalogueRecyclerViewAdapter.OnItemClickListener() {
 
-        @Override
-        public void onItemClick(String s) {
-            Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
-            Navigation.findNavController(view).navigate(R.id.plantFragment);
+        CatalogueRecyclerViewAdapter catalogRecyclerViewAdapter = new CatalogueRecyclerViewAdapter(getContext(), plants);
+
+        /*
+        new CatalogueRecyclerViewAdapter.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(String s) {
+                Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(view).navigate(R.id.plantFragment);
+            }
+
         }
+        */
 
-        });
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         recyclerView.setAdapter(catalogRecyclerViewAdapter);
+
     }
 }
