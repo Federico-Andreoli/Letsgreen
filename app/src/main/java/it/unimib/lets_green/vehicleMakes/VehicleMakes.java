@@ -1,5 +1,8 @@
 package it.unimib.lets_green.vehicleMakes;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -26,6 +29,10 @@ public class VehicleMakes {
     public VehicleMakes(MakesData makesData) {
         super();
         this.makesData = makesData;
+    }
+
+    public void displayMessage(Context context){
+        Toast.makeText(context,"Clicked item " + this.getData().getMakesAttributes().getName(), Toast.LENGTH_SHORT).show();
     }
 
     public MakesData getData() {

@@ -20,6 +20,16 @@ public class VehicleMakesAdapter extends RecyclerView.Adapter<it.unimib.lets_gre
 
     private Context context;
     private List<VehicleMakes> vehicleMakesList;
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+       mListener = listener;
+    }
+
 
     public VehicleMakesAdapter(Context context, List<VehicleMakes> vehicleMakesList) {
         this.context = context;
@@ -31,15 +41,15 @@ public class VehicleMakesAdapter extends RecyclerView.Adapter<it.unimib.lets_gre
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v;
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        v = layoutInflater.inflate(R.layout.row_layout, parent, false);
-        return new MyViewHolder(v);
+        v = layoutInflater.inflate(R.layout.row_example, parent, false);
+        return new MyViewHolder(v, mListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         final VehicleMakes makes = vehicleMakesList.get(position);
         holder.makesName.setText(vehicleMakesList.get(position).getData().getMakesAttributes().getName().toString());
-
+        holder.makesNumber.setText(vehicleMakesList.get(position).getData().getMakesAttributes().getNumberOfModels().toString());
 
     }
 
@@ -49,13 +59,26 @@ public class VehicleMakesAdapter extends RecyclerView.Adapter<it.unimib.lets_gre
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-
+        TextView makesNumber;
         TextView makesName;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, OnItemClickListener listener) {
             super(itemView);
 
-            makesName = (TextView)itemView.findViewById(R.id.nametxt);
+            makesName = (TextView)itemView.findViewById(R.id.modelName);
+            makesNumber =(TextView)itemView.findViewById(R.id.modelNumbers);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(listener != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION){
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
+
         }
     }
 }

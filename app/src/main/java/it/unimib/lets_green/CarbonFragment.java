@@ -6,10 +6,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +34,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class CarbonFragment extends Fragment {
-
+    private EditText editTextSearchMakes;
     private TextView textViewResult;
     private JsonPlaceHolderApi jsonPlaceHolderApi;
 
@@ -67,7 +70,7 @@ public class CarbonFragment extends Fragment {
         textViewResult = view.findViewById(R.id.nametxt);
 //        autoCompleteTextView = findViewById(R.id.actv);
         vehicleMakesList = new ArrayList<>();
-
+        editTextSearchMakes = view.findViewById(R.id.searchMakes);
 
 
 
@@ -90,6 +93,23 @@ public class CarbonFragment extends Fragment {
 
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
         getVeicle();
+        editTextSearchMakes.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString());
+            }
+        });
+
         return view;
     }
 
@@ -153,6 +173,13 @@ public class CarbonFragment extends Fragment {
         VehicleMakesAdapter vehicleMakesAdapter = new VehicleMakesAdapter(getActivity(), vehicleMakesList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(vehicleMakesAdapter);
+
+        vehicleMakesAdapter.setOnItemClickListener(new VehicleMakesAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                vehicleMakesList.get(position).displayMessage(getActivity());
+            }
+        });
     }
 
     private void getModels(){
@@ -230,5 +257,20 @@ public class CarbonFragment extends Fragment {
     }
     public static String getBase64String(String value) throws UnsupportedEncodingException {
         return Base64.encodeToString(value.getBytes("UTF-8"), Base64.NO_WRAP);
+    }
+
+    private void filter(String text){
+        ArrayList<VehicleMakes> filteredList =  new ArrayList<>();
+
+        for(VehicleMakes item : vehicleMakesList){
+            if(item.getData().getMakesAttributes().getName().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+
+        PutDataIntoRecyclerView(filteredList);
+
+
+
     }
 }
