@@ -2,10 +2,12 @@ package it.unimib.lets_green;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
@@ -22,6 +24,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Objects;
 
 
 public class Login extends Fragment {
@@ -59,6 +63,13 @@ public class Login extends Fragment {
         registerButon = view.findViewById(R.id.outlinedButton2);
         loginButon = view.findViewById(R.id.containedButton);
         resetPassword = view.findViewById(R.id.resetPassword);
+
+        if (is_logged){
+
+
+            NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+            navController.navigate(R.id.userProfileFragment);
+        }
 
         registerButon.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceType")
@@ -112,7 +123,7 @@ public class Login extends Fragment {
     }
 
 
-    private void LoginFirebase(String email, String password) {
+    public void LoginFirebase(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
@@ -122,6 +133,7 @@ public class Login extends Fragment {
                             user = mAuth.getCurrentUser();
                             UserID =user.getUid().toString();
                             updateUI(user);
+                            changeUI();
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(getActivity(), "Authentication failed.",
@@ -150,21 +162,28 @@ public class Login extends Fragment {
 
     }
 
-    private void updateUI(FirebaseUser user) {
+    public static void updateUI(FirebaseUser user) {
         if(user!=null){
             is_logged=true;
         }
-        Log.d(TAG, "login successfull");
     }
 
-
+    public void changeUI(){
+        Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.userProfileFragment);
+        Toast.makeText(getActivity(), "login effettuato con successo", Toast.LENGTH_SHORT).show();
+    }
 
     public static boolean getIs_logged() {
 
         return is_logged;
     }
 
+    public static void setUserID(String userID) {
+        UserID = userID;
+    }
+
     public static String getUserID() {
+
         return UserID;
     }
 }

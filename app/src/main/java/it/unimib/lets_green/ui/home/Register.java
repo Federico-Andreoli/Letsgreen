@@ -1,5 +1,7 @@
 package it.unimib.lets_green.ui.home;
 
+import static it.unimib.lets_green.Login.*;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,6 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.auth.User;
 
 import it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase;
+import it.unimib.lets_green.Login;
 import it.unimib.lets_green.R;
 
 
@@ -31,6 +34,8 @@ public class Register extends Fragment {
     private FirebaseAuth mAuth;
     EditText userEmail, userPassword, confirmPassword;
     Button registerUser;
+    String email,password;
+    static String UserID= null;
 
     public static Register newInstance() {
 
@@ -70,8 +75,8 @@ public class Register extends Fragment {
 
         private void startUserRegistration() {
 
-        String email = userEmail.getText().toString().trim();
-        String password = userPassword.getText().toString().trim();
+        email = userEmail.getText().toString().trim();
+        password = userPassword.getText().toString().trim();
         String password2 = confirmPassword.getText().toString().trim();
 
         if(email.isEmpty()){  /*controllo che la mail non sia vuota*/
@@ -101,14 +106,14 @@ public class Register extends Fragment {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            UserID =user.getUid().toString();
                             FirestoreDatabase.initializeData(user.getUid().toString());
-                            updateUI(user);
+                            taskSuccessful(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(getActivity(), "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null);
                         }
                     }
                 });
@@ -116,12 +121,14 @@ public class Register extends Fragment {
     }
 
 
-    private void updateUI(FirebaseUser user) {
+    private void taskSuccessful(FirebaseUser user) {
         if (user != null) {
+            mAuth.signInWithEmailAndPassword(email, password);
             Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.userProfileFragment);
+            Login.updateUI(user);
+            Login.setUserID(UserID);
         }
     }
-
 
 
     private void reload() {
