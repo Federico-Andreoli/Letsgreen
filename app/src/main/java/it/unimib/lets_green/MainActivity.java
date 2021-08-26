@@ -62,14 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         mToolbar = findViewById(R.id.topAppBar);
         setSupportActionBar(mToolbar);
-        carbonCard = findViewById(R.id.cardViewPollution);
-        carbonCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                navController.navigate(R.id.carbonFragment);
-            }
-        });
     }
 
 

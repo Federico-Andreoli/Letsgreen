@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_navigation_home_to_carbonFragment"
             app:destination="@id/carbonFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_modelFragment2"
+            app:destination="@id/modelFragment2" />
     </fragment>
 
     <fragment
@@ -82,6 +85,25 @@
         tools:layout="@layout/fragment_plant" />
     <fragment
         android:id="@+id/carbonFragment"
-        android:name="it.unimib.lets_green.CarbonFragment"
+        android:name="it.unimib.lets_green.MakesFragment"
         android:label="CarbonFragment" />
+    <fragment
+        android:id="@+id/modelFragment2"
+        android:name="it.unimib.lets_green.ModelFragment"
+        android:label="fragment_model"
+        tools:layout="@layout/fragment_model" >
+        <action
+            android:id="@+id/action_modelFragment2_to_carbonFragment2"
+            app:destination="@id/carbonFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/carbonFragment2"
+        android:name="it.unimib.lets_green.CarbonFragment"
+        android:label="fragment_carbon"
+        tools:layout="@layout/fragment_carbon" >
+        <argument
+            android:name="idModel"
+            app:argType="string"
+            android:defaultValue="default" />
+    </fragment>
 </navigation>

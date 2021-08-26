@@ -4,8 +4,10 @@ package it.unimib.lets_green.vehicleModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 //@Generated("jsonschema2pojo")
-public class VehicleModels {
+public class VehicleModels implements Serializable {
     @SerializedName("data")
     @Expose
     private ModelData data;
