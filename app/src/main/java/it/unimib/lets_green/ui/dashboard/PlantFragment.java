@@ -1,5 +1,6 @@
 package it.unimib.lets_green.ui.dashboard;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -28,6 +30,18 @@ public class PlantFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Bundle bundle = this.getArguments();
+
+        TextView nomePianta;
+        TextView nomeComunePianta;
+
+        nomePianta = view.findViewById(R.id.plantName);
+        nomeComunePianta = view.findViewById(R.id.plantCommonName);
+
+        nomePianta.setText(bundle.getString("name"));
+        nomeComunePianta.setText(bundle.getString("common_name"));
+
         ImageView imageView1;
         ImageView imageView2;
 

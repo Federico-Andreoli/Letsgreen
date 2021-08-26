@@ -36,4 +36,7 @@
     <string name="title_Login">Login</string>
     <string name="fab_content_desc">plus</string>
     <string name="hsv_content_desc">scroll view</string>
+    <string name="plant_name">plant name</string>
+    <string name="plant_common_name">plant common name</string>
+    <string name="plant_description">plant description</string>
 </resources>

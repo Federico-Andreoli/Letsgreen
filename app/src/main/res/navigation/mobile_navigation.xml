@@ -32,6 +32,9 @@
         <action
             android:id="@+id/action_navigation_dashboard_to_navigation_home"
             app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_navigation_dashboard_to_cat1Fragment"
+            app:destination="@id/cat1Fragment" />
     </fragment>
 
     <fragment
@@ -77,4 +80,13 @@
         android:name="it.unimib.lets_green.ui.dashboard.PlantFragment"
         android:label="fragment_plant"
         tools:layout="@layout/fragment_plant" />
+    <fragment
+        android:id="@+id/cat1Fragment"
+        android:name="it.unimib.lets_green.ui.dashboard.Cat1Fragment"
+        android:label="fragment_cat1"
+        tools:layout="@layout/fragment_cat1" >
+        <action
+            android:id="@+id/action_cat1Fragment_to_plantFragment"
+            app:destination="@id/plantFragment" />
+    </fragment>
 </navigation>
