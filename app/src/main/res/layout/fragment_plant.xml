@@ -24,15 +24,16 @@
 
             <ImageView
                 android:id="@+id/image1"
-                android:layout_width="396dp"
-                android:layout_height="wrap_content"
+                android:layout_width="390dp"
+                android:layout_height="match_parent"
                 android:scaleType="centerCrop" />
-
+<!--
             <ImageView
                 android:id="@+id/image2"
-                android:layout_width="396dp"
+                android:layout_width="392dp"
                 android:layout_height="wrap_content"
                 android:scaleType="fitXY" />
+                -->
         </LinearLayout>
 
     </HorizontalScrollView>

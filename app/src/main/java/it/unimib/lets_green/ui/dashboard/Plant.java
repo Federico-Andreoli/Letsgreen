@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class Plant {
 
+    // TODO: completare la classe con gli attributi mancanti (e pensare a quali inserire)
+
     private String name;
     private String commonName;
     private String species;

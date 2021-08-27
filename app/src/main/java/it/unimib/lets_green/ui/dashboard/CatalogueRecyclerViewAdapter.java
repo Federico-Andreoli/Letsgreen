@@ -1,9 +1,9 @@
 package it.unimib.lets_green.ui.dashboard;
 
-import static it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase.TAG;
 
 import android.content.Context;
-import android.util.Log;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import it.unimib.lets_green.R;
@@ -35,10 +37,8 @@ public class CatalogueRecyclerViewAdapter extends RecyclerView.Adapter<Catalogue
     @NotNull
     @Override
     public CatalogViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(context)
                 .inflate(R.layout.catalogue_item, parent, false);
-
         return new CatalogViewHolder(view);
     }
 
@@ -46,8 +46,18 @@ public class CatalogueRecyclerViewAdapter extends RecyclerView.Adapter<Catalogue
     public void onBindViewHolder(@NonNull @NotNull CatalogViewHolder holder, int position) {
 
         holder.nameTextView.setText(plants.get(position).getName());
-        holder.imageView.setImageResource(R.drawable.ic_app_background);
 
+        // scaricamento e settaggio immagine
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference gsReference = storage.getReferenceFromUrl("gs://lets-green-b9ddf.appspot.com/" + plants.get(position).getName() + ".png");
+
+        final long ONE_MEGABYTE = 1024 * 1024; // dimensione massima dell'immagine da scaricare
+        gsReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(bytes -> {
+            Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            holder.imageView.setImageBitmap(bmp);
+        }).addOnFailureListener(exception -> {
+            // TODO: Handle any errors
+        });
     }
 
     @Override
@@ -73,6 +83,7 @@ public class CatalogueRecyclerViewAdapter extends RecyclerView.Adapter<Catalogue
         }
 
         /*
+        TODO: da eliminare
         public void bind(final ContentItem item, final OnItemClickListener listener) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

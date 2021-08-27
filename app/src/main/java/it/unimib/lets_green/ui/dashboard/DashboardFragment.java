@@ -4,17 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
-
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-
 import it.unimib.lets_green.R;
 
 public class DashboardFragment extends Fragment {
@@ -43,34 +40,35 @@ public class DashboardFragment extends Fragment {
         FragmentStateAdapter pagerAdapter = new DemoCollectionAdapter(this, 3);
         TabLayout tabLayout = view.findViewById(R.id.tabs);
         new TabLayoutMediator(tabLayout, viewPager,
-                (tab, position) -> tab.setText("CAT " + (position + 1))
+                (tab, position) -> tab.setText(setTabName(position))
         ).attach();
+    }
+
+    public String setTabName(int position) {
+        switch (position) {
+            case 0:
+                return "trees";
+            case 1:
+                return "grass";
+            case 2:
+                return "leaves";
+            default:
+                return "cat not found";
+        }
     }
 
 }
 
 class DemoCollectionAdapter extends FragmentStateAdapter {
 
-    private int tabsNum;
-
     public DemoCollectionAdapter(Fragment fragment, int tabsNum) {
         super(fragment);
-        this.tabsNum = tabsNum;
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
         /*
-        da eliminare --lori
-        // Return a NEW fragment instance in createFragment(int)
-        Fragment fragment = new DemoObjectFragment();
-        Bundle args = new Bundle();
-        // Our object is just an integer :-P
-        args.putInt(DemoObjectFragment.ARG_OBJECT, position + 1);
-        fragment.setArguments(args);
-        */
-
         switch (position) {
             case 0:
                 return new Cat1Fragment();
@@ -81,6 +79,12 @@ class DemoCollectionAdapter extends FragmentStateAdapter {
             default:
                 return null;
         }
+        non serve più: è stato sostituito dall'istruzione sotto in modo da caricare sempre lo stesso
+        fragment ma caricarlo in base ai dati richiesti
+        (da finire implementazione nella classe del fragment)
+         */
+
+        return new Cat1Fragment(position);
     }
 
     @Override
