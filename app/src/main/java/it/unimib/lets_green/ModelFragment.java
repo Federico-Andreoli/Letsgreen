@@ -78,7 +78,8 @@ public class ModelFragment extends Fragment {
         recyclerViewModels = view.findViewById(R.id.recyclerViewModel);
         textViewResult = view.findViewById(R.id.nametxt);
         vehicleModlesList = new ArrayList<>();
-
+//        String makes = CarbonFragmentArgs.fromBundle(getArguments()).getIdModel();
+        String makesId = ModelFragmentArgs.fromBundle(getArguments()).getIdMakes();
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
@@ -93,7 +94,7 @@ public class ModelFragment extends Fragment {
                 .build();
 
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
-        getModels();
+        getModels(makesId);
         editTextSearchModels.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -113,8 +114,8 @@ public class ModelFragment extends Fragment {
         return view;
     }
 
-    private void getModels(){
-        Call<List<VehicleModels>> call = jsonPlaceHolderApi.getModels("2b1d0cd5-59be-4010-83b3-b60c5e5342da");
+    private void getModels(String makesId){
+        Call<List<VehicleModels>> call = jsonPlaceHolderApi.getModels(makesId);
 
         call.enqueue(new Callback<List<VehicleModels>>() {
             @Override

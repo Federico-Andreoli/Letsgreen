@@ -28,7 +28,7 @@ public class HomeFragment extends Fragment {
         carbonCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(root).navigate(R.id.modelFragment2);
+                Navigation.findNavController(root).navigate(R.id.carbonFragment);
 
             }
         });

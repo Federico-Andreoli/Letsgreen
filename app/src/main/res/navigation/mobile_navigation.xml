@@ -86,7 +86,11 @@
     <fragment
         android:id="@+id/carbonFragment"
         android:name="it.unimib.lets_green.MakesFragment"
-        android:label="CarbonFragment" />
+        android:label="CarbonFragment" >
+        <action
+            android:id="@+id/action_carbonFragment_to_modelFragment2"
+            app:destination="@id/modelFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/modelFragment2"
         android:name="it.unimib.lets_green.ModelFragment"
@@ -95,6 +99,10 @@
         <action
             android:id="@+id/action_modelFragment2_to_carbonFragment2"
             app:destination="@id/carbonFragment2" />
+        <argument
+            android:name="idMakes"
+            app:argType="string"
+            android:defaultValue="default" />
     </fragment>
     <fragment
         android:id="@+id/carbonFragment2"

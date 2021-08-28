@@ -3,6 +3,7 @@ package it.unimib.lets_green;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -168,21 +169,30 @@ public class MakesFragment extends Fragment {
         });
     }
 
-    private void PutDataIntoRecyclerView(List<VehicleMakes> vehicleMakesList) {
-        VehicleMakesAdapter vehicleMakesAdapter = new VehicleMakesAdapter(getActivity(), vehicleMakesList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(vehicleMakesAdapter);
-
-        vehicleMakesAdapter.setOnItemClickListener(new VehicleMakesAdapter.OnItemClickListener() {
+    private void PutDataIntoRecyclerView(List<VehicleMakes> listMakes) {
+        VehicleMakesAdapter vehicleMakesAdapter = new VehicleMakesAdapter(listMakes, getContext(), new VehicleMakesAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(int position) {
-                vehicleMakesList.get(position).displayMessage(getActivity());
-//                AppCompatActivity activity =(AppCompatActivity)getView().getContext();
-//                ModelFragment modelFragment = new ModelFragment();
-//                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentcarbon,modelFragment).addToBackStack(null).commit();
-
+            public void onItemClick(VehicleMakes item) {
+                moveToModelFragment(item);
             }
         });
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(vehicleMakesAdapter);
+//        VehicleMakesAdapter vehicleMakesAdapter = new VehicleMakesAdapter(getActivity(), vehicleMakesList);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        recyclerView.setAdapter(vehicleMakesAdapter);
+//
+//        vehicleMakesAdapter.setOnItemClickListener(new VehicleMakesAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(int position) {
+//                vehicleMakesList.get(position).displayMessage(getActivity());
+////                AppCompatActivity activity =(AppCompatActivity)getView().getContext();
+////                ModelFragment modelFragment = new ModelFragment();
+////                activity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentcarbon,modelFragment).addToBackStack(null).commit();
+//
+//            }
+//        });
     }
 
     private void getModels(){
@@ -274,6 +284,12 @@ public class MakesFragment extends Fragment {
         PutDataIntoRecyclerView(filteredList);
 
 
+
+    }
+    public void moveToModelFragment(VehicleMakes item){
+        MakesFragmentDirections.ActionCarbonFragmentToModelFragment2 action = MakesFragmentDirections.actionCarbonFragmentToModelFragment2();
+        action.setIdMakes(item.getData().getId());
+        Navigation.findNavController(getView()).navigate(action);
 
     }
 }
