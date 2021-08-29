@@ -2,11 +2,11 @@ package it.unimib.lets_green;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -21,13 +21,15 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Objects;
 
-public class fragment_login extends Fragment {
+
+public class Login extends Fragment {
+    private static boolean is_logged=false;
     private static final String TAG = "login successful";
     EditText userEmail, userPassword;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -36,10 +38,12 @@ public class fragment_login extends Fragment {
     Button resetPassword;
     MainActivity objMyClass = new MainActivity();
     Activity reference = objMyClass.getActivityReference();
+    FirebaseUser user=null;
+    static String UserID= null;
 
-    public static fragment_login newInstance() {
+    public static Login newInstance() {
 
-        return new fragment_login();
+        return new Login();
     }
 
     public void onStart() {
@@ -59,6 +63,13 @@ public class fragment_login extends Fragment {
         registerButon = view.findViewById(R.id.outlinedButton2);
         loginButon = view.findViewById(R.id.containedButton);
         resetPassword = view.findViewById(R.id.resetPassword);
+
+        if (is_logged){
+
+
+            NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+            navController.navigate(R.id.userProfileFragment);
+        }
 
         registerButon.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceType")
@@ -112,15 +123,17 @@ public class fragment_login extends Fragment {
     }
 
 
-    private void LoginFirebase(String email, String password) {
+    public void LoginFirebase(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            user = mAuth.getCurrentUser();
+                            UserID =user.getUid().toString();
                             updateUI(user);
+                            changeUI();
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(getActivity(), "Authentication failed.",
@@ -149,7 +162,28 @@ public class fragment_login extends Fragment {
 
     }
 
-    private void updateUI(FirebaseUser user) {
-        Log.d(TAG, "login successfull");
+    public static void updateUI(FirebaseUser user) {
+        if(user!=null){
+            is_logged=true;
+        }
+    }
+
+    public void changeUI(){
+        Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.userProfileFragment);
+        Toast.makeText(getActivity(), "login effettuato con successo", Toast.LENGTH_SHORT).show();
+    }
+
+    public static boolean getIs_logged() {
+
+        return is_logged;
+    }
+
+    public static void setUserID(String userID) {
+        UserID = userID;
+    }
+
+    public static String getUserID() {
+
+        return UserID;
     }
 }

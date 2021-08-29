@@ -2,49 +2,37 @@ package it.unimib.lets_green;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
-import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.tabs.TabLayout;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.viewpager.widget.ViewPager;
+import androidx.work.Constraints;
+import androidx.work.NetworkType;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
-import org.jetbrains.annotations.NotNull;
-
-import it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase;
-import it.unimib.lets_green.ui.dashboard.DashboardFragment;
-import it.unimib.lets_green.ui.home.HomeFragment;
-import it.unimib.lets_green.ui.notifications.NotificationsFragment;
+import it.unimib.lets_green.WorkManager.UploadWorker;
 
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
-    private String ciao;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.bottom_navigation);
         // Passing each menu ID as a set of Ids because each
@@ -62,12 +50,13 @@ public class MainActivity extends AppCompatActivity {
         mToolbar = findViewById(R.id.topAppBar);
         setSupportActionBar(mToolbar);
 
+
+
     }
 
 
      public boolean onOptionsItemSelected( MenuItem item) {
             int id = item.getItemId();
-
             if (id == R.id.action_profile) {
 
                 NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -76,6 +65,19 @@ public class MainActivity extends AppCompatActivity {
             }
 
             return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPause() {
+        if (Login.getIs_logged()){
+            Constraints constraints= new Constraints.Builder()
+                    .setRequiredNetworkType(NetworkType.CONNECTED)
+                    .build();
+
+            OneTimeWorkRequest uploadDataRequest=new OneTimeWorkRequest.Builder(UploadWorker.class).setConstraints(constraints).build();
+            WorkManager.getInstance(this).enqueue(uploadDataRequest);
+        }
+        super.onPause();
     }
 
     @Override

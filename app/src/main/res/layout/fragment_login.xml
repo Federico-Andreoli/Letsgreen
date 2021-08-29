@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment_login">
+    tools:context=".Login">
 
     <Button
         android:id="@+id/containedButton"
@@ -74,6 +74,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputPasswordLogin"
+            android:inputType="textPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

@@ -51,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_login"
-        android:name="it.unimib.lets_green.fragment_login"
+        android:name="it.unimib.lets_green.Login"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -60,10 +60,13 @@
         <action
             android:id="@+id/action_fragment_login_to_register"
             app:destination="@id/register" />
+        <action
+            android:id="@+id/action_fragment_login_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/register"
-        android:name="it.unimib.lets_green.Register"
+        android:name="it.unimib.lets_green.ui.home.Register"
         android:label="fragment__register"
         tools:layout="@layout/fragment__register" >
         <action
