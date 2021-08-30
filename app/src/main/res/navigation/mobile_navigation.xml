@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_navigation_home_to_fragment_login"
             app:destination="@id/fragment_login" />
+        <action
+            android:id="@+id/action_navigation_home_to_pathFragment"
+            app:destination="@id/pathFragment" />
     </fragment>
 
     <fragment
@@ -83,6 +86,55 @@
         android:name="it.unimib.lets_green.ui.dashboard.PlantFragment"
         android:label="fragment_plant"
         tools:layout="@layout/fragment_plant" />
+    <fragment
+        android:id="@+id/carbonFragment"
+        android:name="it.unimib.lets_green.MakesFragment"
+        android:label="CarbonFragment" >
+        <action
+            android:id="@+id/action_carbonFragment_to_modelFragment2"
+            app:destination="@id/modelFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/modelFragment2"
+        android:name="it.unimib.lets_green.ModelFragment"
+        android:label="fragment_model"
+        tools:layout="@layout/fragment_model" >
+        <action
+            android:id="@+id/action_modelFragment2_to_carbonFragment2"
+            app:destination="@id/carbonFragment2" />
+        <argument
+            android:name="idMakes"
+            app:argType="string"
+            android:defaultValue="default" />
+    </fragment>
+    <fragment
+        android:id="@+id/carbonFragment2"
+        android:name="it.unimib.lets_green.CarbonFragment"
+        android:label="fragment_carbon"
+        tools:layout="@layout/fragment_carbon" >
+        <argument
+            android:name="idModel"
+            app:argType="string"
+            android:defaultValue="default" />
+        <action
+            android:id="@+id/action_carbonFragment2_to_pathFragment"
+            app:destination="@id/pathFragment"
+            app:popUpTo="@id/pathFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pathFragment"
+        android:name="it.unimib.lets_green.PathFragment"
+        android:label="fragment_path"
+        tools:layout="@layout/fragment_path" >
+        <action
+            android:id="@+id/action_pathFragment_to_carbonFragment"
+            app:destination="@id/carbonFragment" />
+        <argument
+            android:name="pathObject"
+            app:argType="it.unimib.lets_green.VehiclePath"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
     <fragment
         android:id="@+id/cat1Fragment"
         android:name="it.unimib.lets_green.ui.dashboard.Cat1Fragment"

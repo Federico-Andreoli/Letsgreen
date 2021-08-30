@@ -4,9 +4,16 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -29,10 +36,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.bottom_navigation);
         // Passing each menu ID as a set of Ids because each
@@ -50,13 +54,12 @@ public class MainActivity extends AppCompatActivity {
         mToolbar = findViewById(R.id.topAppBar);
         setSupportActionBar(mToolbar);
 
-
-
     }
 
 
      public boolean onOptionsItemSelected( MenuItem item) {
             int id = item.getItemId();
+
             if (id == R.id.action_profile) {
 
                 NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -88,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public Activity getActivityReference(){
-
         return this;
     }
 }
