@@ -31,13 +31,14 @@
         <entry key="..\:/Users/loren/AndroidStudioProjects/Letsgreen/app/src/main/res/drawable/rounded_element_background.xml" value="0.49324324324324326" />
         <entry key="..\:/Users/loren/AndroidStudioProjects/Letsgreen/app/src/main/res/layout/catalogue_item.xml" value="0.2339489885664028" />
         <entry key="..\:/Users/loren/AndroidStudioProjects/Letsgreen/app/src/main/res/layout/fragment_cat1.xml" value="0.2339489885664028" />
+        <entry key="..\:/Users/loren/AndroidStudioProjects/Letsgreen/app/src/main/res/layout/fragment_dashboard.xml" value="0.2339489885664028" />
         <entry key="..\:/Users/loren/AndroidStudioProjects/Letsgreen/app/src/main/res/layout/fragment_home.xml" value="0.2339489885664028" />
         <entry key="..\:/Users/loren/AndroidStudioProjects/Letsgreen/app/src/main/res/layout/fragment_plant.xml" value="0.3441717791411043" />
         <entry key="..\:/Users/loren/AndroidStudioProjects/Letsgreen/app/src/main/res/menu/bottom_nav_menu.xml" value="0.4728888888888889" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

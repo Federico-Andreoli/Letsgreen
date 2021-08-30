@@ -45,7 +45,7 @@ public class CatalogueRecyclerViewAdapter extends RecyclerView.Adapter<Catalogue
     @Override
     public void onBindViewHolder(@NonNull @NotNull CatalogViewHolder holder, int position) {
 
-        holder.nameTextView.setText(plants.get(position).getName());
+        holder.nameTextView.setText(plants.get(position).getName().substring(0, 1).toUpperCase() + plants.get(position).getName().substring(1).toLowerCase());
 
         // scaricamento e settaggio immagine
         FirebaseStorage storage = FirebaseStorage.getInstance();

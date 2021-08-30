@@ -39,7 +39,7 @@ public class PlantFragment extends Fragment {
         nomePianta = view.findViewById(R.id.plantName);
         nomeComunePianta = view.findViewById(R.id.plantCommonName);
 
-        nomePianta.setText(bundle.getString("name"));
+        nomePianta.setText(bundle.getString("name").substring(0, 1).toUpperCase() + bundle.getString("name").substring(1).toLowerCase());
         nomeComunePianta.setText(bundle.getString("common_name"));
 
         ImageView imageView1;
