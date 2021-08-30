@@ -2,9 +2,8 @@ package it.unimib.lets_green;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -95,6 +94,42 @@ public class CarbonFragment extends Fragment {
                 buttonAddPath.setVisibility(view.VISIBLE);
                 createCarbon(editTextKm.getText().toString(), model);
 
+            }
+        });
+
+        editTextName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String nameString = editTextName.getText().toString().trim();
+                buttonAddPath.setEnabled(!nameString.isEmpty());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        buttonAddPath.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                VehiclePath path = new VehiclePath(editTextName.getText().toString(), textViewCO2.getText().toString());
+                VehiclePath pathElement = new VehiclePath(editTextName.getText().toString(), textViewCO2.getText().toString());
+                CarbonFragmentDirections.ActionCarbonFragment2ToPathFragment action = CarbonFragmentDirections.actionCarbonFragment2ToPathFragment();
+                action.setPathObject(pathElement);
+                Navigation.findNavController(getView()).navigate(action);
+////                action.setCarbonPath(textViewCO2.getText().toString());
+////                action.setNamePath(editTextName.getText().toString());
+//                Navigation.findNavController(getView()).navigate(action);
+//                action.
+//                Navigation.findNavController(getView()).navigate(R.id.pathFragment);
+//                CarbonFragmentDirections.actionCarbonFragment2ToPathFragment action = CarbonFragmentDirections.actionCarbonFragment2ToPathFragment();
+//                Navigation.findNavController(getView()).navigate(action);
             }
         });
 

@@ -20,11 +20,8 @@
             android:id="@+id/action_navigation_home_to_fragment_login"
             app:destination="@id/fragment_login" />
         <action
-            android:id="@+id/action_navigation_home_to_carbonFragment"
-            app:destination="@id/carbonFragment" />
-        <action
-            android:id="@+id/action_navigation_home_to_modelFragment2"
-            app:destination="@id/modelFragment2" />
+            android:id="@+id/action_navigation_home_to_pathFragment"
+            app:destination="@id/pathFragment" />
     </fragment>
 
     <fragment
@@ -113,5 +110,23 @@
             android:name="idModel"
             app:argType="string"
             android:defaultValue="default" />
+        <action
+            android:id="@+id/action_carbonFragment2_to_pathFragment"
+            app:destination="@id/pathFragment"
+            app:popUpTo="@id/pathFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pathFragment"
+        android:name="it.unimib.lets_green.PathFragment"
+        android:label="fragment_path"
+        tools:layout="@layout/fragment_path" >
+        <action
+            android:id="@+id/action_pathFragment_to_carbonFragment"
+            app:destination="@id/carbonFragment" />
+        <argument
+            android:name="pathObject"
+            app:argType="it.unimib.lets_green.VehiclePath"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 </navigation>
