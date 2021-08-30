@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.NavController;
@@ -17,6 +15,8 @@ import androidx.work.Constraints;
 import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import it.unimib.lets_green.WorkManager.UploadWorker;
 
@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public Activity getActivityReference(){
+
         return this;
     }
 }

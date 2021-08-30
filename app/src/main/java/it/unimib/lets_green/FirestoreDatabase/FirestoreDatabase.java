@@ -5,7 +5,6 @@ import android.util.Log;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firestore.v1.WriteResult;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,11 +34,12 @@ public static final String TAG=" FirestoreDatabase";
         });
     }
 
-   public static void modifyData(String UserID, ArrayList<String> greenHousePlant){
+   public static void modifyData(String UserID, ArrayList<String> greenHousePlant,ArrayList<String> path){
         Map<String, ArrayList> ChangedData = new HashMap<>();
 
         ChangedData.clear();
         ChangedData.put("changedplant", greenHousePlant);
+        ChangedData.put("changedpath", path);
 
        FirebaseFirestore.getInstance().collection("User").document(UserID)
                .set(ChangedData)

@@ -1,14 +1,10 @@
 package it.unimib.lets_green.WorkManager;
 
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.work.Constraints;
-import androidx.work.NetworkType;
-import androidx.work.OneTimeWorkRequest;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
@@ -31,9 +27,10 @@ public class UploadWorker extends Worker {
     public Result doWork() {
 
         ArrayList<String> plantedPlant=new ArrayList<String>();
+        ArrayList<String> path=new ArrayList<String>();
 
         Log.d(TAG, "il work manager funziona");
-        FirestoreDatabase.modifyData(Login.getUserID(),plantedPlant);
+        FirestoreDatabase.modifyData(Login.getUserID(),plantedPlant,path);
         return Result.retry();
     }
 }

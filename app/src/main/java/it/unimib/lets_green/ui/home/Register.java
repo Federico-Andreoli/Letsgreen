@@ -1,13 +1,6 @@
 package it.unimib.lets_green.ui.home;
 
-import static it.unimib.lets_green.Login.*;
-
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -17,12 +10,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.auth.User;
 
 import it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase;
 import it.unimib.lets_green.Login;
@@ -36,6 +32,7 @@ public class Register extends Fragment {
     Button registerUser;
     String email,password;
     static String UserID= null;
+
 
     public static Register newInstance() {
 
@@ -51,13 +48,13 @@ public class Register extends Fragment {
         confirmPassword = view.findViewById(R.id.textInputPassword2);
         registerUser= view.findViewById(R.id.containedButton);
 
-
         registerUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startUserRegistration();/*richiama metodo per la registrazione dei dati*/
             }
         });
+
 
 
         return view;
@@ -79,6 +76,7 @@ public class Register extends Fragment {
         password = userPassword.getText().toString().trim();
         String password2 = confirmPassword.getText().toString().trim();
 
+
         if(email.isEmpty()){  /*controllo che la mail non sia vuota*/
             Toast.makeText(getActivity(), "inserisci mail", Toast.LENGTH_SHORT).show();
         }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){ /*verifica se la mail è ben formulata*/
@@ -97,7 +95,6 @@ public class Register extends Fragment {
     }
 
     private void createAccount(String email, String password) {
-        // [START create_user_with_email]
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
@@ -117,7 +114,6 @@ public class Register extends Fragment {
                         }
                     }
                 });
-        // [END create_user_with_email]
     }
 
 
@@ -129,11 +125,7 @@ public class Register extends Fragment {
             Login.setUserID(UserID);
         }
     }
-
-
-    private void reload() {
+    private void reload(){
 
     }
-
-
 }
