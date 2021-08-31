@@ -12,15 +12,26 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 import javax.annotation.Nullable;
 
 import it.unimib.lets_green.adapter.PathAdapter;
+import it.unimib.lets_green.adapter.PathAdapterFirestore;
 
 import static it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase.TAG;
 
@@ -29,6 +40,10 @@ public class PathFragment extends Fragment {
     private RecyclerView recyclerViewPath;
     private FloatingActionButton createPath;
     private List<VehiclePath> vehiclePathList;
+    private FirebaseFirestore firebaseFirestore;
+    private CollectionReference collectionReference;
+    private FirestoreRecyclerAdapter adapter;
+    private PathAdapterFirestore pathAdapterFirestore;
 
 
     @Override
@@ -36,7 +51,8 @@ public class PathFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_path, container, false);
-        
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        collectionReference = firebaseFirestore.collection("User").document("DYkyohMNuAPE4BC94bsTsmP5O9Q2").collection("percorsi");
         vehiclePathList = new ArrayList<VehiclePath>();
 
 //                ModelFragmentArgs.fromBundle(getArguments()).getIdMakes();
@@ -50,15 +66,45 @@ public class PathFragment extends Fragment {
                 Navigation.findNavController(getView()).navigate(R.id.carbonFragment);
             }
         });
+        setUpRecyclerView();
         PathFragmentArgs args = PathFragmentArgs.fromBundle(getArguments());
         VehiclePath vehiclePath = args.getPathObject();
         if(vehiclePath != null) {
-            Log.d(TAG, vehiclePath.toString());
-            Log.d(TAG, "werfsdrfdfgr");
+            Map<String, Object> data = new HashMap<>();
+            data.put("pathName", vehiclePath.getPathName());
+            data.put("pathCarbon", vehiclePath.getPathCarbon());
+            firebaseFirestore.collection("User").document("DYkyohMNuAPE4BC94bsTsmP5O9Q2").collection("percorsi").add(data);
+//          aggiungi l'elemento nel database
 
-            vehiclePathList.add(vehiclePath);
-            PutDataIntoRecyclerView(vehiclePathList);
+            setUpRecyclerView();
+
+            //aggiungo nella lista l'elemento creato
+            //pusho
+            // metto nella recycler
+
+
+//            vehiclePathList.add(vehiclePath);
+//            PutDataIntoRecyclerView(vehiclePathList);
         }
+
+        //fare la query e mettere nella lista
+
+//        adapter = new FirestoreRecyclerAdapter<VehiclePath, PathViewHolder>(options) {
+//            @NonNull
+//            @Override
+//            public PathViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_path, parent, false);
+//                return new PathViewHolder(v);
+//            }
+//
+//            @Override
+//            protected void onBindViewHolder(@NonNull PathViewHolder holder, int position, @NonNull VehiclePath model) {
+//                holder.namePath.setText(model.getPathName());
+//                holder.carbonPath.setText(model.getPathCarbon());
+//            }
+//        };
+
+
         return view;
     }
 
@@ -72,10 +118,47 @@ public class PathFragment extends Fragment {
 ////        PutDataIntoRecyclerView((List<VehiclePath>) cardPath);
 //
 //    }
-    private void PutDataIntoRecyclerView(List<VehiclePath> listPath) {
-        PathAdapter pathAdapter = new PathAdapter(getContext(), listPath);
+    private void setUpRecyclerView() {
+        Query query = collectionReference;
+        FirestoreRecyclerOptions<VehiclePath> options = new FirestoreRecyclerOptions.Builder<VehiclePath>()
+                .setQuery(query, VehiclePath.class)
+                .build();
+        pathAdapterFirestore = new PathAdapterFirestore(options);
         recyclerViewPath.setHasFixedSize(true);
         recyclerViewPath.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerViewPath.setAdapter(pathAdapter);
+        recyclerViewPath.setAdapter(pathAdapterFirestore);
+
+////        List<VehiclePath> listPath
+////        PathAdapter pathAdapter = new PathAdapter(getContext(), listPath);
+//        recyclerViewPath.setHasFixedSize(true);
+//        recyclerViewPath.setLayoutManager(new LinearLayoutManager(getContext()));
+////        recyclerViewPath.setAdapter(pathAdapter);
+//        recyclerViewPath.setAdapter(adapter);
     }
+
+//    private class PathViewHolder extends RecyclerView.ViewHolder {
+//
+//        TextView namePath;
+//        TextView carbonPath;
+//
+//        public PathViewHolder(@NonNull View itemView) {
+//            super(itemView);
+//            namePath = (TextView)itemView.findViewById(R.id.namePath);
+//            carbonPath =(TextView)itemView.findViewById(R.id.carbonNumber);
+//        }
+//    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        pathAdapterFirestore.startListening();
+    }
+//    l'app in background non fara alcuna richiesta e non spreca risorse
+    @Override
+    public void onStop() {
+        super.onStop();
+        pathAdapterFirestore.stopListening();
+    }
+
+
+
 }
