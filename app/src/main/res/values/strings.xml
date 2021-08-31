@@ -39,4 +39,5 @@
     <string name="plant_name">plant name</string>
     <string name="plant_common_name">plant common name</string>
     <string name="plant_description">plant description</string>
+    <string name="co2_absorption">co2 absorption</string>
 </resources>

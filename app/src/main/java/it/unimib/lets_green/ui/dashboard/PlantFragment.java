@@ -33,17 +33,23 @@ public class PlantFragment extends Fragment {
         //creazione dell'elemento per prendere parametri passati da 'Cat1Fragment'
         Bundle bundle = this.getArguments();
 
-        TextView nomePianta;
-        TextView nomeComunePianta;
+        TextView plantName;
+        TextView plantCommonName;
+        TextView plantDescription;
+        TextView co2Absorption;
 
-        nomePianta = view.findViewById(R.id.plantName);
-        nomeComunePianta = view.findViewById(R.id.plantCommonName);
+        plantName = view.findViewById(R.id.plantName);
+        plantCommonName = view.findViewById(R.id.plantCommonName);
+        plantDescription = view.findViewById(R.id.plantDescription);
+        co2Absorption = view.findViewById(R.id.co2Absorption);
 
-        nomePianta.setText(bundle.getString("name").substring(0, 1).toUpperCase() + bundle.getString("name").substring(1).toLowerCase());
-        nomeComunePianta.setText(bundle.getString("common_name"));
+        plantName.setText(bundle.getString("name").substring(0, 1).toUpperCase() + bundle.getString("name").substring(1).toLowerCase());
+        plantCommonName.setText(bundle.getString("common_name"));
+        plantDescription.setText(bundle.getString("description"));
+        co2Absorption.setText("Co2 absorption: " + bundle.getString("co2_absorption"));
 
         ImageView imageView1;
-        ImageView imageView2; // vedere se tenere due immagini o ridurre ad una
+        // ImageView imageView2; vedere se tenere due immagini o ridurre ad una
 
         imageView1 = view.findViewById(R.id.image1);
         //imageView2 = view.findViewById(R.id.image2);

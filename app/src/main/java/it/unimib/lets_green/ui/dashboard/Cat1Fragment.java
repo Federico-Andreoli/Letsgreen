@@ -22,7 +22,7 @@ import it.unimib.lets_green.R;
 public class Cat1Fragment extends Fragment {
 
     private List<Plant> plants = new ArrayList<Plant>();
-    private int position; // usato più in basso
+    private int position;
 
     public Cat1Fragment(int position) {
         this.position = position;
@@ -37,14 +37,32 @@ public class Cat1Fragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        // TODO: fare la query in base a position per prendere dinamicamente la categoria giusta
+        // settaggio della variabile realativa alla categoria per prendere le piante giuste
+        // dal database
+        String category;
+        switch (position) {
+            case 0:
+                category = "tree";
+                break;
+            case 1:
+                category = "ferns";
+                break;
+            case 2:
+                category = "flowering";
+                break;
+            default:
+                category = "not found";
+        }
 
-        // chiamata al database per estrarre tutte le piante
-        FirebaseFirestore.getInstance().collection("plants").get().addOnCompleteListener(task -> {
+        // chiamata al database per estrarre le piante relative alla categoria selezionata
+        FirebaseFirestore.getInstance().collection("plants").whereEqualTo("species", category).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     Log.d(TAG, document.getId() + " => " + document.getData());
-                    plants.add(new Plant(document.getId(), document.getData().get("common_name").toString(), document.getData().get("species").toString()));
+                    plants.add(new Plant(document.getId(), document.getData().get("common_name").toString(),
+                            document.getData().get("species").toString(),
+                            document.getData().get("description").toString(),
+                            document.getData().get("co2_absorption").toString()));
                 }
             } else {
                 Log.d(TAG, "Error getting documents: ", task.getException());
@@ -59,6 +77,8 @@ public class Cat1Fragment extends Fragment {
                 bundle.putString("name", plants.get(position).getName());
                 bundle.putString("common_name", plants.get(position).getCommonName());
                 bundle.putString("species", plants.get(position).getSpecies());
+                bundle.putString("description", plants.get(position).getDescription());
+                bundle.putString("co2_absorption", plants.get(position).getCo2Absorption());
                 // passaggio all'altro fragment
                 Navigation.findNavController(view).navigate(R.id.plantFragment, bundle);
             }

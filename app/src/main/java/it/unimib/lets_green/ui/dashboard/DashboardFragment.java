@@ -49,11 +49,11 @@ public class DashboardFragment extends Fragment {
             case 0:
                 return "trees";
             case 1:
-                return "grass";
+                return "ferns";
             case 2:
-                return "leaves";
+                return "mosses";
             default:
-                return "cat not found";
+                return "not found";
         }
     }
 
