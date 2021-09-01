@@ -20,11 +20,19 @@ public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     private CardView carbonCard;
+    private CardView greenHouseCard;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         carbonCard = root.findViewById(R.id.cardViewPollution);
+        greenHouseCard = root.findViewById(R.id.cardViewPlant);
+        greenHouseCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(root).navigate(R.id.greenHouseFragment);
+            }
+        });
         carbonCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
