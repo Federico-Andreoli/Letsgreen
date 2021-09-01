@@ -1,15 +1,14 @@
 package it.unimib.lets_green;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -34,20 +33,20 @@ public class GreenHouseFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_green_house, container, false);
-        buttonRemove = (Button)view.findViewById(R.id.button_remove);
 
+        buttonRemove = (Button)view.findViewById(R.id.button_remove);
+        mRecyclerView = view.findViewById(R.id.RecyclerView);
+        mRecyclerView.setHasFixedSize(true);
+        mAdapter = new GreenHouseAdapter(plantList);
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        mRecyclerView.setAdapter(mAdapter);
 
 
         plantList.add(new GreenHouseItem(R.drawable.fiore, "Pianta 1"));
         plantList.add(new GreenHouseItem(R.drawable.fiore, "Pianta 2"));
         plantList.add(new GreenHouseItem(R.drawable.fiore, "Pianta 3"));
 
-        mRecyclerView = view.findViewById(R.id.RecyclerView);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mAdapter = new GreenHouseAdapter(plantList);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
+
 
         mAdapter.setOnItemClickListener(new GreenHouseAdapter.onItemClickListener() {
             @Override
