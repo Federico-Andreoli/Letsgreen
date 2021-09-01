@@ -1,30 +1,23 @@
 package it.unimib.lets_green.ui.dashboard;
 
 import static it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase.TAG;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import it.unimib.lets_green.R;
-
-;
 
 public class Cat1Fragment extends Fragment {
 
@@ -40,7 +33,6 @@ public class Cat1Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_cat1, container, false);
-
     }
 
     @Override
@@ -77,6 +69,8 @@ public class Cat1Fragment extends Fragment {
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
                 }
+                // metodo per la creazione della recycler view e il passaggio degli elementi al
+                // fragment della singola pianta
                 onCreateRecycleView(view);
             });
         }
@@ -97,11 +91,12 @@ public class Cat1Fragment extends Fragment {
             bundle.putString("species", plants.get(position).getSpecies());
             bundle.putString("description", plants.get(position).getDescription());
             bundle.putString("co2_absorption", plants.get(position).getCo2Absorption());
-            // passaggio all'altro fragment
+            // passaggio al fragment della singola pianta
             Navigation.findNavController(view).navigate(R.id.plantFragment, bundle);
         }
         );
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         recyclerView.setAdapter(catalogRecyclerViewAdapter);
     }
+
 }

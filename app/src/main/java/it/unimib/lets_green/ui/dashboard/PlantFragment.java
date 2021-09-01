@@ -49,10 +49,7 @@ public class PlantFragment extends Fragment {
         co2Absorption.setText("Co2 absorption: " + bundle.getString("co2_absorption"));
 
         ImageView imageView1;
-        // ImageView imageView2; vedere se tenere due immagini o ridurre ad una
-
         imageView1 = view.findViewById(R.id.image1);
-        //imageView2 = view.findViewById(R.id.image2);
 
         // scaricamento e settaggio immagine
         FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -65,13 +62,6 @@ public class PlantFragment extends Fragment {
         }).addOnFailureListener(exception -> {
             // TODO: Handle any errors
         });
-
-        /*
-        TODO: da eliminare quando sono state settate per bene le altre immagini
-        (anche ora non serve più)
-        imageView1.setImageResource(R.drawable.citta_inquinata);
-        imageView2.setImageResource(R.drawable.foresta1);
-        */
 
         // settaggio bottone per aggiunta alla serra
         FloatingActionButton floatingActionButton = view.findViewById(R.id.floating_action_button);

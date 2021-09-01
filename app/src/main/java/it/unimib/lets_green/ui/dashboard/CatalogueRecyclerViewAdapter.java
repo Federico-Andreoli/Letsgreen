@@ -44,7 +44,6 @@ public class CatalogueRecyclerViewAdapter extends RecyclerView.Adapter<Catalogue
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull CatalogViewHolder holder, int position) {
-
         holder.nameTextView.setText(plants.get(position).getName().substring(0, 1).toUpperCase() + plants.get(position).getName().substring(1).toLowerCase());
 
         // scaricamento e settaggio immagine
@@ -66,7 +65,6 @@ public class CatalogueRecyclerViewAdapter extends RecyclerView.Adapter<Catalogue
     }
 
     public class CatalogViewHolder extends RecyclerView.ViewHolder {
-
         TextView nameTextView;
         ImageView imageView;
 
@@ -81,17 +79,5 @@ public class CatalogueRecyclerViewAdapter extends RecyclerView.Adapter<Catalogue
                 }
             });
         }
-
-        /*
-        TODO: da eliminare
-        public void bind(final ContentItem item, final OnItemClickListener listener) {
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onItemClick(position);
-                }
-            });
-        }
-        */
     }
 }

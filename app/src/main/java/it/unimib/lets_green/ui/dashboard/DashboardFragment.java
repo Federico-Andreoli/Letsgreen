@@ -56,7 +56,6 @@ public class DashboardFragment extends Fragment {
                 return "not found";
         }
     }
-
 }
 
 class DemoCollectionAdapter extends FragmentStateAdapter {
@@ -68,22 +67,6 @@ class DemoCollectionAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        /*
-        switch (position) {
-            case 0:
-                return new Cat1Fragment();
-            case 1:
-                return new Cat2Fragment();
-            case 2:
-                return new Cat3Fragment();
-            default:
-                return null;
-        }
-        non serve più: è stato sostituito dall'istruzione sotto in modo da caricare sempre lo stesso
-        fragment ma caricarlo in base ai dati richiesti
-        (da finire implementazione nella classe del fragment)
-         */
-
         return new Cat1Fragment(position);
     }
 
@@ -91,5 +74,4 @@ class DemoCollectionAdapter extends FragmentStateAdapter {
     public int getItemCount() {
         return 3;
     }
-
 }

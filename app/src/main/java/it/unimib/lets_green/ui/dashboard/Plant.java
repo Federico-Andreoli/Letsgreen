@@ -1,10 +1,6 @@
 package it.unimib.lets_green.ui.dashboard;
 
-import java.util.ArrayList;
-
 public class Plant {
-
-    // TODO: completare la classe con gli attributi mancanti (e pensare a quali inserire)
 
     private String name;
     private String commonName;
@@ -58,23 +54,5 @@ public class Plant {
 
     public void setCo2Absorption(String co2Absorption) {
         this.co2Absorption = co2Absorption;
-    }
-
-    public ArrayList<Plant> createPlantList(int numPlants) {
-        ArrayList<Plant> plants = new ArrayList<Plant>();
-
-        for(int i = 1; i <= numPlants; i++) {
-            plants.add(new Plant(getName(), getCommonName(), getSpecies(), getDescription(), getCo2Absorption()));
-        }
-
-        return plants;
-    }
-
-    @Override
-    public String toString() {
-        return "Plant: " +
-                "name = " + name +
-                ", commonName = " + commonName +
-                ", species = " + species;
     }
 }
