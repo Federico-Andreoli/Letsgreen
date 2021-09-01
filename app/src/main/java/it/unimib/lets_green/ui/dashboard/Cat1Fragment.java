@@ -28,7 +28,7 @@ import it.unimib.lets_green.R;
 
 public class Cat1Fragment extends Fragment {
 
-    private List<Plant> plants = new ArrayList<Plant>();
+    private List<Plant> plants = null;
     private int position;
 
     public Cat1Fragment(int position) {
@@ -63,38 +63,45 @@ public class Cat1Fragment extends Fragment {
         }
 
         // chiamata al database per estrarre le piante relative alla categoria selezionata
-        FirebaseFirestore.getInstance().collection("plants").whereEqualTo("species", category).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    Log.d(TAG, document.getId() + " => " + document.getData());
-                    plants.add(new Plant(document.getId(), document.getData().get("common_name").toString(),
-                            document.getData().get("species").toString(),
-                            document.getData().get("description").toString(),
-                            document.getData().get("co2_absorption").toString()));
+        if(plants == null) {
+            plants = new ArrayList<>();
+            FirebaseFirestore.getInstance().collection("plants").whereEqualTo("species", category).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Log.d(TAG, document.getId() + " => " + document.getData());
+                        plants.add(new Plant(document.getId(), document.getData().get("common_name").toString(),
+                                document.getData().get("species").toString(),
+                                document.getData().get("description").toString(),
+                                document.getData().get("co2_absorption").toString()));
+                    }
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
                 }
-            } else {
-                Log.d(TAG, "Error getting documents: ", task.getException());
-            }
-
-            RecyclerView recyclerView = view.findViewById(R.id.cat1_view);
-            CatalogueRecyclerViewAdapter catalogRecyclerViewAdapter = new CatalogueRecyclerViewAdapter(getContext(), plants, position -> {
-                Toast.makeText(getActivity(), "elemento " + position, Toast.LENGTH_SHORT).show();
-                // creazione dell'elemento che conterrà i paramentri da passare
-                Bundle bundle = new Bundle();
-                // inserimento dei parametri all'interno del bundle
-                bundle.putString("name", plants.get(position).getName());
-                bundle.putString("common_name", plants.get(position).getCommonName());
-                bundle.putString("species", plants.get(position).getSpecies());
-                bundle.putString("description", plants.get(position).getDescription());
-                bundle.putString("co2_absorption", plants.get(position).getCo2Absorption());
-                // passaggio all'altro fragment
-                plants.clear();
-                Navigation.findNavController(view).navigate(R.id.plantFragment, bundle);
-            }
-            );
-            recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-            recyclerView.setAdapter(catalogRecyclerViewAdapter);
-        });
+                onCreateRecycleView(view);
+            });
+        }
+        else {
+            onCreateRecycleView(view);
+        }
     }
 
+    public void onCreateRecycleView (View view) {
+        RecyclerView recyclerView = view.findViewById(R.id.cat1_view);
+        CatalogueRecyclerViewAdapter catalogRecyclerViewAdapter = new CatalogueRecyclerViewAdapter(getContext(), plants, position -> {
+            Toast.makeText(getActivity(), "elemento " + position, Toast.LENGTH_SHORT).show();
+            // creazione dell'elemento che conterrà i paramentri da passare
+            Bundle bundle = new Bundle();
+            // inserimento dei parametri all'interno del bundle
+            bundle.putString("name", plants.get(position).getName());
+            bundle.putString("common_name", plants.get(position).getCommonName());
+            bundle.putString("species", plants.get(position).getSpecies());
+            bundle.putString("description", plants.get(position).getDescription());
+            bundle.putString("co2_absorption", plants.get(position).getCo2Absorption());
+            // passaggio all'altro fragment
+            Navigation.findNavController(view).navigate(R.id.plantFragment, bundle);
+        }
+        );
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        recyclerView.setAdapter(catalogRecyclerViewAdapter);
+    }
 }
