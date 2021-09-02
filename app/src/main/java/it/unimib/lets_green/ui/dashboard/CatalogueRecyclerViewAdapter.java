@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -54,6 +55,7 @@ public class CatalogueRecyclerViewAdapter extends RecyclerView.Adapter<Catalogue
         gsReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(bytes -> {
             Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
             holder.imageView.setImageBitmap(bmp);
+            holder.progressBar.setVisibility(View.GONE);
         }).addOnFailureListener(exception -> {
             // TODO: Handle any errors
         });
@@ -67,17 +69,14 @@ public class CatalogueRecyclerViewAdapter extends RecyclerView.Adapter<Catalogue
     public class CatalogViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView;
         ImageView imageView;
+        ProgressBar progressBar;
 
         public CatalogViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
             nameTextView = (TextView) itemView.findViewById(R.id.itemName);
             imageView = (ImageView) itemView.findViewById(R.id.imageView2);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onItemClick(getAdapterPosition());
-                }
-            });
+            progressBar = (ProgressBar) itemView.findViewById(R.id.progressBar);
+            itemView.setOnClickListener(v -> listener.onItemClick(getBindingAdapterPosition()));
         }
     }
 }

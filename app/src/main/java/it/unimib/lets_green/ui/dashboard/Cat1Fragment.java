@@ -24,6 +24,7 @@ public class Cat1Fragment extends Fragment {
     private List<Plant> plants = null;
     private int position;
 
+
     public Cat1Fragment(int position) {
         this.position = position;
     }
