@@ -34,6 +34,17 @@ public static final String TAG=" FirestoreDatabase";
         });
     }
 
+    public static void addPlantToGreenHouse(String namePlant){
+        Map<String, String> addPlant = new HashMap<>();
+
+        addPlant.put("namePlant", namePlant);
+        FirebaseFirestore.getInstance().collection("User")
+                .document("DYkyohMNuAPE4BC94bsTsmP5O9Q2")
+                .collection("greenHouse")
+                .add(addPlant);
+
+    }
+
    public static void modifyData(String UserID, ArrayList<String> greenHousePlant,ArrayList<String> path){
         Map<String, ArrayList> ChangedData = new HashMap<>();
 

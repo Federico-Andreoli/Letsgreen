@@ -3,23 +3,25 @@ package it.unimib.lets_green.ui.dashboard;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavOptions;
-import androidx.navigation.Navigation;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase;
 import it.unimib.lets_green.R;
 
 public class PlantFragment extends Fragment {
@@ -82,8 +84,15 @@ public class PlantFragment extends Fragment {
 
         // settaggio bottone per aggiunta alla serra
         FloatingActionButton floatingActionButton = view.findViewById(R.id.floating_action_button);
-        floatingActionButton.setOnClickListener(v -> Snackbar.make(view, "Hai premuto aggiungi", Snackbar.LENGTH_SHORT)
-                .setAction("Action", null).show());
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirestoreDatabase.addPlantToGreenHouse(bundle.getString("name"));
+                Snackbar.make(view, "Hai premuto aggiungi", Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show();
+            }
+        });
+
     }
 
 }

@@ -11,21 +11,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
 public class GreenHouseAdapter2 extends FirestoreRecyclerAdapter<GreenHouseItem, GreenHouseAdapter2.GreenHouseAdapterHolder> {
     private ArrayList<GreenHouseItem> mPlantList;
     private GreenHouseAdapter2.onItemClickListener mListener;
+    private FirebaseFirestore firestore=FirebaseFirestore.getInstance();
+
+
 
     public void setOnItemClickListener(GreenHouseAdapter2.onItemClickListener Listener) {
         mListener = Listener;
     }
 
     public interface onItemClickListener {
-
+        void onItemClick(DocumentSnapshot documentSnapshot, int position);
         void onDeleteClick(int position);
-
     }
 
 
@@ -38,6 +42,12 @@ public class GreenHouseAdapter2 extends FirestoreRecyclerAdapter<GreenHouseItem,
     protected void onBindViewHolder(@NonNull GreenHouseAdapterHolder holder, int position, @NonNull GreenHouseItem model) {
         holder.mImageView.setImageResource(model.getImageResource());
         holder.mNamePlant.setText(model.getNamePlant());
+        holder.mDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSnapshots().getSnapshot(position).getReference().delete();
+            }
+        });
     }
 
     @NonNull
@@ -47,6 +57,7 @@ public class GreenHouseAdapter2 extends FirestoreRecyclerAdapter<GreenHouseItem,
                 parent, false);
         return new GreenHouseAdapterHolder(v);
     }
+
 
 
     class GreenHouseAdapterHolder extends RecyclerView.ViewHolder {
@@ -65,9 +76,10 @@ public class GreenHouseAdapter2 extends FirestoreRecyclerAdapter<GreenHouseItem,
                 @Override
                 public void onClick(View v) {
                     if (mListener != null) {
+
                         int position = getAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
-                            mListener.onDeleteClick(position);
+                            mListener.onItemClick(getSnapshots().getSnapshot(position), position);
                         }
                     }
                 }

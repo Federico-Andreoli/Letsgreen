@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -23,6 +24,7 @@ public class GreenHouseFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private GreenHouseAdapter2 mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private static String documentID;
 
     private ArrayList<GreenHouseItem> plantList = new ArrayList<>();
 
@@ -31,7 +33,9 @@ public class GreenHouseFragment extends Fragment {
 
     }
 
-
+    public static String getDocumentID() {
+        return documentID;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,61 +51,37 @@ public class GreenHouseFragment extends Fragment {
 
 
 
-//        plantList.add(new GreenHouseItem(R.drawable.fiore, "Pianta 1"));
-//        plantList.add(new GreenHouseItem(R.drawable.fiore, "Pianta 2"));
-//        plantList.add(new GreenHouseItem(R.drawable.fiore, "Pianta 3"));
-
-
-
-
-//        mAdapter.setOnItemClickListener(new GreenHouseAdapter.onItemClickListener() {
-//            @Override
-//            public void onItemClick(int position) {
-//                plantList.get(position);
-//            }
-//
-//            @Override
-//            public void onDeleteClick(int position) {
-//                removeItem(position);
-//            }
-//        });
-
 
 
         Query query=firebaseFirestore.collection("User").document("DYkyohMNuAPE4BC94bsTsmP5O9Q2").collection("greenHouse");
         FirestoreRecyclerOptions<GreenHouseItem> options= new FirestoreRecyclerOptions.Builder<GreenHouseItem>().setQuery(query, GreenHouseItem.class).build();
+
         mAdapter= new GreenHouseAdapter2(options,plantList);
+
         mAdapter.setOnItemClickListener(new GreenHouseAdapter2.onItemClickListener(){
-                                            @Override
-                                            public void onDeleteClick(int position) {
-                                               plantList.remove(position);
-                                               mAdapter.notifyItemRemoved(position);
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
+                GreenHouseItem itemPlant=documentSnapshot.toObject(GreenHouseItem.class);
+                String documentID=documentSnapshot.getId();
+            }
+
+            @Override
+            public void onDeleteClick(int position) {
+
+
                                             }
                                         });
-//        adapter= new FirestoreRecyclerAdapter<GreenHouseItem, plantViewHolder>(options) {
-//            @NonNull
-//            @Override
-//            public plantViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//                View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.plant_item,parent,false);
-//
-//                return new plantViewHolder(view);
-//            }
-//
-//            @Override
-//            protected void onBindViewHolder(@NonNull plantViewHolder holder, int position, @NonNull GreenHouseItem model) {
-//            holder.namePlant.setText(model.getNamePlant());
-//            }
-//        };
+
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-//        mRecyclerView.setAdapter(adapter);
+
         mRecyclerView.setAdapter(mAdapter);
+
+
+
         return view;
     }
 
-//    public void removeItem(int position) {
-//        plantList.remove(position);
-//        mAdapter.notifyItemRemoved(position);
-//    }
+
 
     private class plantViewHolder extends RecyclerView.ViewHolder{
 
