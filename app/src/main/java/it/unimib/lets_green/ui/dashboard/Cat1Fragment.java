@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ public class Cat1Fragment extends Fragment {
 
     private List<Plant> plants = null;
     private int position;
-
+    private SwipeRefreshLayout refreshLayout;
 
     public Cat1Fragment(int position) {
         this.position = position;
@@ -55,32 +57,24 @@ public class Cat1Fragment extends Fragment {
                 category = "not found";
         }
 
+        // settaggio refresh della pagina
+        refreshLayout = view.findViewById(R.id.refresh_layout);
+        refreshLayout.setColorSchemeResources(R.color.green);
+        refreshLayout.setOnRefreshListener(() -> {
+            callDatabase(category, view);
+            refreshLayout.setRefreshing(false);
+        });
+
         // chiamata al database per estrarre le piante relative alla categoria selezionata
         if(plants == null) {
-            plants = new ArrayList<>();
-            FirebaseFirestore.getInstance().collection("plants").whereEqualTo("species", category).get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Log.d(TAG, document.getId() + " => " + document.getData());
-                        plants.add(new Plant(document.getId(), document.getData().get("common_name").toString(),
-                                document.getData().get("species").toString(),
-                                document.getData().get("description").toString(),
-                                document.getData().get("co2_absorption").toString()));
-                    }
-                } else {
-                    Log.d(TAG, "Error getting documents: ", task.getException());
-                }
-                // metodo per la creazione della recycler view e il passaggio degli elementi al
-                // fragment della singola pianta
-                onCreateRecycleView(view);
-            });
+            callDatabase(category, view);
         }
         else {
-            onCreateRecycleView(view);
+            createRecycleView(view);
         }
     }
 
-    public void onCreateRecycleView (View view) {
+    public void createRecycleView (View view) {
         RecyclerView recyclerView = view.findViewById(R.id.cat1_view);
         CatalogueRecyclerViewAdapter catalogRecyclerViewAdapter = new CatalogueRecyclerViewAdapter(getContext(), plants, position -> {
             Toast.makeText(getActivity(), "elemento " + position, Toast.LENGTH_SHORT).show();
@@ -100,4 +94,23 @@ public class Cat1Fragment extends Fragment {
         recyclerView.setAdapter(catalogRecyclerViewAdapter);
     }
 
+    public void callDatabase (String category, View view) {
+        plants = new ArrayList<>();
+        FirebaseFirestore.getInstance().collection("plants").whereEqualTo("species", category).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    Log.d(TAG, document.getId() + " => " + document.getData());
+                    plants.add(new Plant(document.getId(), document.getData().get("common_name").toString(),
+                            document.getData().get("species").toString(),
+                            document.getData().get("description").toString(),
+                            document.getData().get("co2_absorption").toString()));
+                }
+            } else {
+                Log.d(TAG, "Error getting documents: ", task.getException());
+            }
+            // metodo per la creazione della recycler view e il passaggio degli elementi al
+            // fragment della singola pianta
+            createRecycleView(view);
+        });
+    }
 }
