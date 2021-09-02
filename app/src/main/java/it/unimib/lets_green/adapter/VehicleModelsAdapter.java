@@ -7,14 +7,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import it.unimib.lets_green.ModelFragment;
 import it.unimib.lets_green.R;
-import it.unimib.lets_green.vehicleMakes.VehicleMakes;
 import it.unimib.lets_green.vehicleModel.VehicleModels;
 
 public class VehicleModelsAdapter extends RecyclerView.Adapter<VehicleModelsAdapter.ViewHolder> {
@@ -52,6 +49,7 @@ public class VehicleModelsAdapter extends RecyclerView.Adapter<VehicleModelsAdap
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 mListener.onItemClick(vehicleModelsList.get(position));
             }
         });

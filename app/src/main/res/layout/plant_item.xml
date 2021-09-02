@@ -27,7 +27,7 @@
 
             <!-- Title, secondary and supporting text -->
             <TextView
-                android:id="@+id/text1"
+                android:id="@+id/namePlant"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nome Pianta"
@@ -49,12 +49,11 @@
                 android:text="Visualizza"
                 style="?attr/borderlessButtonStyle"
                 />
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_remove"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rimuovi"
-                style="?attr/borderlessButtonStyle"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/deletePlant"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_baseline_delete_forever_24"
                 />
         </LinearLayout>
 
