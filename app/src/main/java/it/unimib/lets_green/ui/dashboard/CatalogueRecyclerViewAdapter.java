@@ -23,6 +23,7 @@ public class CatalogueRecyclerViewAdapter extends RecyclerView.Adapter<Catalogue
     private List<Plant> plants;
     private OnItemClickListener listener;
     private Context context;
+    private StorageReference gsReference;
 
     public interface OnItemClickListener {
         void onItemClick(int position);
@@ -48,8 +49,7 @@ public class CatalogueRecyclerViewAdapter extends RecyclerView.Adapter<Catalogue
         holder.nameTextView.setText(plants.get(position).getName().substring(0, 1).toUpperCase() + plants.get(position).getName().substring(1).toLowerCase());
 
         // scaricamento e settaggio immagine
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference gsReference = storage.getReferenceFromUrl("gs://lets-green-b9ddf.appspot.com/" + plants.get(position).getName() + ".png");
+        gsReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://lets-green-b9ddf.appspot.com/" + plants.get(position).getName() + ".png");
 
         final long ONE_MEGABYTE = 1024 * 1024; // dimensione massima dell'immagine da scaricare
         gsReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(bytes -> {

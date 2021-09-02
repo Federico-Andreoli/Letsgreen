@@ -74,10 +74,9 @@ public class Cat1Fragment extends Fragment {
         }
     }
 
-    public void createRecycleView (View view) {
+    public void createRecycleView (@NonNull View view) {
         RecyclerView recyclerView = view.findViewById(R.id.cat1_view);
         CatalogueRecyclerViewAdapter catalogRecyclerViewAdapter = new CatalogueRecyclerViewAdapter(getContext(), plants, position -> {
-            Toast.makeText(getActivity(), "elemento " + position, Toast.LENGTH_SHORT).show();
             // creazione dell'elemento che conterrà i paramentri da passare
             Bundle bundle = new Bundle();
             // inserimento dei parametri all'interno del bundle

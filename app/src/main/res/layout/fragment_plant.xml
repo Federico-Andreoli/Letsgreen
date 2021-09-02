@@ -7,8 +7,8 @@
     android:layout_height="match_parent"
     tools:context=".ui.dashboard.PlantFragment">
 
-    <ScrollView
-        android:id="@+id/verticalScrollView"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/plant_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -16,108 +16,129 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/scrollLayout"
+        <ScrollView
+            android:id="@+id/verticalScrollView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/image1"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/scrollLayout"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:scaleType="centerCrop" />
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/plantName"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:contentDescription="@string/plant_name"
-                android:gravity="center_vertical"
-                android:paddingStart="8dp"
-                android:textColor="@color/black"
-                android:textIsSelectable="true"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/image1" />
+                <ProgressBar
+                    android:id="@+id/image_progress_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    app:layout_constraintBottom_toBottomOf="@id/image1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/divider1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:dividerInsetEnd="24dp"
-                app:dividerInsetStart="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/plantName" />
+                <ImageView
+                    android:id="@+id/image1"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/plantCommonName"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:contentDescription="@string/plant_common_name"
-                android:gravity="center_vertical"
-                android:paddingStart="8dp"
-                android:textIsSelectable="true"
-                android:textSize="14sp"
-                android:textStyle="italic"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/plantName" />
+                <TextView
+                    android:id="@+id/plantName"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:contentDescription="@string/plant_name"
+                    android:gravity="center_vertical"
+                    android:paddingStart="8dp"
+                    android:textColor="@color/black"
+                    android:textIsSelectable="true"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/image1" />
 
-            <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/divider2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:dividerInsetEnd="24dp"
-                app:dividerInsetStart="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/plantCommonName" />
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/divider1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:dividerInsetEnd="24dp"
+                    app:dividerInsetStart="24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/plantName" />
 
-            <TextView
-                android:id="@+id/plantDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/plant_description"
-                android:padding="8dp"
-                android:textIsSelectable="true"
-                android:textSize="16sp"
-                android:gravity="fill_horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider2" />
+                <TextView
+                    android:id="@+id/plantCommonName"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:contentDescription="@string/plant_common_name"
+                    android:gravity="center_vertical"
+                    android:paddingStart="8dp"
+                    android:textIsSelectable="true"
+                    android:textSize="14sp"
+                    android:textStyle="italic"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/plantName" />
 
-            <com.google.android.material.divider.MaterialDivider
-                android:id="@+id/divider3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:dividerInsetEnd="24dp"
-                app:dividerInsetStart="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/plantDescription" />
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/divider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:dividerInsetEnd="24dp"
+                    app:dividerInsetStart="24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/plantCommonName" />
 
-            <TextView
-                android:id="@+id/co2Absorption"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:contentDescription="@string/co2_absorption"
-                android:gravity="center_vertical"
-                android:paddingStart="8dp"
-                android:textColor="@color/black"
-                android:textIsSelectable="true"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider3" />
+                <TextView
+                    android:id="@+id/plantDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/plant_description"
+                    android:gravity="fill_horizontal"
+                    android:minHeight="48dp"
+                    android:padding="8dp"
+                    android:textIsSelectable="true"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/divider3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:dividerInsetEnd="24dp"
+                    app:dividerInsetStart="24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/plantDescription" />
 
-    </ScrollView>
+                <TextView
+                    android:id="@+id/co2Absorption"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:contentDescription="@string/co2_absorption"
+                    android:gravity="center_vertical"
+                    android:paddingStart="8dp"
+                    android:textColor="@color/black"
+                    android:textIsSelectable="true"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider3" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_action_button"
