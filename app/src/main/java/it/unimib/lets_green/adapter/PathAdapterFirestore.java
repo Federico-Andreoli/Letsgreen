@@ -34,6 +34,10 @@ public class PathAdapterFirestore extends FirestoreRecyclerAdapter<VehiclePath, 
         return new PathHolder(v);
     }
 
+    public void deleteItem(int position){
+        getSnapshots().getSnapshot(position).getReference().delete();
+    }
+
     class PathHolder extends RecyclerView.ViewHolder {
         TextView namePath;
         TextView carbonPath;
@@ -42,6 +46,8 @@ public class PathAdapterFirestore extends FirestoreRecyclerAdapter<VehiclePath, 
             super(itemView);
             namePath = (TextView)itemView.findViewById(R.id.namePath);
             carbonPath =(TextView)itemView.findViewById(R.id.carbonNumber);
+
+
         }
     }
 }

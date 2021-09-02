@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -127,6 +128,27 @@ public class PathFragment extends Fragment {
         recyclerViewPath.setHasFixedSize(true);
         recyclerViewPath.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewPath.setAdapter(pathAdapterFirestore);
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+//                switch (direction){
+//                    case ItemTouchHelper.LEFT:
+//                        break;
+//                }
+//                ItemTouchHelper.LEFT
+                    pathAdapterFirestore.deleteItem(viewHolder.getAdapterPosition());
+
+            }
+
+//            AGGIUNGERE LO SWIPE COLORATO ED UNDO creaore pure l'onclik con pop up di aggiunta allo score
+        }).attachToRecyclerView(recyclerViewPath);
 
 ////        List<VehiclePath> listPath
 ////        PathAdapter pathAdapter = new PathAdapter(getContext(), listPath);
