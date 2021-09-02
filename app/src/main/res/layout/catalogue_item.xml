@@ -16,9 +16,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="4dp"
-        android:elevation="2dp"
-        android:layout_margin="12dp">
+        app:cardCornerRadius="8dp"
+        android:elevation="1dp"
+        android:layout_margin="8dp">
 
         <ProgressBar
             android:id="@+id/progressBar"

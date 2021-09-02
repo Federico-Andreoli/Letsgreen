@@ -28,7 +28,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/scrollLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <ProgressBar
                     android:id="@+id/image_progress_bar"
@@ -44,6 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:scaleType="centerCrop"
+                    android:contentDescription="@string/plantimage"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -55,6 +56,7 @@
                     android:contentDescription="@string/plant_name"
                     android:gravity="center_vertical"
                     android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
                     android:textColor="@color/black"
                     android:textIsSelectable="true"
                     android:textSize="20sp"
@@ -66,8 +68,8 @@
                     android:id="@+id/divider1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:dividerInsetEnd="24dp"
-                    app:dividerInsetStart="24dp"
+                    app:dividerInsetEnd="16dp"
+                    app:dividerInsetStart="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/plantName" />
@@ -79,6 +81,7 @@
                     android:contentDescription="@string/plant_common_name"
                     android:gravity="center_vertical"
                     android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
                     android:textIsSelectable="true"
                     android:textSize="14sp"
                     android:textStyle="italic"
@@ -90,8 +93,8 @@
                     android:id="@+id/divider2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:dividerInsetEnd="24dp"
-                    app:dividerInsetStart="24dp"
+                    app:dividerInsetEnd="16dp"
+                    app:dividerInsetStart="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/plantCommonName" />
@@ -114,8 +117,8 @@
                     android:id="@+id/divider3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:dividerInsetEnd="24dp"
-                    app:dividerInsetStart="24dp"
+                    app:dividerInsetEnd="16dp"
+                    app:dividerInsetStart="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/plantDescription" />
@@ -127,6 +130,7 @@
                     android:contentDescription="@string/co2_absorption"
                     android:gravity="center_vertical"
                     android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
                     android:textColor="@color/black"
                     android:textIsSelectable="true"
                     android:textSize="16sp"
