@@ -14,6 +14,10 @@ public class VehiclePath implements Parcelable {
         this.pathCarbon = pathCarbon;
     }
 
+    public VehiclePath() {
+
+    }
+
     protected VehiclePath(Parcel in) {
         pathName = in.readString();
         pathCarbon = in.readString();
