@@ -69,7 +69,7 @@
                 android:id="@+id/deletePlant"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_delete_forever_24"
+                android:src="@drawable/ic_baseline_delete_24"
                 android:layout_gravity="center_vertical|end"  />
 
         </LinearLayout>
