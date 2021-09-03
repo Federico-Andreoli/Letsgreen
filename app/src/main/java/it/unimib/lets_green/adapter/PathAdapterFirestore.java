@@ -10,12 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 import it.unimib.lets_green.R;
 import it.unimib.lets_green.VehiclePath;
 
 public class PathAdapterFirestore extends FirestoreRecyclerAdapter<VehiclePath, PathAdapterFirestore.PathHolder> {
 
+    private OnItemClickListener listener;
 
     public PathAdapterFirestore(@NonNull FirestoreRecyclerOptions<VehiclePath> options) {
         super(options);
@@ -47,7 +49,27 @@ public class PathAdapterFirestore extends FirestoreRecyclerAdapter<VehiclePath, 
             namePath = (TextView)itemView.findViewById(R.id.namePath);
             carbonPath =(TextView)itemView.findViewById(R.id.carbonNumber);
 
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION && listener != null) {
+                        listener.inItemClick(getSnapshots().getSnapshot(position), position);
+                    }
+
+                }
+            });
+
 
         }
     }
+
+    public interface OnItemClickListener {
+        void  inItemClick(DocumentSnapshot documentSnapshot, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.listener = listener;
+    }
+
 }
