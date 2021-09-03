@@ -140,6 +140,18 @@ public class PathFragment extends Fragment {
 //            AGGIUNGERE LO SWIPE COLORATO ED UNDO creaore pure l'onclik con pop up di aggiunta allo score
         }).attachToRecyclerView(recyclerViewPath);
 
+        pathAdapterFirestore.setOnItemClickListener(new PathAdapterFirestore.OnItemClickListener() {
+            @Override
+            public void inItemClick(DocumentSnapshot documentSnapshot, int position) {
+                VehiclePath vehiclePath = documentSnapshot.toObject(VehiclePath.class);
+//                id dell'oggetto nel database!!!!
+                String id = documentSnapshot.getId();
+                Toast.makeText(getContext(), "Position: " + position + "ID: " + id, Toast.LENGTH_SHORT).show();
+//                qua metto codice per startare un nuovo fragment e passare i vari dati!
+//                se voglio passare l'intero oggetto String path = documentSnapshot.getReference().getPath()
+            }
+        });
+
 ////        List<VehiclePath> listPath
 ////        PathAdapter pathAdapter = new PathAdapter(getContext(), listPath);
 //        recyclerViewPath.setHasFixedSize(true);
