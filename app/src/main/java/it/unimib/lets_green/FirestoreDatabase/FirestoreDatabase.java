@@ -12,16 +12,14 @@ import java.util.Map;
 
 public class FirestoreDatabase {
 
-public static final String TAG=" FirestoreDatabase";
-
-
+    public static final String TAG = " FirestoreDatabase";
 
 
     public static void initializeData(String userID) {
 
-        ArrayList<String> plantedPlant=new ArrayList<String>();
+        ArrayList<String> plantedPlant = new ArrayList<String>();
 
-        DocumentReference mDocRef= FirebaseFirestore.getInstance().collection("User").document(userID);
+        DocumentReference mDocRef = FirebaseFirestore.getInstance().collection("User").document(userID);
 
         Map<String, ArrayList> data = new HashMap<>();
         data.put("plantedPlant", plantedPlant);
@@ -34,7 +32,7 @@ public static final String TAG=" FirestoreDatabase";
         });
     }
 
-    public static void addPlantToGreenHouse(String namePlant){
+    public static void addPlantToGreenHouse(String namePlant) {
         Map<String, String> addPlant = new HashMap<>();
 
         addPlant.put("namePlant", namePlant);
@@ -45,20 +43,20 @@ public static final String TAG=" FirestoreDatabase";
 
     }
 
-   public static void modifyData(String UserID, ArrayList<String> greenHousePlant,ArrayList<String> path){
-        Map<String, ArrayList> ChangedData = new HashMap<>();
-
-        ChangedData.clear();
-        ChangedData.put("changedplant", greenHousePlant);
-        ChangedData.put("changedpath", path);
-
-       FirebaseFirestore.getInstance().collection("User").document(UserID)
-               .set(ChangedData)
-               .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Log.d(TAG, "document has been changed");
-                    }
-               });
-   }
+//   public static void modifyData(String UserID, ArrayList<String> greenHousePlant,ArrayList<String> path){
+//        Map<String, ArrayList> ChangedData = new HashMap<>();
+//
+//        ChangedData.clear();
+//        ChangedData.put("changedplant", greenHousePlant);
+//        ChangedData.put("changedpath", path);
+//
+//       FirebaseFirestore.getInstance().collection("User").document(UserID)
+//               .set(ChangedData)
+//               .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void unused) {
+//                        Log.d(TAG, "document has been changed");
+//                    }
+//               });
+//}
 }

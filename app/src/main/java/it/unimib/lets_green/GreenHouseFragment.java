@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class GreenHouseFragment extends Fragment {
     private FirebaseFirestore firebaseFirestore;
     private RecyclerView mRecyclerView;
-    private GreenHouseAdapter2 mAdapter;
+    private GreenHouseAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private static String documentID;
 
@@ -56,21 +56,16 @@ public class GreenHouseFragment extends Fragment {
         Query query=firebaseFirestore.collection("User").document("DYkyohMNuAPE4BC94bsTsmP5O9Q2").collection("greenHouse");
         FirestoreRecyclerOptions<GreenHouseItem> options= new FirestoreRecyclerOptions.Builder<GreenHouseItem>().setQuery(query, GreenHouseItem.class).build();
 
-        mAdapter= new GreenHouseAdapter2(options,plantList);
+        mAdapter= new GreenHouseAdapter(options,plantList);
 
-        mAdapter.setOnItemClickListener(new GreenHouseAdapter2.onItemClickListener(){
+        mAdapter.setOnItemClickListener(new GreenHouseAdapter.onItemClickListener(){
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
                 GreenHouseItem itemPlant=documentSnapshot.toObject(GreenHouseItem.class);
                 String documentID=documentSnapshot.getId();
             }
 
-            @Override
-            public void onDeleteClick(int position) {
-
-
-                                            }
-                                        });
+        });
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
@@ -80,8 +75,6 @@ public class GreenHouseFragment extends Fragment {
 
         return view;
     }
-
-
 
     private class plantViewHolder extends RecyclerView.ViewHolder{
 

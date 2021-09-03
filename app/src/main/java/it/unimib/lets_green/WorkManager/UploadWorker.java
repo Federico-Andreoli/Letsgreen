@@ -10,9 +10,6 @@ import androidx.work.WorkerParameters;
 
 import java.util.ArrayList;
 
-import it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase;
-import it.unimib.lets_green.Login;
-
 public class UploadWorker extends Worker {
 
     private static final String TAG = "test work manager";
@@ -30,7 +27,7 @@ public class UploadWorker extends Worker {
         ArrayList<String> path=new ArrayList<String>();
 
         Log.d(TAG, "il work manager funziona");
-        FirestoreDatabase.modifyData(Login.getUserID(),plantedPlant,path);
+//        FirestoreDatabase.modifyData(Login.getUserID(),plantedPlant,path);
         return Result.retry();
     }
 }
