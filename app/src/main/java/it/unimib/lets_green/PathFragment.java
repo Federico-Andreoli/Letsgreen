@@ -14,12 +14,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -74,7 +76,7 @@ public class PathFragment extends Fragment {
             Map<String, Object> data = new HashMap<>();
             data.put("pathName", vehiclePath.getPathName());
             data.put("pathCarbon", vehiclePath.getPathCarbon());
-            firebaseFirestore.collection("User").document("DYkyohMNuAPE4BC94bsTsmP5O9Q2").collection("percorsi").add(data);
+            firebaseFirestore.collection("User").document("lkGfzzq49ASggZC9pjpUkA3fpSC3").collection("percorsi").add(data);
 //          aggiungi l'elemento nel database
 
             setUpRecyclerView();
@@ -149,6 +151,18 @@ public class PathFragment extends Fragment {
 
 //            AGGIUNGERE LO SWIPE COLORATO ED UNDO creaore pure l'onclik con pop up di aggiunta allo score
         }).attachToRecyclerView(recyclerViewPath);
+
+        pathAdapterFirestore.setOnItemClickListener(new PathAdapterFirestore.OnItemClickListener() {
+            @Override
+            public void inItemClick(DocumentSnapshot documentSnapshot, int position) {
+                VehiclePath vehiclePath = documentSnapshot.toObject(VehiclePath.class);
+//                id dell'oggetto nel database!!!!
+                String id = documentSnapshot.getId();
+                Toast.makeText(getContext(), "Position: " + position + "ID: " + id, Toast.LENGTH_SHORT).show();
+//                qua metto codice per startare un nuovo fragment e passare i vari dati!
+//                se voglio passare l'intero oggetto String path = documentSnapshot.getReference().getPath()
+            }
+        });
 
 ////        List<VehiclePath> listPath
 ////        PathAdapter pathAdapter = new PathAdapter(getContext(), listPath);
