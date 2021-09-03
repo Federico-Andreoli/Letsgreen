@@ -1,6 +1,9 @@
 package it.unimib.lets_green;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -9,17 +12,10 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -28,13 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-import javax.annotation.Nullable;
-
-import it.unimib.lets_green.adapter.PathAdapter;
 import it.unimib.lets_green.adapter.PathAdapterFirestore;
-
-import static it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase.TAG;
 
 
 public class PathFragment extends Fragment {
@@ -53,7 +43,7 @@ public class PathFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_path, container, false);
         firebaseFirestore = FirebaseFirestore.getInstance();
-        collectionReference = firebaseFirestore.collection("User").document("DYkyohMNuAPE4BC94bsTsmP5O9Q2").collection("percorsi");
+        collectionReference = firebaseFirestore.collection("User").document(Login.getUserID()).collection("percorsi");
         vehiclePathList = new ArrayList<VehiclePath>();
 
 //                ModelFragmentArgs.fromBundle(getArguments()).getIdMakes();
@@ -74,7 +64,7 @@ public class PathFragment extends Fragment {
             Map<String, Object> data = new HashMap<>();
             data.put("pathName", vehiclePath.getPathName());
             data.put("pathCarbon", vehiclePath.getPathCarbon());
-            firebaseFirestore.collection("User").document("DYkyohMNuAPE4BC94bsTsmP5O9Q2").collection("percorsi").add(data);
+            firebaseFirestore.collection("User").document(Login.getUserID()).collection("percorsi").add(data);
 //          aggiungi l'elemento nel database
 
             setUpRecyclerView();

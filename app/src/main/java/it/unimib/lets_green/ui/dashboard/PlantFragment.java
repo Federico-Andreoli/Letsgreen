@@ -1,5 +1,7 @@
 package it.unimib.lets_green.ui.dashboard;
 
+import static it.unimib.lets_green.Login.getIs_logged;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,10 +20,10 @@ import androidx.navigation.Navigation;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import it.unimib.lets_green.DialogFragment;
 import it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase;
 import it.unimib.lets_green.R;
 
@@ -87,10 +90,14 @@ public class PlantFragment extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirestoreDatabase.addPlantToGreenHouse(bundle.getString("name"));
-                Snackbar.make(view, "Hai premuto aggiungi", Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
-            }
+                if(!getIs_logged()) {
+                    DialogFragment dialogFragment = new DialogFragment();
+                    dialogFragment.show(getActivity().getSupportFragmentManager(), "example");
+                } else {
+                    FirestoreDatabase.addPlantToGreenHouse(bundle.getString("name"));
+                    Toast.makeText(getActivity(), "plant added to greenhouse", Toast.LENGTH_SHORT).show();
+                }
+                }
         });
 
     }

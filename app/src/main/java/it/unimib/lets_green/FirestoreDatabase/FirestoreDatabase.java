@@ -10,12 +10,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import it.unimib.lets_green.Login;
+
 public class FirestoreDatabase {
 
     public static final String TAG = " FirestoreDatabase";
 
 
-    public static void initializeData(String userID) {
+    public static void initializeDataGreenHouse(String userID) {
 
         ArrayList<String> plantedPlant = new ArrayList<String>();
 
@@ -31,16 +33,21 @@ public class FirestoreDatabase {
             }
         });
     }
+    public static void initializeDataPath(String userID) {
+
+
+        DocumentReference mDocRef = FirebaseFirestore.getInstance().collection("User").document(userID);
+
+    }
 
     public static void addPlantToGreenHouse(String namePlant) {
         Map<String, String> addPlant = new HashMap<>();
 
         addPlant.put("namePlant", namePlant);
         FirebaseFirestore.getInstance().collection("User")
-                .document("DYkyohMNuAPE4BC94bsTsmP5O9Q2")
+                .document(Login.getUserID())
                 .collection("greenHouse")
                 .add(addPlant);
-
     }
 
 //   public static void modifyData(String UserID, ArrayList<String> greenHousePlant,ArrayList<String> path){

@@ -1,19 +1,19 @@
 package it.unimib.lets_green.ui.home;
 
+import static it.unimib.lets_green.Login.getIs_logged;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import it.unimib.lets_green.DialogFragment;
 import it.unimib.lets_green.R;
 
 public class HomeFragment extends Fragment {
@@ -30,14 +30,23 @@ public class HomeFragment extends Fragment {
         greenHouseCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(root).navigate(R.id.greenHouseFragment);
+                if(!getIs_logged()) {
+                DialogFragment dialogFragment = new DialogFragment();
+                dialogFragment.show(getActivity().getSupportFragmentManager(), "example");
+                } else {
+                    Navigation.findNavController(root).navigate(R.id.greenHouseFragment);
+                }
             }
         });
         carbonCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(root).navigate(R.id.pathFragment);
-
+                if(!getIs_logged()) {
+                    DialogFragment dialogFragment = new DialogFragment();
+                    dialogFragment.show(getActivity().getSupportFragmentManager(), "example");
+                } else {
+                    Navigation.findNavController(root).navigate(R.id.pathFragment);
+                }
             }
         });
         return root;

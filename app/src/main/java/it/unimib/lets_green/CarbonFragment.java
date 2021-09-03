@@ -1,10 +1,8 @@
 package it.unimib.lets_green;
 
+import static it.unimib.lets_green.Login.getIs_logged;
+
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -13,6 +11,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import it.unimib.lets_green.RequestCarbon.CarbonRequest;
 import okhttp3.OkHttpClient;
@@ -118,11 +119,15 @@ public class CarbonFragment extends Fragment {
         buttonAddPath.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!getIs_logged()) {
+                    DialogFragment dialogFragment = new DialogFragment();
+                    dialogFragment.show(getActivity().getSupportFragmentManager(), "example");
+                } else {
 //                VehiclePath path = new VehiclePath(editTextName.getText().toString(), textViewCO2.getText().toString());
-                VehiclePath pathElement = new VehiclePath(editTextName.getText().toString(), textViewCO2.getText().toString());
-                CarbonFragmentDirections.ActionCarbonFragment2ToPathFragment action = CarbonFragmentDirections.actionCarbonFragment2ToPathFragment();
-                action.setPathObject(pathElement);
-                Navigation.findNavController(getView()).navigate(action);
+                    VehiclePath pathElement = new VehiclePath(editTextName.getText().toString(), textViewCO2.getText().toString());
+                    CarbonFragmentDirections.ActionCarbonFragment2ToPathFragment action = CarbonFragmentDirections.actionCarbonFragment2ToPathFragment();
+                    action.setPathObject(pathElement);
+                    Navigation.findNavController(getView()).navigate(action);
 ////                action.setCarbonPath(textViewCO2.getText().toString());
 ////                action.setNamePath(editTextName.getText().toString());
 //                Navigation.findNavController(getView()).navigate(action);
@@ -130,6 +135,7 @@ public class CarbonFragment extends Fragment {
 //                Navigation.findNavController(getView()).navigate(R.id.pathFragment);
 //                CarbonFragmentDirections.actionCarbonFragment2ToPathFragment action = CarbonFragmentDirections.actionCarbonFragment2ToPathFragment();
 //                Navigation.findNavController(getView()).navigate(action);
+                }
             }
         });
 
