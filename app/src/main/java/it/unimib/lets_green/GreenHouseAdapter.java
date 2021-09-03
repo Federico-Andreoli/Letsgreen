@@ -1,8 +1,11 @@
 package it.unimib.lets_green;
 
+import static it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase.TAG;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,22 +15,26 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
+import it.unimib.lets_green.ui.dashboard.Plant;
+
 public class GreenHouseAdapter extends FirestoreRecyclerAdapter<GreenHouseItem, GreenHouseAdapter.GreenHouseAdapterHolder> {
 
     private ArrayList<GreenHouseItem> mPlantList;
     private GreenHouseAdapter.onItemClickListener mListener;
-    private FirebaseFirestore firestore=FirebaseFirestore.getInstance();
+    private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private StorageReference gsReference;
 
     public void setOnItemClickListener(GreenHouseAdapter.onItemClickListener Listener) {
@@ -57,7 +64,11 @@ public class GreenHouseAdapter extends FirestoreRecyclerAdapter<GreenHouseItem, 
         }).addOnFailureListener(exception -> {
             // TODO: Handle any errors
         });
+
+        holder.setPlantName(model.getNamePlant());
         holder.mNamePlant.setText(model.getNamePlant().substring(0, 1).toUpperCase() + model.getNamePlant().substring(1).toLowerCase());
+
+
         holder.mDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +91,12 @@ public class GreenHouseAdapter extends FirestoreRecyclerAdapter<GreenHouseItem, 
         private TextView mNamePlant;
         private ImageView mDelete;
         private ProgressBar mProgressBar;
+        private Button mButton;
+        private String plantName;
+
+        public void setPlantName(String plantName) {
+            this.plantName = plantName;
+        }
 
         public GreenHouseAdapterHolder(@NonNull View itemView) {
             super(itemView);
@@ -87,7 +104,29 @@ public class GreenHouseAdapter extends FirestoreRecyclerAdapter<GreenHouseItem, 
             mNamePlant = itemView.findViewById(R.id.namePlant);
             mDelete = itemView.findViewById(R.id.deletePlant);
             mProgressBar = itemView.findViewById(R.id.progressBar2);
+            mButton = itemView.findViewById(R.id.viewButton);
 
+            mButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    FirebaseFirestore.getInstance().collection("plants").document(plantName).get().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                bundle.putString("name", document.getId());
+                                bundle.putString("common_name", document.getData().get("common_name").toString());
+                                bundle.putString("species", document.getData().get("species").toString());
+                                bundle.putString("description", document.getData().get("description").toString());
+                                bundle.putString("co2_absorption", document.getData().get("co2_absorption").toString());
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                        Navigation.findNavController(v).navigate(R.id.plantFragment, bundle);
+                    });
+                }
+            });
 
             mDelete.setOnClickListener(new View.OnClickListener() {
                 @Override

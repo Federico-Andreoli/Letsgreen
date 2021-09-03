@@ -87,8 +87,7 @@ public class Cat1Fragment extends Fragment {
             bundle.putString("co2_absorption", plants.get(position).getCo2Absorption());
             // passaggio al fragment della singola pianta
             Navigation.findNavController(view).navigate(R.id.plantFragment, bundle);
-        }
-        );
+        });
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         recyclerView.setAdapter(catalogRecyclerViewAdapter);
     }
