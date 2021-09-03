@@ -25,9 +25,7 @@ public class GreenHouseFragment extends Fragment {
     private GreenHouseAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private static String documentID;
-
     private ArrayList<GreenHouseItem> plantList = new ArrayList<>();
-
 
     public GreenHouseFragment() {
 
@@ -45,15 +43,11 @@ public class GreenHouseFragment extends Fragment {
 
         firebaseFirestore = FirebaseFirestore.getInstance();
 
-
         mRecyclerView = view.findViewById(R.id.RecyclerView);
         mRecyclerView.setHasFixedSize(true);
 
-
-
-
-
-        Query query=firebaseFirestore.collection("User").document("DYkyohMNuAPE4BC94bsTsmP5O9Q2").collection("greenHouse");
+        // il document path non dovrebbe essere selezionato a seconda dell'utente loggato in quel momento?
+        Query query = firebaseFirestore.collection("User").document("DYkyohMNuAPE4BC94bsTsmP5O9Q2").collection("greenHouse");
         FirestoreRecyclerOptions<GreenHouseItem> options= new FirestoreRecyclerOptions.Builder<GreenHouseItem>().setQuery(query, GreenHouseItem.class).build();
 
         mAdapter= new GreenHouseAdapter(options,plantList);
@@ -68,10 +62,7 @@ public class GreenHouseFragment extends Fragment {
         });
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-
         mRecyclerView.setAdapter(mAdapter);
-
-
 
         return view;
     }

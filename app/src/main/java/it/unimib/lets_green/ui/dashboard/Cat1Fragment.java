@@ -98,7 +98,7 @@ public class Cat1Fragment extends Fragment {
         FirebaseFirestore.getInstance().collection("plants").whereEqualTo("species", category).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    Log.d(TAG, document.getId() + " => " + document.getData());
+                    //Log.d(TAG, document.getId() + " => " + document.getData());
                     plants.add(new Plant(document.getId(), document.getData().get("common_name").toString(),
                             document.getData().get("species").toString(),
                             document.getData().get("description").toString(),

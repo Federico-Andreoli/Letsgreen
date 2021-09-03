@@ -18,14 +18,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.work.Constraints;
-import androidx.work.NetworkType;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import it.unimib.lets_green.WorkManager.UploadWorker;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -68,19 +62,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
             return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onPause() {
-        if (Login.getIs_logged()){
-            Constraints constraints= new Constraints.Builder()
-                    .setRequiredNetworkType(NetworkType.CONNECTED)
-                    .build();
-
-            OneTimeWorkRequest uploadDataRequest=new OneTimeWorkRequest.Builder(UploadWorker.class).setConstraints(constraints).build();
-            WorkManager.getInstance(this).enqueue(uploadDataRequest);
-        }
-        super.onPause();
     }
 
     @Override

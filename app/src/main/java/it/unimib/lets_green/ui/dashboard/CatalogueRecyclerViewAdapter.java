@@ -4,6 +4,7 @@ package it.unimib.lets_green.ui.dashboard;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,7 @@ public class CatalogueRecyclerViewAdapter extends RecyclerView.Adapter<Catalogue
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull CatalogViewHolder holder, int position) {
+        holder.imageView.setVisibility(View.GONE);
         holder.nameTextView.setText(plants.get(position).getName().substring(0, 1).toUpperCase() + plants.get(position).getName().substring(1).toLowerCase());
 
         // scaricamento e settaggio immagine
@@ -56,6 +58,7 @@ public class CatalogueRecyclerViewAdapter extends RecyclerView.Adapter<Catalogue
             Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
             holder.imageView.setImageBitmap(bmp);
             holder.progressBar.setVisibility(View.GONE);
+            holder.imageView.setVisibility(View.VISIBLE);
         }).addOnFailureListener(exception -> {
             // TODO: Handle any errors
         });
@@ -73,9 +76,9 @@ public class CatalogueRecyclerViewAdapter extends RecyclerView.Adapter<Catalogue
 
         public CatalogViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
-            nameTextView = (TextView) itemView.findViewById(R.id.itemName);
-            imageView = (ImageView) itemView.findViewById(R.id.imageView2);
-            progressBar = (ProgressBar) itemView.findViewById(R.id.progressBar);
+            nameTextView = itemView.findViewById(R.id.itemName);
+            imageView = itemView.findViewById(R.id.imageView);
+            progressBar = itemView.findViewById(R.id.progressBar2);
             itemView.setOnClickListener(v -> listener.onItemClick(getBindingAdapterPosition()));
         }
     }

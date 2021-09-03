@@ -1,60 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardView2"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="4dp">
+    android:layout_margin="8dp"
+    android:background="?attr/selectableItemBackground"
+    android:elevation="1dp"
+    app:cardCornerRadius="8dp">
 
     <LinearLayout
+        android:id="@+id/linearLayoutImage2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <!-- Media -->
+        <ProgressBar
+            android:id="@+id/progressBar2"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="194dp" />
+
         <ImageView
-            android:id="@+id/image"
+            android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="194dp"
-            app:srcCompat="@drawable/fiore"
+            android:contentDescription="@string/plantimage"
             android:scaleType="centerCrop"
-            />
+            tools:ignore="ImageContrastCheck" />
 
+        <!-- Title, secondary and supporting text -->
         <LinearLayout
+            android:id="@+id/LinearLayoutText2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="8dp">
 
-            <!-- Title, secondary and supporting text -->
             <TextView
                 android:id="@+id/namePlant"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nome Pianta"
-                android:textAppearance="?attr/textAppearanceHeadline6"
-                />
-
+                android:contentDescription="@string/plant_name"
+                android:gravity="center_vertical"
+                android:textAppearance="?attr/textAppearanceBody2" />
         </LinearLayout>
 
         <!-- Buttons -->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/LinearLayoutButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginStart="4dp">
+
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/viewButton"
+                style="?attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="Visualizza"
-                style="?attr/borderlessButtonStyle"
-                />
+                android:gravity="center_vertical"
+                android:text="@string/view" />
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/deletePlant"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:src="@drawable/ic_baseline_delete_forever_24"
-                />
+                android:layout_gravity="center_vertical|end"  />
+
         </LinearLayout>
 
     </LinearLayout>
