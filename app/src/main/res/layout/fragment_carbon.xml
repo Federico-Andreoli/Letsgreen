@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
         android:gravity="center"
-        android:text="Co2 emessa"
+
         android:visibility="invisible"
         android:textAlignment="center"
         android:textSize="50dp"

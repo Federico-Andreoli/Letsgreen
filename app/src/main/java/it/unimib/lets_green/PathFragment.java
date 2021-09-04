@@ -1,5 +1,7 @@
 package it.unimib.lets_green;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,6 +21,8 @@ import android.widget.Toast;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -39,7 +43,7 @@ import it.unimib.lets_green.adapter.PathAdapterFirestore;
 import static it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase.TAG;
 
 
-public class PathFragment extends Fragment {
+public class PathFragment extends Fragment  {
     private RecyclerView recyclerViewPath;
     private FloatingActionButton createPath;
     private List<VehiclePath> vehiclePathList;
@@ -55,7 +59,7 @@ public class PathFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_path, container, false);
         firebaseFirestore = FirebaseFirestore.getInstance();
-        collectionReference = firebaseFirestore.collection("User").document("DYkyohMNuAPE4BC94bsTsmP5O9Q2").collection("percorsi");
+        collectionReference = firebaseFirestore.collection("User").document("lkGfzzq49ASggZC9pjpUkA3fpSC3").collection("percorsi");
         vehiclePathList = new ArrayList<VehiclePath>();
 
 //                ModelFragmentArgs.fromBundle(getArguments()).getIdMakes();
@@ -130,7 +134,7 @@ public class PathFragment extends Fragment {
         recyclerViewPath.setHasFixedSize(true);
         recyclerViewPath.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewPath.setAdapter(pathAdapterFirestore);
-
+        VehiclePath deletedPath = null;
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT) {
             @Override
@@ -145,8 +149,22 @@ public class PathFragment extends Fragment {
 //                        break;
 //                }
 //                ItemTouchHelper.LEFT
+                   int position = viewHolder.getAdapterPosition();
+                    VehiclePath tmp = pathAdapterFirestore.getItem(position);
+//                    DocumentSnapshot id = pathAdapterFirestore.getSnapshots().getSnapshot(position);
+//                    VehiclePath deletedPath = pathAdapterFirestore.getItem(viewHolder.getAdapterPosition()).toString();
                     pathAdapterFirestore.deleteItem(viewHolder.getAdapterPosition());
+                    Snackbar.make(recyclerViewPath, "tmp", Snackbar.LENGTH_LONG)
+                            .setAction("Undo", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Map<String, Object> data = new HashMap<>();
+                                    data.put("pathName", tmp.getPathName());
+                                    data.put("pathCarbon", tmp.getPathCarbon());
+                                    firebaseFirestore.collection("User").document("lkGfzzq49ASggZC9pjpUkA3fpSC3").collection("percorsi").add(data);
 
+                                }
+                            }).show();
             }
 
 //            AGGIUNGERE LO SWIPE COLORATO ED UNDO creaore pure l'onclik con pop up di aggiunta allo score
@@ -158,7 +176,8 @@ public class PathFragment extends Fragment {
                 VehiclePath vehiclePath = documentSnapshot.toObject(VehiclePath.class);
 //                id dell'oggetto nel database!!!!
                 String id = documentSnapshot.getId();
-                Toast.makeText(getContext(), "Position: " + position + "ID: " + id, Toast.LENGTH_SHORT).show();
+                openDialog(documentSnapshot.getId(), position);
+//                Toast.makeText(getContext(), "Position: " + position + "ID: " + id, Toast.LENGTH_SHORT).show();
 //                qua metto codice per startare un nuovo fragment e passare i vari dati!
 //                se voglio passare l'intero oggetto String path = documentSnapshot.getReference().getPath()
             }
@@ -170,6 +189,29 @@ public class PathFragment extends Fragment {
 //        recyclerViewPath.setLayoutManager(new LinearLayoutManager(getContext()));
 ////        recyclerViewPath.setAdapter(pathAdapter);
 //        recyclerViewPath.setAdapter(adapter);
+    }
+
+    private void openDialog(String documentSnapshot, int position){
+//        DialogAddPath dialogAddPath = new DialogAddPath();
+//        dialogAddPath.show(getParentFragmentManager(), "exaple dialog");
+        AlertDialog.Builder addBuilder = new AlertDialog.Builder(getContext());
+        addBuilder.setMessage("Do you want to add the Path to your score?")
+                .setCancelable(false)
+                .setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getParentFragment().getContext(), "Position: " + position + "ID: " + documentSnapshot, Toast.LENGTH_LONG).show();
+//                        Log.d(TAG, "Email sent.");
+                    }
+                })
+                .setNegativeButton("no", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                })
+                .setTitle("Confirm");
+        addBuilder.show();
     }
 
 //    private class PathViewHolder extends RecyclerView.ViewHolder {
@@ -195,6 +237,8 @@ public class PathFragment extends Fragment {
         pathAdapterFirestore.stopListening();
     }
 
-
-
+//    @Override
+//    public void onYesClicked() {
+//        Toast.makeText(getContext(), "Position: " + position + "ID: " + id, Toast.LENGTH_SHORT).show();
+//    }
 }
