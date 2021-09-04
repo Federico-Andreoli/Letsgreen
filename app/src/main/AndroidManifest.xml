@@ -3,6 +3,7 @@
     package="it.unimib.lets_green">
 
     <application
+        android:name=".utentication_start"
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

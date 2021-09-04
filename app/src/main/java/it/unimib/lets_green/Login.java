@@ -2,14 +2,7 @@ package it.unimib.lets_green;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -19,13 +12,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.Objects;
 
 
 public class Login extends Fragment {
@@ -38,7 +34,7 @@ public class Login extends Fragment {
     Button resetPassword;
     MainActivity objMyClass = new MainActivity();
     Activity reference = objMyClass.getActivityReference();
-    FirebaseUser user=null;
+    static FirebaseUser user=null;
     static String UserID= null;
 
     public static Login newInstance() {
@@ -177,6 +173,9 @@ public class Login extends Fragment {
 
         return is_logged;
     }
+    public static void logOutSet() {
+        is_logged=false;
+    }
 
     public static void setUserID(String userID) {
         UserID = userID;
@@ -185,5 +184,9 @@ public class Login extends Fragment {
     public static String getUserID() {
 
         return UserID;
+    }
+
+    public static void setUser(FirebaseUser User) {
+        user = User;
     }
 }
