@@ -42,4 +42,5 @@
     <string name="co2_absorption">co2 absorption</string>
     <string name="plantimage">plantImage</string>
     <string name="view">View</string>
+    <string name="userscore">userScore</string>
 </resources>

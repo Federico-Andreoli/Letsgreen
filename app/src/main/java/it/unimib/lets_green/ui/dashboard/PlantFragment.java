@@ -94,7 +94,7 @@ public class PlantFragment extends Fragment {
                     DialogFragment dialogFragment = new DialogFragment();
                     dialogFragment.show(getActivity().getSupportFragmentManager(), "example");
                 } else {
-                    FirestoreDatabase.addPlantToGreenHouse(bundle.getString("name"));
+                    FirestoreDatabase.addPlantToGreenHouse(bundle.getString("name"), bundle.getString("co2_absorption"));
                     Toast.makeText(getActivity(), "plant added to greenhouse", Toast.LENGTH_SHORT).show();
                 }
                 }

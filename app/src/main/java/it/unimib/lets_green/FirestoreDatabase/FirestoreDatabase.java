@@ -40,10 +40,10 @@ public class FirestoreDatabase {
 
     }
 
-    public static void addPlantToGreenHouse(String namePlant) {
+    public static void addPlantToGreenHouse(String namePlant, String hp) {
         Map<String, String> addPlant = new HashMap<>();
-
         addPlant.put("namePlant", namePlant);
+        addPlant.put("hp", hp);
         FirebaseFirestore.getInstance().collection("User")
                 .document(Login.getUserID())
                 .collection("greenHouse")
