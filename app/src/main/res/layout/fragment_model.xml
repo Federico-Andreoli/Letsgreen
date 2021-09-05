@@ -9,7 +9,7 @@
         android:orientation="vertical">
 
     <EditText
-        android:hint="Inserisci il modello della tua Auto!"
+        android:hint="@string/insertCarModel"
         android:id="@+id/searchModel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

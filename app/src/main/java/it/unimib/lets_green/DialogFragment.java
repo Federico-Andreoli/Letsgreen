@@ -1,5 +1,7 @@
 package it.unimib.lets_green;
 
+import static it.unimib.lets_green.R.string.loginRequestedDialogueFragment;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -17,16 +19,16 @@ public class DialogFragment extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder= new AlertDialog.Builder(getActivity());
-        builder.setTitle("Login Requested")
-                .setMessage("login is requested to use this functionality")
-                .setPositiveButton("Login", new DialogInterface.OnClickListener() {
+        builder.setTitle(loginRequestedDialogueFragment)
+                .setMessage(R.string.textDialogueFragment)
+                .setPositiveButton(R.string.login, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
                         navController.navigate(R.id.fragment_login);
                     }
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 

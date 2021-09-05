@@ -26,7 +26,7 @@
     <string name="name_icon_settings">impostazioni</string>
     <string name="profile">profilo</string>
     <string name="title">Lets-green</string>
-    <string name="password">passowrd</string>
+    <string name="password">password</string>
     <string name="repeatPassword">inserisci nuovamente la password</string>
     <string name="email">email</string>
     <string name="textViewForgotPassword">Password dimenticata?</string>
@@ -42,4 +42,21 @@
     <string name="co2_absorption">co2 absorption</string>
     <string name="plantimage">plantImage</string>
     <string name="view">View</string>
+    <string name="passwordCostraint">inserisci almeno 8 caratteri</string>
+    <string name="generateCarbon">Il Percorso Inserito Genera:</string>
+    <string name="co2Generated">Co2 emessa</string>
+    <string name="insertTripLenght">Inserisci la lunghezza del percorso (Km)</string>
+    <string name="calculateCo2">Calcola La C02 emessa!</string>
+    <string name="insertTripName">Inserisci il nome del percorso</string>
+    <string name="addTrip">Aggiungi il percorso alla mia Lista</string>
+    <string name="insertCarBrand">Inserisci la marca della tua Auto!</string>
+    <string name="insertCarModel">Inserisci il modello della tua Auto!</string>
+    <string name="selectOrCreateTrip">Seleziona o crea il percorso</string>
+    <string name="createTrip">Crea Percorso</string>
+    <string name="numberModels">Number of Models</string>
+    <string name="textViewModel">TextView</string>
+    <string name="loginRequestedDialogueFragment">Login Requested</string>
+    <string name="textDialogueFragment">login is requested to use this functionality</string>
+    <string name="login">Login</string>
+    <string name="cancel">Cancel</string>
 </resources>

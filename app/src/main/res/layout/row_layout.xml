@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
-        android:text="TextView"
+        android:text="@string/textViewModel"
         android:textColor="@android:color/holo_orange_light"
         android:paddingBottom="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

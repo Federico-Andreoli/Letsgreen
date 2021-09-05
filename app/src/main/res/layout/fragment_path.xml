@@ -16,7 +16,7 @@
         android:layout_margin="12dp"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
-        android:hint="Seleziona o crea il percorso"
+        android:hint="@string/selectOrCreateTrip"
 
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/recyclerViewPath"
@@ -48,7 +48,7 @@
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:src="@drawable/ic_baseline_add_road_24"
-        android:text="Crea Percorso"
+        android:text="@string/createTrip"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
