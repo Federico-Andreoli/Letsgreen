@@ -93,8 +93,9 @@ public class Login extends Fragment {
                     Toast.makeText(getActivity(), "inserisci mail", Toast.LENGTH_SHORT).show();
                 }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){ /*verifica se la mail è ben formulata*/
                     Toast.makeText(getActivity(), "inserire un'email valida", Toast.LENGTH_SHORT).show();
+                }else {
+                    resetPassword(email, password);
                 }
-                resetPassword(email,password);
             }
         });
 
