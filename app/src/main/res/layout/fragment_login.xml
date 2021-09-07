@@ -117,6 +117,7 @@
         android:layout_marginTop="54dp"
         android:layout_marginBottom="21dp"
         android:text="@string/title_Login"
+        android:textAppearance="?attr/textAppearanceHeadline6"
         app:layout_constraintBottom_toTopOf="@+id/textFieldemail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

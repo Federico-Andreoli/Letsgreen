@@ -33,7 +33,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main2">MainActivity</string>
     <string name="title_activity_prova_home">MainActivity</string>
-    <string name="title_Login">Login</string>
+    <string name="title_Login">LOGIN</string>
     <string name="fab_content_desc">plus</string>
     <string name="hsv_content_desc">scroll view</string>
     <string name="plant_name">plant name</string>

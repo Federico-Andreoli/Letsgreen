@@ -158,6 +158,9 @@ public class Login extends Fragment {
     private void reload() {
 
     }
+    public static String getEmail(){
+        return user.getEmail();
+    }
 
     public static void updateUI(FirebaseUser user) {
         if(user!=null){
@@ -166,7 +169,9 @@ public class Login extends Fragment {
     }
 
     public void changeUI(){
-        Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.userProfileFragment);
+//        Intent openPage1 = new Intent(getActivity(),provaImageProfile.class);
+//        startActivity(openPage1);
+      Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.userProfileFragment);
         Toast.makeText(getActivity(), "login effettuato con successo", Toast.LENGTH_SHORT).show();
     }
 
