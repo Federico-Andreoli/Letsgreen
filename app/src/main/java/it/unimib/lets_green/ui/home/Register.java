@@ -104,8 +104,7 @@ public class Register extends Fragment {
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             UserID =user.getUid().toString();
-                            FirestoreDatabase.initializeDataPath(user.getUid().toString());
-                            FirestoreDatabase.initializeDataGreenHouse(user.getUid().toString());
+                            FirestoreDatabase.initializeData(user.getUid().toString());
                             taskSuccessful(user);
                         } else {
                             // If sign in fails, display a message to the user.

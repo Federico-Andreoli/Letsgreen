@@ -1,12 +1,7 @@
 package it.unimib.lets_green.FirestoreDatabase;
 
-import android.util.Log;
-
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,27 +12,16 @@ public class FirestoreDatabase {
     public static final String TAG = " FirestoreDatabase";
 
 
-    public static void initializeDataGreenHouse(String userID) {
 
-        ArrayList<String> plantedPlant = new ArrayList<String>();
-
-        DocumentReference mDocRef = FirebaseFirestore.getInstance().collection("User").document(userID);
-
-        Map<String, ArrayList> data = new HashMap<>();
-        data.put("plantedPlant", plantedPlant);
-        mDocRef.set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-
-                Log.d(TAG, "document has been saved");
-            }
-        });
-    }
-    public static void initializeDataPath(String userID) {
+    public static void initializeData(String userID) {
 
 
-        DocumentReference mDocRef = FirebaseFirestore.getInstance().collection("User").document(userID);
 
+        Map<String, Object> defaultData = new HashMap<>();
+
+        defaultData.put("score", 0);
+
+        FirebaseFirestore.getInstance().collection("User").document(userID).set(defaultData);
     }
 
     public static void addPlantToGreenHouse(String namePlant) {

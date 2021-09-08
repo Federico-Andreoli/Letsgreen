@@ -43,6 +43,16 @@ public class Autentication {
         String pathgetImage= "profile-image/"+ Login.getUserID();
         StorageReference image  = storageReference.child(pathgetImage);
 
+        image.delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "immage account deleted.");
+                        }
+                    }
+                });
+
         user.delete()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -62,14 +72,6 @@ public class Autentication {
                     }
                 });
 
-            image.delete()
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Log.d(TAG, "immage account deleted.");
-                            }
-                        }
-                    });
+
     }
 }
