@@ -21,7 +21,7 @@ public class FirestoreDatabase {
 
         defaultData.put("score", 0);
 
-        FirebaseFirestore.getInstance().collection("User").document(userID).set(defaultData);
+        FirebaseFirestore.getInstance().collection("User").document(userID).set(defaultData);// inizializzazione score utente
     }
 
     public static void addPlantToGreenHouse(String namePlant) {
