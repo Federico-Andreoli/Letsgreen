@@ -59,4 +59,11 @@
     <string name="textDialogueFragment">login is requested to use this functionality</string>
     <string name="login">Login</string>
     <string name="cancel">Cancel</string>
+    <string name="changePasswordTitle">do you want change the password?</string>
+    <string name="logoutButton">logout</string>
+    <string name="deleteAccountButton">delete account</string>
+    <string name="buttonResetPassword">reset password</string>
+    <string name="buttonChangeEmail">change email</string>
+    <string name="sendEmailToChangePassword">send email to change password</string>
+    <string name="insertNewEmail">insert new Email</string>
 </resources>

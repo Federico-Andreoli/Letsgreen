@@ -1,5 +1,7 @@
 package it.unimib.lets_green;
 
+import static it.unimib.lets_green.R.string.sendEmailToChangePassword;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
@@ -94,7 +96,8 @@ public class Login extends Fragment {
                 }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){ /*verifica se la mail è ben formulata*/
                     Toast.makeText(getActivity(), "inserire un'email valida", Toast.LENGTH_SHORT).show();
                 }else {
-                    resetPassword(email, password);
+                    resetPassword(email);
+                    Toast.makeText(getActivity(),  sendEmailToChangePassword, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -142,14 +145,13 @@ public class Login extends Fragment {
 
     }
 
-    private void resetPassword(String email, String password) {
-        mAuth.sendPasswordResetEmail(email)
+    protected static void resetPassword(String email) {
+        FirebaseAuth.getInstance().sendPasswordResetEmail(email)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "Email sent.");
-                            Toast.makeText(getActivity(), "mail per cambio password inviata", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -185,6 +187,10 @@ public class Login extends Fragment {
 
     public static void setUserID(String userID) {
         UserID = userID;
+    }
+
+    public static FirebaseUser getUser() {
+        return user;
     }
 
     public static String getUserID() {
