@@ -9,6 +9,7 @@
 
     <Button
         android:id="@+id/logOut"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -113,14 +114,16 @@
 
     <Button
         android:id="@+id/buttonDeleteAccount"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
-        android:background="@color/red"
         android:text="@string/deleteAccountButton"
+        android:textColor="@color/red"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/logOut" />
+        app:layout_constraintStart_toEndOf="@+id/logOut"
+        app:strokeColor="@color/red" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

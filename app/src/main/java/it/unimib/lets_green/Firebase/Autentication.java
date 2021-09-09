@@ -40,18 +40,18 @@ public class Autentication {
         StorageReference storageReference= FirebaseStorage.getInstance().getReference();;
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DocumentReference mDocRef = FirebaseFirestore.getInstance().collection("User").document(Login.getUserID());
-        String pathgetImage= "profile-image/"+ Login.getUserID();
-        StorageReference image  = storageReference.child(pathgetImage);
 
-        image.delete()
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "immage account deleted.");
+        StorageReference image  = storageReference.child("profile-image/"+ Login.getUserID());
+
+            image.delete()
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d(TAG, "immage account deleted.");
+                            }
                         }
-                    }
-                });
+                    });
 
         user.delete()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -62,6 +62,7 @@ public class Autentication {
                         }
                     }
                 });
+
         mDocRef.delete()
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

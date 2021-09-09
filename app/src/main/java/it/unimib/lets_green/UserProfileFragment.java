@@ -7,6 +7,8 @@ import static it.unimib.lets_green.Firebase.Autentication.logOutUser;
 import static it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase.TAG;
 import static it.unimib.lets_green.R.string.sendEmailToChangePassword;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -89,10 +91,28 @@ public class UserProfileFragment extends Fragment {
         deleteAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.fragment_login);
-                deleteAccount();
-                logOutUser();
-                Toast.makeText(getActivity(), "user deleted", Toast.LENGTH_SHORT).show();
+                AlertDialog.Builder builder= new AlertDialog.Builder(getActivity());
+                builder.setTitle(R.string.delete_account_alert_title);
+                builder.setMessage(R.string.delete_account_alert_message);
+                builder.setPositiveButton("yes", new DialogInterface.OnClickListener() // gestione interazione con pulsante yes
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.fragment_login);
+                        deleteAccount();
+                        logOutUser();
+                        Toast.makeText(getActivity(), "user deleted", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder.setNegativeButton("no", new DialogInterface.OnClickListener() // gestione interazione con pulsante no
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                AlertDialog alertDialog= builder.create(); //creazione alert
+                alertDialog.show(); //mostra alert
             }
         });
         changeEmail.setOnClickListener(new View.OnClickListener() {
@@ -108,10 +128,10 @@ public class UserProfileFragment extends Fragment {
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            Login.resetPassword(Login.getEmail()); // richiama il metodo per resettare la password
+            Login.resetPassword(Login.getEmail());  // richiama il metodo per resettare la password
                 Toast.makeText(getActivity(), sendEmailToChangePassword, Toast.LENGTH_SHORT).show();
                 Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.fragment_login);// sposta l'utente nella sezione login
-                logOutUser();// effettua il logout per rieffettuare l'autenticazione
+                logOutUser();  // effettua il logout per rieffettuare l'autenticazione
             }
         });
 
@@ -141,6 +161,7 @@ public class UserProfileFragment extends Fragment {
     }
 
     private void getUserImage() {
+
         String pathgetImage= "profile-image/"+ Login.getUserID();
         StorageReference imageGet  = storageReference.child(pathgetImage);
         final long ONE_MEGABYTE = 4 * 1024 * 1024;
@@ -176,4 +197,6 @@ public class UserProfileFragment extends Fragment {
         }
 
     }
+
+
 }

@@ -66,4 +66,6 @@
     <string name="buttonChangeEmail">change email</string>
     <string name="sendEmailToChangePassword">send email to change password</string>
     <string name="insertNewEmail">insert new Email</string>
+    <string name="delete_account_alert_title">DELETE ACCOUNT</string>
+    <string name="delete_account_alert_message">Are you sure you want to delete your account?</string>
 </resources>

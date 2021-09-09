@@ -1,11 +1,15 @@
 package it.unimib.lets_green.FirestoreDatabase;
 
+
+import android.net.Uri;
+
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import it.unimib.lets_green.Login;
+import it.unimib.lets_green.R;
 
 public class FirestoreDatabase {
 
@@ -15,7 +19,11 @@ public class FirestoreDatabase {
 
     public static void initializeData(String userID) {
 
-
+//        String insertImage= "profile-image/"+ Login.getUserID();
+//        StorageReference fileRef= FirebaseStorage.getInstance().getReference().child(insertImage);
+        Uri path = Uri.parse("android.resource://drawable/" + R.drawable.image_profile);
+//
+//        fileRef.putFile(path);
 
         Map<String, Object> defaultData = new HashMap<>();
 
