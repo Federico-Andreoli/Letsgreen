@@ -151,7 +151,7 @@ public class PathFragment extends Fragment  {
                                     Map<String, Object> data = new HashMap<>();
                                     data.put("pathName", tmp.getPathName());
                                     data.put("pathCarbon", tmp.getPathCarbon());
-                                    firebaseFirestore.collection("User").document("lkGfzzq49ASggZC9pjpUkA3fpSC3").collection("percorsi").add(data);
+                                    firebaseFirestore.collection("User").document(Login.getUserID()).collection("percorsi").add(data);
 
                                 }
                             }).show();

@@ -3,7 +3,7 @@ package it.unimib.lets_green;
 public class UserFirebase {
     private String userId;
     private String username;
-    private Double score;
+    private Long score;
 
 
     public String getUserId() {
@@ -14,13 +14,13 @@ public class UserFirebase {
         this.userId = userId;
     }
 
-    public UserFirebase(String userId, String username, Double score) {
+    public UserFirebase(String userId, String username, Long score) {
         this.userId = userId;
         this.username = username;
         this.score = score;
     }
 
-    public UserFirebase() {
+    public UserFirebase(String id, String documentId, String score) {
     }
 
     public String getUsername() {
@@ -31,11 +31,11 @@ public class UserFirebase {
         this.username = username;
     }
 
-    public Double getScore() {
+    public Long getScore() {
         return score;
     }
 
-    public void setScore(Double score) {
+    public void setScore(Long score) {
         this.score = score;
     }
 }

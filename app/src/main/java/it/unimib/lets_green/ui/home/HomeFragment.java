@@ -45,7 +45,7 @@ public class HomeFragment extends Fragment {
                     DialogFragment dialogFragment = new DialogFragment();
                     dialogFragment.show(getActivity().getSupportFragmentManager(), "example");
                 } else {
-                    Navigation.findNavController(root).navigate(R.id.pathFragment);
+                    Navigation.findNavController(root).navigate(R.id.leaderboardFragment);
                 }
             }
         });

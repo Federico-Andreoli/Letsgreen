@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_navigation_home_to_greenHouseFragment"
             app:destination="@id/greenHouseFragment" />
+        <action
+            android:id="@+id/action_navigation_home_to_leaderboardFragment"
+            app:destination="@id/leaderboardFragment" />
     </fragment>
 
     <fragment
@@ -151,4 +154,8 @@
         android:id="@+id/greenHouseFragment"
         android:name="it.unimib.lets_green.GreenHouseFragment"
         android:label="GreenHouseFragment" />
+    <fragment
+        android:id="@+id/leaderboardFragment"
+        android:name="it.unimib.lets_green.LeaderboardFragment"
+        android:label="LeaderboardFragment" />
 </navigation>

@@ -5,7 +5,6 @@ import static it.unimib.lets_green.Firebase.Autentication.changeEmailAddress;
 import static it.unimib.lets_green.Firebase.Autentication.deleteAccount;
 import static it.unimib.lets_green.Firebase.Autentication.logOutUser;
 import static it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase.TAG;
-import static it.unimib.lets_green.R.string.sendEmailToChangePassword;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -46,6 +45,7 @@ import it.unimib.lets_green.ui.Login.Login;
 public class UserProfileFragment extends Fragment {
     private String userEmail;
     private String userName;
+    private EditText ciao;
     private EditText newUserEmail;
     private EditText newUserName;
     private Button logOutButton;
@@ -165,7 +165,7 @@ public class UserProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
             Login.resetPassword(Login.getEmail());  // richiama il metodo per resettare la password
-                Toast.makeText(getActivity(), sendEmailToChangePassword, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "sand email change password", Toast.LENGTH_SHORT).show();
                 Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.fragment_login);// sposta l'utente nella sezione login
                 logOutUser();  // effettua il logout per rieffettuare l'autenticazione
             }
