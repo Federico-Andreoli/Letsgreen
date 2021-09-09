@@ -161,6 +161,7 @@ public class Login extends Fragment {
 
     }
     public static String getEmail(){
+        user = FirebaseAuth.getInstance().getCurrentUser();
         return user.getEmail();
     }
 
