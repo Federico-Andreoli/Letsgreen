@@ -67,7 +67,7 @@ public class UserProfileFragment extends Fragment {
 
         storageReference = FirebaseStorage.getInstance().getReference();
 
-//        displayMail.setText("Hello, "+Login.getEmail());
+        displayMail.setText("Hello, "+Login.getEmail());
 
         newUserEmail.addTextChangedListener(new TextWatcher() {
             @Override
