@@ -33,7 +33,7 @@ import it.unimib.lets_green.adapter.PathAdapterFirestore;
 import it.unimib.lets_green.ui.Login.Login;
 
 
-public class PathFragment extends Fragment {
+public class PathFragment extends Fragment  {
     private RecyclerView recyclerViewPath;
     private FloatingActionButton createPath;
     private List<VehiclePath> vehiclePathList;

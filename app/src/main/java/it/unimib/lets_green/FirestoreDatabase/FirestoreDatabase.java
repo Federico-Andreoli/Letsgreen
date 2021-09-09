@@ -35,20 +35,4 @@ public class FirestoreDatabase {
                 .add(addPlant);
     }
 
-//   public static void modifyData(String UserID, ArrayList<String> greenHousePlant,ArrayList<String> path){
-//        Map<String, ArrayList> ChangedData = new HashMap<>();
-//
-//        ChangedData.clear();
-//        ChangedData.put("changedplant", greenHousePlant);
-//        ChangedData.put("changedpath", path);
-//
-//       FirebaseFirestore.getInstance().collection("User").document(UserID)
-//               .set(ChangedData)
-//               .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void unused) {
-//                        Log.d(TAG, "document has been changed");
-//                    }
-//               });
-//}
 }
