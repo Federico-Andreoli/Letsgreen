@@ -4,8 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Login">
+    tools:context=".ui.Login.Login">
+    <ScrollView
+        android:id="@+id/verticalScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/scrollLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
     <Button
         android:id="@+id/logOut"
@@ -13,12 +25,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="51dp"
         android:layout_marginEnd="70dp"
         android:layout_marginBottom="32dp"
         android:text="@string/logoutButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/buttonDeleteAccount"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonPassword" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
@@ -46,6 +60,25 @@
         app:layout_constraintTop_toTopOf="@+id/profile_image" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/newUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="32dp"
+        android:hint="@string/insert_new_user_name"
+        app:layout_constraintBottom_toTopOf="@+id/buttonChangeUserName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textemailUser">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputUserNameChange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/newEmailTextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -56,7 +89,7 @@
         app:layout_constraintBottom_toTopOf="@+id/buttonChangeEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textemailUser">
+        app:layout_constraintTop_toBottomOf="@+id/buttonChangeUserName">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputEmailChange"
@@ -74,6 +107,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_image" />
+
+    <Button
+        android:id="@+id/buttonChangeUserName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="32dp"
+        android:enabled="false"
+        android:text="change User Name"
+        app:layout_constraintBottom_toTopOf="@id/newEmailTextField"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newUsername" />
 
     <Button
         android:id="@+id/buttonPassword"
@@ -117,6 +164,7 @@
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
         android:text="@string/deleteAccountButton"
@@ -124,6 +172,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/logOut"
+        app:layout_constraintTop_toBottomOf="@+id/buttonPassword"
         app:strokeColor="@color/red" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

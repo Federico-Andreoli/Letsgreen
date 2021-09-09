@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 import it.unimib.lets_green.adapter.PathAdapterFirestore;
+import it.unimib.lets_green.ui.Login.Login;
 
 
 public class PathFragment extends Fragment {

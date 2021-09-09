@@ -34,19 +34,27 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import it.unimib.lets_green.Firebase.Autentication;
+import it.unimib.lets_green.ui.Login.Login;
 
 
 public class UserProfileFragment extends Fragment {
     private String userEmail;
+    private String userName;
     private EditText newUserEmail;
+    private EditText newUserName;
     private Button logOutButton;
     private ImageButton addPhoto;
     private ImageView profilePic;
-    private TextView displayMail;
+    private TextView displayUserName;
     private Button changePassword;
     private Button changeEmail;
+    private Button changeUserName;
     private Button deleteAccount;
     public static Uri imageUri;
     private static final int PICK_IMAGE = 100;
@@ -57,17 +65,38 @@ public class UserProfileFragment extends Fragment {
         logOutButton = view.findViewById(R.id.logOut);
         addPhoto = view.findViewById(R.id.addPhoto);
         profilePic = view.findViewById(R.id.profile_image);
-        displayMail= view.findViewById(R.id.textemailUser);
+        displayUserName= view.findViewById(R.id.textemailUser);
         changePassword= view.findViewById(R.id.buttonPassword);
         changeEmail=view.findViewById(R.id.buttonChangeEmail);
+        changeUserName=view.findViewById(R.id.buttonChangeUserName);
         newUserEmail=view.findViewById(R.id.textInputEmailChange);
         changeEmail=view.findViewById(R.id.buttonChangeEmail);
+        newUserName=view.findViewById(R.id.textInputUserNameChange);
         deleteAccount=view.findViewById(R.id.buttonDeleteAccount);
 
 
         storageReference = FirebaseStorage.getInstance().getReference();
 
-        displayMail.setText("Hello, "+Login.getEmail());
+        setDisplayUserName();
+
+
+        newUserName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                userName = newUserName.getText().toString().trim();
+                changeUserName.setEnabled(!userName.isEmpty());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+//
+            }
+        });
 
         newUserEmail.addTextChangedListener(new TextWatcher() {
             @Override
@@ -85,6 +114,13 @@ public class UserProfileFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
 //
+            }
+        });
+        changeUserName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Autentication.changeDataUserName(newUserName.getText().toString().trim()); //richiama il metodo con il nome utente da inserire
+                Toast.makeText(getActivity(), "user name changed", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -160,6 +196,21 @@ public class UserProfileFragment extends Fragment {
         return view;
     }
 
+    private void setDisplayUserName() {
+
+        FirebaseFirestore.getInstance().collection("User").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    if (document.getId().equals(Login.getUserID())){
+                        displayUserName.setText("Hello, "+ document.getData().get("userName").toString());
+                    }
+                }
+            }
+        });
+    }
+
+
+
     private void getUserImage() {
 
         String pathgetImage= "profile-image/"+ Login.getUserID();
@@ -197,6 +248,5 @@ public class UserProfileFragment extends Fragment {
         }
 
     }
-
 
 }

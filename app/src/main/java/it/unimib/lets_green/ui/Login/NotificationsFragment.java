@@ -1,4 +1,4 @@
-package it.unimib.lets_green.ui.notifications;
+package it.unimib.lets_green.ui.Login;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

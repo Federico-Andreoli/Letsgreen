@@ -1,6 +1,6 @@
 package it.unimib.lets_green.ui.dashboard;
 
-import static it.unimib.lets_green.Login.getIs_logged;
+import static it.unimib.lets_green.ui.Login.Login.getIs_logged;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

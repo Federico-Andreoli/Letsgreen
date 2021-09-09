@@ -68,4 +68,5 @@
     <string name="insertNewEmail">insert new Email</string>
     <string name="delete_account_alert_title">DELETE ACCOUNT</string>
     <string name="delete_account_alert_message">Are you sure you want to delete your account?</string>
+    <string name="insert_new_user_name">insert new User Name</string>
 </resources>

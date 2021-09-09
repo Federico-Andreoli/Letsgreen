@@ -1,4 +1,4 @@
-package it.unimib.lets_green.ui.notifications;
+package it.unimib.lets_green.ui.Login;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

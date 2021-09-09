@@ -13,10 +13,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import it.unimib.lets_green.Login;
+import java.util.HashMap;
+import java.util.Map;
+
+import it.unimib.lets_green.ui.Login.Login;
 
 public class Autentication {
 
@@ -78,7 +82,13 @@ public class Autentication {
                         }
                     }
                 });
+    }
+    public static void changeDataUserName(String UserName){
+        Map<String, Object> defaultData = new HashMap<>();
 
 
+        defaultData.put("userName",UserName );
+
+        FirebaseFirestore.getInstance().collection("User").document(Login.getUserID()).set(defaultData, SetOptions.merge());
     }
 }

@@ -1,4 +1,4 @@
-package it.unimib.lets_green;
+package it.unimib.lets_green.ui.Login;
 
 import static it.unimib.lets_green.R.string.sendEmailToChangePassword;
 
@@ -24,6 +24,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import it.unimib.lets_green.MainActivity;
+import it.unimib.lets_green.R;
 
 
 public class Login extends Fragment {
@@ -145,7 +148,7 @@ public class Login extends Fragment {
 
     }
 
-    protected static void resetPassword(String email) {
+    public static void resetPassword(String email) {
         FirebaseAuth.getInstance().sendPasswordResetEmail(email)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override

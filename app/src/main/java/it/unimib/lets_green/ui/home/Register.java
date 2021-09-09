@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase;
-import it.unimib.lets_green.Login;
+import it.unimib.lets_green.ui.Login.Login;
 import it.unimib.lets_green.R;
 
 

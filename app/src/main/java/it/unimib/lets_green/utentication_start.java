@@ -5,6 +5,8 @@ import android.app.Application;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import it.unimib.lets_green.ui.Login.Login;
+
 public class utentication_start extends Application {
     @Override
     public void onCreate() {
