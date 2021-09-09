@@ -15,7 +15,7 @@ public static final String TAG=" FirestoreDatabase";
 
 public static void saveData(String ciao, String caio) {
 
-    DocumentReference mDocRef= FirebaseFirestore.getInstance().collection("User").document("dataUser");
+    DocumentReference mDocRef= FirebaseFirestore.getInstance().collection("UserFirebase").document("dataUser");
     Map<String, Object> data = new HashMap<>();
     data.put("first", ciao);
     data.put("last", caio);
@@ -33,7 +33,7 @@ public static void saveData(String ciao, String caio) {
         ChangedData.put("last", "peppino");
         ChangedData.put("born", 1990);
 
-       FirebaseFirestore.getInstance().collection("User").document("dataUser")
+       FirebaseFirestore.getInstance().collection("UserFirebase").document("dataUser")
                .set(ChangedData)
                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -41,6 +41,13 @@ public static void saveData(String ciao, String caio) {
                         Log.d(TAG, "document has been changed");
                     }
                });
+   }
+
+   public static void inizializeProfile(){
+       Map<String, String> InizializedData = new HashMap<>();
+       InizializedData.put("first", "giovanni");
+       InizializedData.put("last", "peppino");
+       InizializedData.put("born", "1990");
    }
 
 }

@@ -59,7 +59,7 @@ public class PathFragment extends Fragment  {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_path, container, false);
         firebaseFirestore = FirebaseFirestore.getInstance();
-        collectionReference = firebaseFirestore.collection("User").document("lkGfzzq49ASggZC9pjpUkA3fpSC3").collection("percorsi");
+        collectionReference = firebaseFirestore.collection("UserFirebase").document("lkGfzzq49ASggZC9pjpUkA3fpSC3").collection("percorsi");
         vehiclePathList = new ArrayList<VehiclePath>();
 
 //                ModelFragmentArgs.fromBundle(getArguments()).getIdMakes();
@@ -80,7 +80,7 @@ public class PathFragment extends Fragment  {
             Map<String, Object> data = new HashMap<>();
             data.put("pathName", vehiclePath.getPathName());
             data.put("pathCarbon", vehiclePath.getPathCarbon());
-            firebaseFirestore.collection("User").document("lkGfzzq49ASggZC9pjpUkA3fpSC3").collection("percorsi").add(data);
+            firebaseFirestore.collection("UserFirebase").document("lkGfzzq49ASggZC9pjpUkA3fpSC3").collection("percorsi").add(data);
 //          aggiungi l'elemento nel database
 
             setUpRecyclerView();
@@ -161,7 +161,7 @@ public class PathFragment extends Fragment  {
                                     Map<String, Object> data = new HashMap<>();
                                     data.put("pathName", tmp.getPathName());
                                     data.put("pathCarbon", tmp.getPathCarbon());
-                                    firebaseFirestore.collection("User").document("lkGfzzq49ASggZC9pjpUkA3fpSC3").collection("percorsi").add(data);
+                                    firebaseFirestore.collection("UserFirebase").document("lkGfzzq49ASggZC9pjpUkA3fpSC3").collection("percorsi").add(data);
 
                                 }
                             }).show();
