@@ -64,6 +64,8 @@ public class Login extends Fragment {
         loginButon = view.findViewById(R.id.containedButton);
         resetPassword = view.findViewById(R.id.resetPassword);
 
+        ((MainActivity) getActivity()).setActionBarTitle("Profile");
+
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
             public void handleOnBackPressed() {

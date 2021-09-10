@@ -45,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void setActionBarTitle(String name) {
+        mToolbar.setTitle(name);
+    }
 
      public boolean onOptionsItemSelected( MenuItem item) {
             int id = item.getItemId();

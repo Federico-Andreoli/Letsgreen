@@ -71,4 +71,5 @@
     <string name="insert_new_user_name">insert new User Name</string>
     <string name="leaderboard">leaderboard</string>
     <string name="userscore">userScore</string>
+    <string name="home">Home</string>
 </resources>

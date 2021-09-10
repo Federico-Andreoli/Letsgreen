@@ -38,9 +38,11 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import it.unimib.lets_green.DialogFragment;
 import it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase;
+import it.unimib.lets_green.MainActivity;
 import it.unimib.lets_green.ui.Login.Login;
 import it.unimib.lets_green.R;
 
@@ -51,20 +53,15 @@ public class HomeFragment extends Fragment {
     private CardView greenHouseCard;
     private double totalHp = 0.0;
     private double totalCo2;
-    private LocalDate lastUpdate = LocalDate.ofEpochDay(01-01-1970);
+    private LocalDate lastUpdate = LocalDate.ofEpochDay(1970-01-01);
     private RecyclerView scoreView;
     private ScoreRecyclerViewAdapter scoreRecyclerViewAdapter;
 
-    public void setTotalHp(double totalHp) {
-        this.totalHp = totalHp;
-    }
-
-    public double getTotalHp() {
-        return totalHp;
-    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        //((MainActivity) requireActivity()).setActionBarTitle("Home");
+
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
