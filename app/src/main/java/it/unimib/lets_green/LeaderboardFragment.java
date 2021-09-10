@@ -20,6 +20,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import it.unimib.lets_green.adapter.UserAdapter1;
@@ -55,6 +57,7 @@ public class LeaderboardFragment extends Fragment {
                         userFirebaseList.add(userFirebase);
                     }
                     Log.d(TAG, userFirebaseList.toString());
+                    orderArray(userFirebaseList);
                     setUpRecyclerViewLeaderboard(userFirebaseList);
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
@@ -64,6 +67,21 @@ public class LeaderboardFragment extends Fragment {
 
 
         return view;
+    }
+
+    private void orderArray(List<UserFirebase> scoreList){
+
+        Collections.sort(scoreList, new Comparator<UserFirebase>() {
+            @Override
+            public int compare(UserFirebase o1, UserFirebase o2) {
+                if (o1.getScore()== o2.getScore())
+                    return 0;
+                else if (o1.getScore()< o2.getScore())
+                    return 1;
+                else
+                    return -1;
+            }
+        });
     }
 
     private void setUpRecyclerViewLeaderboard(List<UserFirebase> list) {
