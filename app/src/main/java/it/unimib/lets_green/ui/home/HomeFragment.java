@@ -41,7 +41,7 @@ import java.util.Map;
 
 import it.unimib.lets_green.DialogFragment;
 import it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase;
-import it.unimib.lets_green.Login;
+import it.unimib.lets_green.ui.Login.Login;
 import it.unimib.lets_green.R;
 
 public class HomeFragment extends Fragment {
@@ -51,7 +51,7 @@ public class HomeFragment extends Fragment {
     private CardView greenHouseCard;
     private double totalHp = 0.0;
     private double totalCo2;
-    private LocalDate lastUpdate;
+    private LocalDate lastUpdate = LocalDate.ofEpochDay(01-01-1970);
     private RecyclerView scoreView;
     private ScoreRecyclerViewAdapter scoreRecyclerViewAdapter;
 
@@ -100,27 +100,27 @@ public class HomeFragment extends Fragment {
         if(getIs_logged() && totalHp == 0.0) {
             // recupero la data dell'ultimo update
             FirebaseFirestore.getInstance()
-                .collection("User")
-                .document(Login.getUserID())
-                .get()
-                .addOnCompleteListener(task -> {
-                    if(task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if(document.exists()) {
-                            lastUpdate = LocalDate.parse(document.get("lastUpdate").toString());
+                    .collection("User")
+                    .document(Login.getUserID())
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                lastUpdate = LocalDate.parse(document.get("lastUpdate").toString());
+                            } else {
+                                Log.d(TAG, "no such document");
+                            }
                         } else {
-                            Log.d(TAG, "no such document");
+                            Log.d(TAG, "get failed with", task.getException());
                         }
-                    } else {
-                        Log.d(TAG, "get failed with", task.getException());
-                    }
-                    Log.d(TAG, "last update: " + lastUpdate.toString());
-                    // creazione recycler view e aggiornamento hp se necessario
-                    if(needUpdate(lastUpdate)) {
-                        hpUpdate(root);
-                        co2EmissionsUpdate(root);
-                    }
-                });
+                        //Log.d(TAG, "last update: " + lastUpdate.toString());
+                        // creazione recycler view e aggiornamento hp se necessario
+                        if (needUpdate(lastUpdate)) {
+                            hpUpdate(root);
+                            co2EmissionsUpdate(root);
+                        }
+                    });
         }
 
         return root;

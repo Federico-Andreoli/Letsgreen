@@ -7,6 +7,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,11 +18,6 @@ public class FirestoreDatabase {
 
     public static final String TAG = " FirestoreDatabase";
 
-
-    public static void initializeDataGreenHouse(String userID) {
-
-        ArrayList<String> plantedPlant = new ArrayList<String>();
-
         public static void initializeData(String userID) {
 
 
@@ -29,28 +25,10 @@ public class FirestoreDatabase {
 
             defaultData.put("score", 0);
             defaultData.put("userName", userID);
+            defaultData.put("lastUpdate", "1970-01-01");
 
             FirebaseFirestore.getInstance().collection("User").document(userID).set(defaultData);// inizializzazione score utente
         }
-
-        DocumentReference mDocRef = FirebaseFirestore.getInstance().collection("User").document(userID);
-
-        Map<String, ArrayList> data = new HashMap<>();
-        data.put("plantedPlant", plantedPlant);
-        mDocRef.set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-
-                Log.d(TAG, "document has been saved");
-            }
-        });
-    }
-    public static void initializeDataPath(String userID) {
-
-
-        DocumentReference mDocRef = FirebaseFirestore.getInstance().collection("User").document(userID);
-
-    }
 
     public static void addPlantToGreenHouse(String namePlant, String hp) {
         Map<String, String> addPlant = new HashMap<>();
