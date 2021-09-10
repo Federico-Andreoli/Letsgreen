@@ -115,7 +115,6 @@ public class Register extends Fragment {
                             FirebaseUser user = mAuth.getCurrentUser();
                             UserID =user.getUid().toString();
                             FirestoreDatabase.initializeData(user.getUid().toString());
-                            setDefaultImageProfile();
                             taskSuccessful(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -128,7 +127,7 @@ public class Register extends Fragment {
     }
 
     private void setDefaultImageProfile(){
-        FirestoreDatabase.initializeImage(getContext(), R.drawable.image_profile);
+        FirestoreDatabase.initializeImage(getActivity(), R.drawable.image_profile);
     }
 
 
@@ -138,6 +137,7 @@ public class Register extends Fragment {
             Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.userProfileFragment);
             Login.updateUI(user);
             Login.setUserID(UserID);
+            setDefaultImageProfile();
         }
     }
     private void reload(){

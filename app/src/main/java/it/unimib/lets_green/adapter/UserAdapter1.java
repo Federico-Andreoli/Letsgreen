@@ -1,8 +1,11 @@
 package it.unimib.lets_green.adapter;
 
+import static it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase.TAG;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,8 +45,8 @@ public class UserAdapter1 extends RecyclerView.Adapter<UserAdapter1.UsersHolder>
     public void onBindViewHolder(@NonNull UsersHolder holder, int position) {
         holder.username.setText(users.get(position).getUsername());
         holder.score.setText(users.get(position).getScore().toString());
-        imgReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://lets-green-b9ddf.appspot.com/profile-image/" + users.get(position).getUserId() + ".png");
-        if (imgReference != null){
+        imgReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://lets-green-b9ddf.appspot.com/profile-image/" + users.get(position).getUserId());
+            Log.d(TAG, users.get(position).getUserId());
             final long ONE_MEGABYTE = 1024 * 1024; // dimensione massima dell'immagine da scaricare
             imgReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(bytes -> {
                 Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
@@ -51,10 +54,8 @@ public class UserAdapter1 extends RecyclerView.Adapter<UserAdapter1.UsersHolder>
             }).addOnFailureListener(exception -> {
                 // TODO: Handle any errors
             });
-        }  else{
-            holder.imageProfile.setImageResource(R.drawable.image_profile);
         }
-    }
+
 
 
 
