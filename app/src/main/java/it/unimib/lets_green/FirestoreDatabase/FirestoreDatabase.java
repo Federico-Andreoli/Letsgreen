@@ -1,7 +1,14 @@
 package it.unimib.lets_green.FirestoreDatabase;
 
 
+import android.content.ContentResolver;
+import android.content.Context;
+import android.net.Uri;
+import android.util.Log;
+
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +40,21 @@ public class FirestoreDatabase {
                 .document(Login.getUserID())
                 .collection("greenHouse")
                 .add(addPlant);
+    }
+
+    public static void initializeImage(Context context, int drawableId){
+
+        Uri imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+                "://" + context.getResources().getResourcePackageName(drawableId)
+                + '/' + context.getResources().getResourceTypeName(drawableId)
+                + '/' + context.getResources().getResourceEntryName(drawableId) );
+        String insertImage= "profile-image/"+ Login.getUserID();
+        StorageReference fileRef= FirebaseStorage.getInstance().getReference().child(insertImage);
+        if(imageUri!=null){
+            fileRef.putFile(imageUri);
+        }else {
+            Log.d(TAG,"uri is null" );
+        }
     }
 
 }

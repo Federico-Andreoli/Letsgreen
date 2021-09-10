@@ -126,6 +126,11 @@ public class Register extends Fragment {
                 });
     }
 
+    private void setDefaultImageProfile(){
+        FirestoreDatabase.initializeImage(getContext(), R.drawable.image_profile );
+
+    }
+
 
     private void taskSuccessful(FirebaseUser user) {
         if (user != null) {
