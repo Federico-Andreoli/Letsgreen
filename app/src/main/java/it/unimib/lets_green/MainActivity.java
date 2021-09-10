@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         mToolbar = findViewById(R.id.topAppBar);
         setSupportActionBar(mToolbar);
+        setActionBarTitle("Home");
 
     }
 
