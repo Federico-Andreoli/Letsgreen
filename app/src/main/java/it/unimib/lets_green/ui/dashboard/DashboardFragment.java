@@ -1,9 +1,11 @@
 package it.unimib.lets_green.ui.dashboard;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toolbar;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -17,6 +19,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import it.unimib.lets_green.MainActivity;
 import it.unimib.lets_green.R;
 
 public class DashboardFragment extends Fragment {
@@ -34,6 +37,7 @@ public class DashboardFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         DashboardViewModel dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        ((MainActivity) getActivity()).setActionBarTitle("Catalogue");
         return root;
     }
 
