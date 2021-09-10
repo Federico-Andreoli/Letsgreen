@@ -54,9 +54,10 @@ public class PlantFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
             public void handleOnBackPressed() {
-//                Navigation.findNavController(view).navigate(R.id.das);
+               Navigation.findNavController(view).navigate(R.id.navigation_dashboard);
             }
         };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
 
         //creazione dell'elemento per prendere parametri passati da 'Cat1Fragment'
         bundle = this.getArguments();
@@ -102,7 +103,7 @@ public class PlantFragment extends Fragment {
                     DialogFragment dialogFragment = new DialogFragment();
                     dialogFragment.show(getActivity().getSupportFragmentManager(), "example");
                 } else {
-                    FirestoreDatabase.addPlantToGreenHouse(bundle.getString("name"));
+                    FirestoreDatabase.addPlantToGreenHouse(bundle.getString("name"), bundle.getString("co2_absorption"));
                     Toast.makeText(getActivity(), "plant added to greenhouse", Toast.LENGTH_SHORT).show();
                 }
                 }

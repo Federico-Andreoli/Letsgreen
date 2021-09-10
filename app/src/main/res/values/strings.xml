@@ -70,4 +70,5 @@
     <string name="delete_account_alert_message">Are you sure you want to delete your account?</string>
     <string name="insert_new_user_name">insert new User Name</string>
     <string name="leaderboard">leaderboard</string>
+    <string name="userscore">userScore</string>
 </resources>

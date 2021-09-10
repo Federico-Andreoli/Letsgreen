@@ -68,7 +68,6 @@ public class GreenHouseAdapter extends FirestoreRecyclerAdapter<GreenHouseItem, 
         holder.setPlantName(model.getNamePlant());
         holder.mNamePlant.setText(model.getNamePlant().substring(0, 1).toUpperCase() + model.getNamePlant().substring(1).toLowerCase());
 
-
         holder.mDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

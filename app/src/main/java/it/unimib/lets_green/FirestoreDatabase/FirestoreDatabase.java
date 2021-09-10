@@ -1,6 +1,9 @@
 package it.unimib.lets_green.FirestoreDatabase;
 
+import android.util.Log;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
@@ -9,7 +12,9 @@ import android.util.Log;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,24 +29,60 @@ public class FirestoreDatabase {
     public static void initializeData(String userID) {
 
 
-        Map<String, Object> defaultData = new HashMap<>();
+            Map<String, Object> defaultData = new HashMap<>();
 
-        defaultData.put("score", 0);
-        defaultData.put("userName", userID);
+            defaultData.put("score", 0);
+            defaultData.put("userName", userID);
+            defaultData.put("lastUpdate", "1970-01-01");
 
-        FirebaseFirestore.getInstance().collection("User").document(userID).set(defaultData);// inizializzazione score utente
-    }
+            FirebaseFirestore.getInstance().collection("User").document(userID).set(defaultData);// inizializzazione score utente
+        }
 
-    public static void addPlantToGreenHouse(String namePlant) {
+    public static void addPlantToGreenHouse(String namePlant, String hp) {
         Map<String, String> addPlant = new HashMap<>();
 
         addPlant.put("namePlant", namePlant);
+        addPlant.put("hp", hp);
         FirebaseFirestore.getInstance().collection("User")
                 .document(Login.getUserID())
                 .collection("greenHouse")
                 .add(addPlant);
     }
 
+    public static void updateHp(double totalHp) {
+        FirebaseFirestore.getInstance().collection("User")
+                .document(Login.getUserID())
+                .update("totalHp", totalHp);
+    }
+
+    public static void updateDate() {
+        FirebaseFirestore.getInstance().collection("User")
+                .document(Login.getUserID())
+                .update("lastUpdate", LocalDate.now().minusDays(1).toString());
+    }
+
+    public static void updateScore(int score) {
+        FirebaseFirestore.getInstance().collection("User")
+                .document(Login.getUserID())
+                .update("score", score);
+    }
+
+//   public static void modifyData(String UserID, ArrayList<String> greenHousePlant,ArrayList<String> path){
+//        Map<String, ArrayList> ChangedData = new HashMap<>();
+//
+//        ChangedData.clear();
+//        ChangedData.put("changedplant", greenHousePlant);
+//        ChangedData.put("changedpath", path);
+//
+//       FirebaseFirestore.getInstance().collection("User").document(UserID)
+//               .set(ChangedData)
+//               .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void unused) {
+//                        Log.d(TAG, "document has been changed");
+//                    }
+//               });
+//}
     public static void initializeImage(Context context, int drawableId){
 
         Uri imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
