@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -22,9 +23,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -36,6 +40,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import it.unimib.lets_green.DialogFragment;
+import it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase;
 import it.unimib.lets_green.Login;
 import it.unimib.lets_green.R;
 
@@ -49,6 +54,14 @@ public class HomeFragment extends Fragment {
     private LocalDate lastUpdate;
     private RecyclerView scoreView;
     private ScoreRecyclerViewAdapter scoreRecyclerViewAdapter;
+
+    public void setTotalHp(double totalHp) {
+        this.totalHp = totalHp;
+    }
+
+    public double getTotalHp() {
+        return totalHp;
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -114,6 +127,7 @@ public class HomeFragment extends Fragment {
     }
 
     public void co2EmissionsUpdate(View root)  {
+        /*
         FirebaseFirestore.getInstance()
             .collection("User")
             .document(Login.getUserID())
@@ -129,9 +143,30 @@ public class HomeFragment extends Fragment {
                     Log.d(TAG, "Error getting documents: ", task.getException());
                 createRecyclerView(root);
             });
+         */
+        FirebaseFirestore.getInstance()
+                .collection("User")
+                .document(Login.getUserID())
+                .collection("percorsi")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (error != null) {
+                            Log.w(TAG, "Listen failed.", error);
+                            return;
+                        }
+                        for (DocumentSnapshot document : value) {
+                            if (document.get("pathCarbon") != null)
+                                totalCo2 += Double.parseDouble(document.getString("pathCarbon"));
+                        }
+                        //Log.d(TAG, "primo log: " + totalHp);
+                        createRecyclerView(root);
+                    }
+                });
     }
 
     public void hpUpdate(View root) {
+        /*
         FirebaseFirestore.getInstance()
             .collection("User")
             .document(Login.getUserID())
@@ -144,18 +179,40 @@ public class HomeFragment extends Fragment {
                     }
                 } else
                     Log.d(TAG, "Error getting documents: ", task.getException());
-                FirebaseFirestore.getInstance().collection("User")
-                        .document(Login.getUserID())
-                        .update("totalHp", totalHp);
-                FirebaseFirestore.getInstance().collection("User")
-                        .document(Login.getUserID())
-                        .update("lastUpdate", LocalDate.now().minusDays(1).toString());
+                // aggiorno i valori di hp e la data nel database
+                FirestoreDatabase.updateHp(totalHp);
+                FirestoreDatabase.updateDate();
                 createRecyclerView(root);
             });
+        */
+        FirebaseFirestore.getInstance()
+                .collection("User")
+                .document(Login.getUserID())
+                .collection("greenHouse")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (error != null) {
+                            Log.w(TAG, "Listen failed.", error);
+                            return;
+                        }
+                        for(DocumentSnapshot document: value) {
+                            if(document.get("hp") != null)
+                                totalHp += Double.parseDouble(document.getString("hp"));
+                        }
+                        //Log.d(TAG, "primo log: " + totalHp);
+                        createRecyclerView(root);
+                    }
+                });
+        //Log.d(TAG, "secondo log: " + totalHp);
     }
 
     public void createRecyclerView(View root) {
         scoreView = root.findViewById(R.id.scoreView);
+        //Log.d(TAG, "terzo log: " + totalHp);
+        // aggiorno i valori di hp e la data nel database
+        FirestoreDatabase.updateHp(totalHp);
+        FirestoreDatabase.updateDate();
         scoreRecyclerViewAdapter = new ScoreRecyclerViewAdapter(getContext(), totalHp, totalCo2);
         scoreView.setLayoutManager(new LinearLayoutManager(getActivity()));
         scoreView.setAdapter(scoreRecyclerViewAdapter);

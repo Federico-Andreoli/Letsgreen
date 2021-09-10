@@ -5,12 +5,15 @@ import android.util.Log;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import it.unimib.lets_green.Login;
+import it.unimib.lets_green.ui.home.HomeFragment;
 
 public class FirestoreDatabase {
 
@@ -48,6 +51,24 @@ public class FirestoreDatabase {
                 .document(Login.getUserID())
                 .collection("greenHouse")
                 .add(addPlant);
+    }
+
+    public static void updateHp(double totalHp) {
+        FirebaseFirestore.getInstance().collection("User")
+                .document(Login.getUserID())
+                .update("totalHp", totalHp);
+    }
+
+    public static void updateDate() {
+        FirebaseFirestore.getInstance().collection("User")
+                .document(Login.getUserID())
+                .update("lastUpdate", LocalDate.now().minusDays(1).toString());
+    }
+
+    public static void updateScore(int score) {
+        FirebaseFirestore.getInstance().collection("User")
+                .document(Login.getUserID())
+                .update("score", score);
     }
 
 //   public static void modifyData(String UserID, ArrayList<String> greenHousePlant,ArrayList<String> path){

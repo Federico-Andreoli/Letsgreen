@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase;
 import it.unimib.lets_green.R;
 
 public class ScoreRecyclerViewAdapter extends RecyclerView.Adapter<ScoreRecyclerViewAdapter.ScoreViewHolder> {
@@ -35,6 +36,7 @@ public class ScoreRecyclerViewAdapter extends RecyclerView.Adapter<ScoreRecycler
     public void onBindViewHolder(@NonNull ScoreRecyclerViewAdapter.ScoreViewHolder holder, int position) {
         int score = (int) (hp - co2);
         holder.scoreTextView.setText("Score: " + score);
+        FirestoreDatabase.updateScore(score);
     }
 
     @Override
