@@ -1,30 +1,24 @@
 package it.unimib.lets_green;
 
-import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.TextView;
+
+import androidx.activity.OnBackPressedCallback;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unimib.lets_green.adapter.VehicleMakesAdapter;
 import it.unimib.lets_green.adapter.VehicleModelsAdapter;
-import it.unimib.lets_green.vehicleMakes.VehicleMakes;
 import it.unimib.lets_green.vehicleModel.VehicleModels;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -74,6 +68,15 @@ public class ModelFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_model, container, false);
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                Navigation.findNavController(view).navigate(R.id.pathFragment);
+            }
+        };
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
         editTextSearchModels = view.findViewById(R.id.searchModel);
         recyclerViewModels = view.findViewById(R.id.recyclerViewModel);
         textViewResult = view.findViewById(R.id.nametxt);

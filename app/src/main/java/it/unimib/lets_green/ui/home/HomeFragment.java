@@ -27,6 +27,9 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         carbonCard = root.findViewById(R.id.cardViewPollution);
         greenHouseCard = root.findViewById(R.id.cardViewPlant);
+
+
+
         greenHouseCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,7 +48,7 @@ public class HomeFragment extends Fragment {
                     DialogFragment dialogFragment = new DialogFragment();
                     dialogFragment.show(getActivity().getSupportFragmentManager(), "example");
                 } else {
-                    Navigation.findNavController(root).navigate(R.id.leaderboardFragment);
+                    Navigation.findNavController(root).navigate(R.id.pathFragment);
                 }
             }
         });

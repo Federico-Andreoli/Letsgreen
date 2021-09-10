@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -78,6 +79,14 @@ public class UserProfileFragment extends Fragment {
         storageReference = FirebaseStorage.getInstance().getReference();
 
         setDisplayUserName();
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                Navigation.findNavController(view).navigate(R.id.navigation_home);
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
 
 
         newUserName.addTextChangedListener(new TextWatcher() {
@@ -134,7 +143,7 @@ public class UserProfileFragment extends Fragment {
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.fragment_login);
+                        Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.navigation_notifications);
                         deleteAccount();
                         logOutUser();
                         Toast.makeText(getActivity(), "user deleted", Toast.LENGTH_SHORT).show();
@@ -166,7 +175,7 @@ public class UserProfileFragment extends Fragment {
             public void onClick(View v) {
             Login.resetPassword(Login.getEmail());  // richiama il metodo per resettare la password
                 Toast.makeText(getActivity(), "sand email change password", Toast.LENGTH_SHORT).show();
-                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.fragment_login);// sposta l'utente nella sezione login
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.navigation_notifications);// sposta l'utente nella sezione login
                 logOutUser();  // effettua il logout per rieffettuare l'autenticazione
             }
         });
@@ -176,7 +185,7 @@ public class UserProfileFragment extends Fragment {
             public void onClick(View v) {
                 logOutUser();
                 Toast.makeText(getActivity(), "logout effettuato", Toast.LENGTH_SHORT).show();
-                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.fragment_login);
+                Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.navigation_notifications);
             }
         });
 
@@ -234,8 +243,6 @@ public class UserProfileFragment extends Fragment {
             profilePic.setImageURI(imageUri);
             uploadImageToFirebase(imageUri);
         }
-
-
     }
 
     private void uploadImageToFirebase(Uri uri) {

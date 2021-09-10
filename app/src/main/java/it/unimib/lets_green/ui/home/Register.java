@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
@@ -21,8 +22,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase;
-import it.unimib.lets_green.ui.Login.Login;
 import it.unimib.lets_green.R;
+import it.unimib.lets_green.ui.Login.Login;
 
 
 public class Register extends Fragment {
@@ -32,6 +33,7 @@ public class Register extends Fragment {
     Button registerUser;
     String email,password;
     static String UserID= null;
+
 
 
     public static Register newInstance() {
@@ -47,6 +49,14 @@ public class Register extends Fragment {
         userPassword = view.findViewById(R.id.textInputPassword1);
         confirmPassword = view.findViewById(R.id.textInputPassword2);
         registerUser= view.findViewById(R.id.containedButton);
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                Navigation.findNavController(view).navigate(R.id.navigation_notifications);
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
 
         registerUser.setOnClickListener(new View.OnClickListener() {
             @Override

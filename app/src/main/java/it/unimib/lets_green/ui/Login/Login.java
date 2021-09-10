@@ -1,7 +1,5 @@
 package it.unimib.lets_green.ui.Login;
 
-import static it.unimib.lets_green.R.string.sendEmailToChangePassword;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
@@ -14,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -28,8 +27,8 @@ import com.google.firebase.auth.FirebaseUser;
 import it.unimib.lets_green.MainActivity;
 import it.unimib.lets_green.R;
 
-
 public class Login extends Fragment {
+
     private static boolean is_logged=false;
     private static final String TAG = "login successful";
     EditText userEmail, userPassword;
@@ -64,6 +63,14 @@ public class Login extends Fragment {
         registerButon = view.findViewById(R.id.outlinedButton2);
         loginButon = view.findViewById(R.id.containedButton);
         resetPassword = view.findViewById(R.id.resetPassword);
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                Navigation.findNavController(view).navigate(R.id.navigation_home);
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
 
         if (is_logged){
 
@@ -100,7 +107,7 @@ public class Login extends Fragment {
                     Toast.makeText(getActivity(), "inserire un'email valida", Toast.LENGTH_SHORT).show();
                 }else {
                     resetPassword(email);
-                    Toast.makeText(getActivity(),  sendEmailToChangePassword, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),  "send email to change password", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -177,7 +184,7 @@ public class Login extends Fragment {
     public void changeUI(){
 //        Intent openPage1 = new Intent(getActivity(),provaImageProfile.class);
 //        startActivity(openPage1);
-      Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.userProfileFragment);
+        Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.userProfileFragment);
         Toast.makeText(getActivity(), "login effettuato con successo", Toast.LENGTH_SHORT).show();
     }
 

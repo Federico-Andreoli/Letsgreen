@@ -1,12 +1,6 @@
 package it.unimib.lets_green;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
@@ -15,6 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.activity.OnBackPressedCallback;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -44,6 +44,7 @@ public class MakesFragment extends Fragment {
     List<VehicleMakes> vehicleMakesList;
 
 
+
     public MakesFragment() {
         // Required empty public constructor
     }
@@ -65,6 +66,14 @@ public class MakesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_makes, container, false);
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                Navigation.findNavController(view).navigate(R.id.pathFragment);
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
 
         recyclerView = view.findViewById(R.id.recyclerView);
         textViewResult = view.findViewById(R.id.nametxt);

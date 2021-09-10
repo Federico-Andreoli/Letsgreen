@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.fragment_login)
+                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         /*
@@ -49,10 +49,10 @@ public class MainActivity extends AppCompatActivity {
      public boolean onOptionsItemSelected( MenuItem item) {
             int id = item.getItemId();
 
-            if (id == R.id.action_profile) {
+            if (id == R.id.action_leaderboard) {
 
                 NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-                navController.navigate(R.id.fragment_login);
+                navController.navigate(R.id.leaderboardFragment);
                 return true;
             }
 

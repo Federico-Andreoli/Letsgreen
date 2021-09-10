@@ -4,14 +4,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
+
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+
 import it.unimib.lets_green.R;
 
 public class DashboardFragment extends Fragment {
@@ -39,10 +44,21 @@ public class DashboardFragment extends Fragment {
         viewPager.setAdapter(demoCollectionAdapter);
         FragmentStateAdapter pagerAdapter = new DemoCollectionAdapter(this, 3);
         TabLayout tabLayout = view.findViewById(R.id.tabs);
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                Navigation.findNavController(view).navigate(R.id.navigation_home);
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
+
         new TabLayoutMediator(tabLayout, viewPager,
                 (tab, position) -> tab.setText(setTabName(position))
         ).attach();
     }
+
+
 
     public String setTabName(int position) {
         switch (position) {

@@ -1,12 +1,13 @@
 package it.unimib.lets_green.ui.dashboard;
 
 import static it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase.TAG;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -17,8 +18,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import it.unimib.lets_green.R;
 
 public class Cat1Fragment extends Fragment {
@@ -42,6 +45,7 @@ public class Cat1Fragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         // settaggio della variabile realativa alla categoria per prendere le piante giuste
         // dal database
+
         String category;
         switch (position) {
             case 0:
