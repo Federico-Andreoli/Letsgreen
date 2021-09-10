@@ -1,4 +1,4 @@
-package it.unimib.lets_green.ui.dashboard;
+package it.unimib.lets_green.ui.catalogue;
 
 import static it.unimib.lets_green.ui.Login.Login.getIs_logged;
 

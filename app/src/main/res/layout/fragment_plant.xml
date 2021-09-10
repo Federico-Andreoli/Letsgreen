@@ -5,7 +5,7 @@
     android:id="@+id/plant_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.dashboard.PlantFragment">
+    tools:context=".ui.catalogue.PlantFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/plant_refresh_layout"

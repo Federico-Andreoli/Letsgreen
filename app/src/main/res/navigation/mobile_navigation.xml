@@ -29,7 +29,7 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="it.unimib.lets_green.ui.dashboard.DashboardFragment"
+        android:name="it.unimib.lets_green.ui.catalogue.CatalogueFragment"
         android:label="@string/title_catalogue"
         tools:layout="@layout/fragment_dashboard" >
         <action
@@ -81,7 +81,7 @@
     </fragment>
     <fragment
         android:id="@+id/plantFragment"
-        android:name="it.unimib.lets_green.ui.dashboard.PlantFragment"
+        android:name="it.unimib.lets_green.ui.catalogue.PlantFragment"
         android:label="fragment_plant"
         tools:layout="@layout/fragment_plant" />
     <fragment
@@ -135,9 +135,9 @@
     </fragment>
     <fragment
         android:id="@+id/cat1Fragment"
-        android:name="it.unimib.lets_green.ui.dashboard.Cat1Fragment"
+        android:name="it.unimib.lets_green.ui.catalogue.CatFragment"
         android:label="fragment_cat1"
-        tools:layout="@layout/fragment_cat1" >
+        tools:layout="@layout/fragment_cat" >
         <action
             android:id="@+id/action_cat1Fragment_to_plantFragment"
             app:destination="@id/plantFragment" />
