@@ -1,11 +1,9 @@
-package it.unimib.lets_green.ui.dashboard;
+package it.unimib.lets_green.ui.catalogue;
 
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toolbar;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -22,7 +20,7 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import it.unimib.lets_green.MainActivity;
 import it.unimib.lets_green.R;
 
-public class DashboardFragment extends Fragment {
+public class CatalogueFragment extends Fragment {
 
     DemoCollectionAdapter demoCollectionAdapter;
     private ViewPager2 viewPager;
@@ -35,7 +33,6 @@ public class DashboardFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        DashboardViewModel dashboardViewModel = new ViewModelProvider(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
         ((MainActivity) getActivity()).setActionBarTitle("Catalogue");
         return root;
@@ -87,7 +84,7 @@ class DemoCollectionAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        return new Cat1Fragment(position);
+        return new CatFragment(position);
     }
 
     @Override

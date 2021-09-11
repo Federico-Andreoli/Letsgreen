@@ -1,4 +1,4 @@
-package it.unimib.lets_green.ui.dashboard;
+package it.unimib.lets_green.ui.catalogue;
 
 import static it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase.TAG;
 
@@ -24,13 +24,13 @@ import java.util.List;
 
 import it.unimib.lets_green.R;
 
-public class Cat1Fragment extends Fragment {
+public class CatFragment extends Fragment {
 
     private List<Plant> plants = null;
     private int position;
     private SwipeRefreshLayout refreshLayout;
 
-    public Cat1Fragment(int position) {
+    public CatFragment(int position) {
         this.position = position;
     }
 
@@ -38,7 +38,7 @@ public class Cat1Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cat1, container, false);
+        return inflater.inflate(R.layout.fragment_cat, container, false);
     }
 
     @Override

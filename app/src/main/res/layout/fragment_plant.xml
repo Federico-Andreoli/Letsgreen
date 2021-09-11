@@ -5,7 +5,7 @@
     android:id="@+id/plant_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.dashboard.PlantFragment">
+    tools:context=".ui.catalogue.PlantFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/plant_refresh_layout"
@@ -57,9 +57,8 @@
                     android:gravity="center_vertical"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
-                    android:textColor="@color/black"
                     android:textIsSelectable="true"
-                    android:textSize="20sp"
+                    android:textAppearance="?attr/textAppearanceListItem"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/image1" />
@@ -83,7 +82,7 @@
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp"
                     android:textIsSelectable="true"
-                    android:textSize="14sp"
+                    android:textAppearance="?attr/textAppearanceListItemSecondary"
                     android:textStyle="italic"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -108,7 +107,8 @@
                     android:minHeight="48dp"
                     android:padding="8dp"
                     android:textIsSelectable="true"
-                    android:textSize="16sp"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="@color/gray"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/divider2" />
