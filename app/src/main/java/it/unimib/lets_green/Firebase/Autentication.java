@@ -25,9 +25,10 @@ import it.unimib.lets_green.ui.Login.Login;
 public class Autentication {
 
     public static void logOutUser(){
-        FirebaseAuth.getInstance().signOut();
-        Login.logOutSet();
+        FirebaseAuth.getInstance().signOut();// effettua l'effettivo logout
+        Login.logOutSet();// imposta il flag is_logged a false
     }
+
     public static void changeEmailAddress(String email){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -48,7 +49,7 @@ public class Autentication {
 
         StorageReference image  = storageReference.child("profile-image/"+ Login.getUserID());
 
-            image.delete()
+            image.delete() // elimina l'immagine dallo storage
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -63,7 +64,7 @@ public class Autentication {
                 }
             });
 
-        user.delete()
+        user.delete() // elimina l'utente da firebase authentication
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -73,7 +74,7 @@ public class Autentication {
                     }
                 });
 
-        mDocRef.delete()
+        mDocRef.delete() // elimina ogni documento dell'utente da firebase firestore
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -89,6 +90,6 @@ public class Autentication {
 
         defaultData.put("userName",UserName );
 
-        FirebaseFirestore.getInstance().collection("User").document(Login.getUserID()).set(defaultData, SetOptions.merge());
+        FirebaseFirestore.getInstance().collection("User").document(Login.getUserID()).set(defaultData, SetOptions.merge()); // cambia il nome utente
     }
 }

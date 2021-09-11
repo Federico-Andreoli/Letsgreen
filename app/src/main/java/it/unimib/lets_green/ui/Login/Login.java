@@ -46,14 +46,14 @@ public class Login extends Fragment {
         return new Login();
     }
 
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            reload();
-        }
-    }
+//    public void onStart() {
+//        super.onStart();
+//        // verifica che l'utente sia
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        if (currentUser != null) {
+//            reload();
+//        }
+//    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
@@ -69,7 +69,7 @@ public class Login extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
             public void handleOnBackPressed() {
-                Navigation.findNavController(view).navigate(R.id.navigation_home);
+                Navigation.findNavController(view).navigate(R.id.navigation_home);// gestione personalizzata pulsante back
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
@@ -141,11 +141,11 @@ public class Login extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            user = mAuth.getCurrentUser();
-                            UserID =user.getUid().toString();
-                            updateUI(user);
-                            changeUI();
+                            // login effettuato con successo
+                            user = mAuth.getCurrentUser(); // ottiene riferimento all'oggetto user
+                            UserID =user.getUid().toString(); // ottiene l'id dell'utente
+                            updateUI(user); // se l'utente é loggato cambia il flag is_logged
+                            changeUI();//carica il fragment del profilo utente
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(getActivity(), "Authentication failed.",
@@ -184,8 +184,7 @@ public class Login extends Fragment {
     }
 
     public void changeUI(){
-//        Intent openPage1 = new Intent(getActivity(),provaImageProfile.class);
-//        startActivity(openPage1);
+
         Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.userProfileFragment);
         Toast.makeText(getActivity(), "login effettuato con successo", Toast.LENGTH_SHORT).show();
     }
