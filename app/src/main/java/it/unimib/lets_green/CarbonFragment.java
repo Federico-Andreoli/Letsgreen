@@ -31,6 +31,7 @@ public class CarbonFragment extends Fragment {
     private Button buttonCalculateCO2;
     private TextView labelCO2;
     private TextView textViewCO2;
+    private TextView grams;
     private EditText editTextName;
     private Button buttonAddPath;
     private JsonPlaceHolderApi jsonPlaceHolderApi;
@@ -47,6 +48,7 @@ public class CarbonFragment extends Fragment {
         textViewCO2 = view.findViewById(R.id.co2);
         editTextName = view.findViewById(R.id.nomePercorso);
         buttonAddPath = view.findViewById(R.id.addPath);
+        grams = view.findViewById(R.id.grams);
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
@@ -98,10 +100,6 @@ public class CarbonFragment extends Fragment {
         buttonCalculateCO2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textViewCO2.setVisibility(view.VISIBLE);
-                editTextName.setVisibility(view.VISIBLE);
-                labelCO2.setVisibility(view.VISIBLE);
-                buttonAddPath.setVisibility(view.VISIBLE);
                 createCarbon(editTextKm.getText().toString(), model);
 
             }
@@ -185,6 +183,11 @@ public class CarbonFragment extends Fragment {
 //                content += "carbon(g): " + carbonRequest.getData().getAttributes().getCarbonG()+ "\n\n";
 
                 textViewCO2.setText(carbonRequest.getData().getAttributes().getCarbonG().toString());
+                textViewCO2.setVisibility(View.VISIBLE);
+                editTextName.setVisibility(View.VISIBLE);
+                labelCO2.setVisibility(View.VISIBLE);
+                grams.setVisibility(View.VISIBLE);
+                buttonAddPath.setVisibility(View.VISIBLE);
             }
 
             @Override

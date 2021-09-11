@@ -5,7 +5,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ModelFragment"
-
         android:orientation="vertical">
 
     <EditText
@@ -13,17 +12,15 @@
         android:id="@+id/searchModel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp"/>
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewModel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="4dp"
-
-        android:scrollbars="vertical"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp">
+        android:scrollbars="vertical">
 
     </androidx.recyclerview.widget.RecyclerView>
     <!--    <AutoCompleteTextView-->

@@ -43,12 +43,12 @@
     <string name="plantimage">plantImage</string>
     <string name="view">View</string>
     <string name="passwordCostraint">inserisci almeno 8 caratteri</string>
-    <string name="generateCarbon">Il Percorso Inserito Genera:</string>
-    <string name="co2Generated">Co2 emessa</string>
-    <string name="insertTripLenght">Inserisci la lunghezza del percorso (Km)</string>
-    <string name="calculateCo2">Calcola La C02 emessa!</string>
-    <string name="insertTripName">Inserisci il nome del percorso</string>
-    <string name="addTrip">Aggiungi il percorso alla mia Lista</string>
+    <string name="generateCarbon">Your Path Generates:</string>
+    <string name="co2Generated">Co2 Generated</string>
+    <string name="insertTripLenght">Insert Route Length (Km)</string>
+    <string name="calculateCo2">Calculate your Co2 Emissions!</string>
+    <string name="insertTripName">Insert Route Name</string>
+    <string name="addTrip">Add Route to My List</string>
     <string name="insertCarBrand">Inserisci la marca della tua Auto!</string>
     <string name="insertCarModel">Inserisci il modello della tua Auto!</string>
     <string name="selectOrCreateTrip">Seleziona o crea il percorso</string>
@@ -72,4 +72,5 @@
     <string name="leaderboard">leaderboard</string>
     <string name="userscore">userScore</string>
     <string name="home">Home</string>
+    <string name="numberOfModels">Number of models</string>
 </resources>
