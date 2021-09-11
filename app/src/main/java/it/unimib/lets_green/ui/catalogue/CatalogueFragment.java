@@ -9,7 +9,6 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
@@ -33,8 +32,8 @@ public class CatalogueFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        ((MainActivity) getActivity()).setActionBarTitle("Catalogue");
+        View root = inflater.inflate(R.layout.fragment_catalogue, container, false);
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.catalogue));
         return root;
     }
 

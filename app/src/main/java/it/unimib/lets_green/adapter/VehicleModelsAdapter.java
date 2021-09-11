@@ -38,7 +38,7 @@ public class VehicleModelsAdapter extends RecyclerView.Adapter<VehicleModelsAdap
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View v = mInflater.from(context).inflate(R.layout.row_model, null);
+        View v = mInflater.inflate(R.layout.row_model, parent, false);
         return new VehicleModelsAdapter.ViewHolder(v);
     }
 

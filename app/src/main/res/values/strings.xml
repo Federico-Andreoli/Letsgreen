@@ -67,8 +67,12 @@
     <string name="delete_account_alert_title">DELETE ACCOUNT</string>
     <string name="delete_account_alert_message">Are you sure you want to delete your account?</string>
     <string name="insert_new_user_name">Insert new User Name</string>
-    <string name="leaderboard">leaderboard</string>
+    <string name="leaderboard">Leaderboard</string>
     <string name="userscore">userScore</string>
     <string name="home">Home</string>
     <string name="numberOfModels">Number of models</string>
+    <string name="routes">Routes</string>
+    <string name="greenHouse">GreenHouse</string>
+    <string name="catalogue">Catalogue</string>
+    <string name="plant">Plant</string>
 </resources>

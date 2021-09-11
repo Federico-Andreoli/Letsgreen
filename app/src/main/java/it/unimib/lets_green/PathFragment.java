@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
@@ -42,6 +43,7 @@ public class PathFragment extends Fragment  {
     private CollectionReference collectionReference;
     private FirestoreRecyclerAdapter adapter;
     private PathAdapterFirestore pathAdapterFirestore;
+    private TextView alternativeMessage;
 
 
     @Override
@@ -52,6 +54,8 @@ public class PathFragment extends Fragment  {
         firebaseFirestore = FirebaseFirestore.getInstance();
         collectionReference = firebaseFirestore.collection("User").document(Login.getUserID()).collection("percorsi");
         vehiclePathList = new ArrayList<VehiclePath>();
+
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.routes));
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
@@ -65,7 +69,6 @@ public class PathFragment extends Fragment  {
         recyclerViewPath = view.findViewById(R.id.recyclerViewPath);
         createPath = view.findViewById(R.id.floatingActionButton);
 
-
         createPath.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +78,7 @@ public class PathFragment extends Fragment  {
         setUpRecyclerView();
         PathFragmentArgs args = PathFragmentArgs.fromBundle(getArguments());
         VehiclePath vehiclePath = args.getPathObject();
+
         if(vehiclePath != null) {
             Map<String, Object> data = new HashMap<>();
             data.put("pathName", vehiclePath.getPathName());
@@ -110,7 +114,6 @@ public class PathFragment extends Fragment  {
 //            }
 //        };
 
-        ((MainActivity) getActivity()).setActionBarTitle("Paths");
         return view;
     }
 

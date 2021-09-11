@@ -47,6 +47,8 @@ public class GreenHouseFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_green_house, container, false);
 
+        ((MainActivity) requireActivity()).setActionBarTitle(getString(R.string.greenHouse));
+
         // settaggio refresh della pagina
         refreshLayout = view.findViewById(R.id.refresh_layout2);
         refreshLayout.setColorSchemeResources(R.color.green);
