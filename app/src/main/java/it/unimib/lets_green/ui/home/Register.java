@@ -53,7 +53,7 @@ public class Register extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
             public void handleOnBackPressed() {
-                Navigation.findNavController(view).navigate(R.id.navigation_notifications);
+                Navigation.findNavController(view).navigate(R.id.navigation_notifications);// gestione pulsante back
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
@@ -71,18 +71,18 @@ public class Register extends Fragment {
 
 }
 
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            reload();
-        }
-    }
+//    public void onStart() {
+//        super.onStart();
+//        // Check if user is signed in (non-null) and update UI accordingly.
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        if (currentUser != null) {
+//            reload();
+//        }
+//    }
 
         private void startUserRegistration() {
 
-        email = userEmail.getText().toString().trim();
+        email = userEmail.getText().toString().trim(); //converte il valore del text field in stringa
         password = userPassword.getText().toString().trim();
         String password2 = confirmPassword.getText().toString().trim();
 
@@ -95,7 +95,7 @@ public class Register extends Fragment {
             Toast.makeText(getActivity(), "inserisci una password valida", Toast.LENGTH_SHORT).show();
         }else if(password.length()<8){   /*verifica che la password sia almeno di 8 caratteri*/
             Toast.makeText(getActivity(), "password troppo corta", Toast.LENGTH_SHORT).show();
-        }else if(password.compareTo(password2)!=0){ /*verifica che le password sono uguali*/
+        }else if(password.compareTo(password2)!=0){ /*verifica se le password sono uguali*/
             Toast.makeText(getActivity(), "le password sono diverse", Toast.LENGTH_SHORT).show();
         }else{
             Log.d(TAG, "registrazione effettuata");
@@ -112,9 +112,9 @@ public class Register extends Fragment {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            FirebaseUser user = mAuth.getCurrentUser();// ottiene il riferimento all'utente appena registrato
                             UserID =user.getUid().toString();
-                            FirestoreDatabase.initializeData(user.getUid().toString());
+                            FirestoreDatabase.initializeData(user.getUid().toString());//inizializza i valori legati all'utente in firebase
                             taskSuccessful(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -127,20 +127,20 @@ public class Register extends Fragment {
     }
 
     private void setDefaultImageProfile(){
-        FirestoreDatabase.initializeImage(getActivity(), R.drawable.image_profile);
+        FirestoreDatabase.initializeImage(getActivity(), R.drawable.image_profile);// riferimento all'immagine iniziale del profilo utente
     }
 
 
     private void taskSuccessful(FirebaseUser user) {
         if (user != null) {
-            mAuth.signInWithEmailAndPassword(email, password);
+            mAuth.signInWithEmailAndPassword(email, password);//effettua il login automaticamente
             Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.userProfileFragment);
-            Login.updateUI(user);
-            Login.setUserID(UserID);
-            setDefaultImageProfile();
+            Login.updateUI(user); // imposta il flag a true
+            Login.setUserID(UserID); //imposta l'id utente
+            setDefaultImageProfile();// imposta l'immagine profilo
         }
     }
-    private void reload(){
-
-    }
+//    private void reload(){
+//
+//    }
 }

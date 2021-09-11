@@ -46,25 +46,25 @@ public class FirestoreDatabase {
         FirebaseFirestore.getInstance().collection("User")
                 .document(Login.getUserID())
                 .collection("greenHouse")
-                .add(addPlant);
+                .add(addPlant); // aggiunge la pianta passata come argomento alla serra
     }
 
     public static void updateHp(double totalHp) {
         FirebaseFirestore.getInstance().collection("User")
                 .document(Login.getUserID())
-                .update("totalHp", totalHp);
+                .update("totalHp", totalHp); //aggiorna la vita della pianta
     }
 
     public static void updateDate() {
         FirebaseFirestore.getInstance().collection("User")
                 .document(Login.getUserID())
-                .update("lastUpdate", LocalDate.now().minusDays(1).toString());
+                .update("lastUpdate", LocalDate.now().minusDays(1).toString());// aggiorna ultimo accesso
     }
 
     public static void updateScore(int score) {
         FirebaseFirestore.getInstance().collection("User")
                 .document(Login.getUserID())
-                .update("score", score);
+                .update("score", score);// aggiorna il punteggio dell'utente
     }
 
 //   public static void modifyData(String UserID, ArrayList<String> greenHousePlant,ArrayList<String> path){
@@ -88,11 +88,11 @@ public class FirestoreDatabase {
         Uri imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
                 "://" + context.getResources().getResourcePackageName(drawableId)
                 + '/' + context.getResources().getResourceTypeName(drawableId)
-                + '/' + context.getResources().getResourceEntryName(drawableId) );
+                + '/' + context.getResources().getResourceEntryName(drawableId) ); //ottiene l'uri del file drowable image_profile
         String insertImage= "profile-image/"+ Login.getUserID();
         StorageReference fileRef= FirebaseStorage.getInstance().getReference().child(insertImage);
         if(imageUri!=null){
-            fileRef.putFile(imageUri);
+            fileRef.putFile(imageUri);// carica nello storage l'immagine utente di default
         }else {
             Log.d(TAG,"uri is null" );
         }

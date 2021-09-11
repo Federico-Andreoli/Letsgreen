@@ -83,13 +83,13 @@ public class UserProfileFragment extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
             public void handleOnBackPressed() {
-                Navigation.findNavController(view).navigate(R.id.navigation_home);
+                Navigation.findNavController(view).navigate(R.id.navigation_home); //gestisce la personalizzazione del pulsante back
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
 
 
-        newUserName.addTextChangedListener(new TextWatcher() {
+        newUserName.addTextChangedListener(new TextWatcher() {  // listener impostato sulle modifiche del text field
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -98,7 +98,7 @@ public class UserProfileFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 userName = newUserName.getText().toString().trim();
-                changeUserName.setEnabled(!userName.isEmpty());
+                changeUserName.setEnabled(!userName.isEmpty()); // se la casella del nome utente é piena rende cliccabile il bottone per cambio username
             }
 
             @Override
@@ -116,7 +116,7 @@ public class UserProfileFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 userEmail=newUserEmail.getText().toString().trim();
-                changeEmail.setEnabled(!userEmail.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(userEmail).matches());
+                changeEmail.setEnabled(!userEmail.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()); // verifica che il pattern del testo inserito coincida con la mail e attiva il bottone cambiamail
 
             }
 
@@ -136,7 +136,7 @@ public class UserProfileFragment extends Fragment {
         deleteAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder= new AlertDialog.Builder(getActivity());
+                AlertDialog.Builder builder= new AlertDialog.Builder(getActivity()); // crea un alert
                 builder.setTitle(R.string.delete_account_alert_title);
                 builder.setMessage(R.string.delete_account_alert_message);
                 builder.setPositiveButton("yes", new DialogInterface.OnClickListener() // gestione interazione con pulsante yes
@@ -163,7 +163,7 @@ public class UserProfileFragment extends Fragment {
         changeEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userEmail=newUserEmail.getText().toString().trim();
+                userEmail=newUserEmail.getText().toString().trim(); //converte il valore nel text field in stringa
                 changeEmailAddress(userEmail);
                 Toast.makeText(getActivity(), "email changed", Toast.LENGTH_SHORT).show();
             }
@@ -211,7 +211,7 @@ public class UserProfileFragment extends Fragment {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     if (document.getId().equals(Login.getUserID())){
-                        displayUserName.setText("Hello, "+ document.getData().get("userName").toString());
+                        displayUserName.setText("Hello, "+ document.getData().get("userName").toString());// imposta lo username dell'utente
                     }
                 }
             }
@@ -222,10 +222,10 @@ public class UserProfileFragment extends Fragment {
 
     private void getUserImage() {
 
-        String pathgetImage= "profile-image/"+ Login.getUserID();
-        StorageReference imageGet  = storageReference.child(pathgetImage);
-        final long ONE_MEGABYTE = 4 * 1024 * 1024;
-        imageGet.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+        String pathgetImage= "profile-image/"+ Login.getUserID();// definisce il percorso nello storage in cui é presente l' immagine
+        StorageReference imageGet  = storageReference.child(pathgetImage);//riferimento allo storage firebase per il recupero della foto
+        final long MEGABYTE = 4 * 1024 * 1024;
+        imageGet.getBytes(MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
                 Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
@@ -239,9 +239,9 @@ public class UserProfileFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == 1000 && resultCode == RESULT_OK) {
 
-            Uri imageUri = data.getData();
+            Uri imageUri = data.getData(); //recupera i dati dall'intent
             profilePic.setImageURI(imageUri);
-            uploadImageToFirebase(imageUri);
+            uploadImageToFirebase(imageUri);// carica l'immagine su firebase
         }
     }
 
