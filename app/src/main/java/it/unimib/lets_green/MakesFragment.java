@@ -118,7 +118,6 @@ public class MakesFragment extends Fragment {
                 filter(s.toString());
             }
         });
-
         return view;
     }
 

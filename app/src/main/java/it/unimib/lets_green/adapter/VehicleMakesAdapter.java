@@ -56,7 +56,7 @@ public class VehicleMakesAdapter extends RecyclerView.Adapter<VehicleMakesAdapte
 //        LayoutInflater layoutInflater = LayoutInflater.from(context);
 //        v = layoutInflater.inflate(R.layout.row_example, parent, false);
 //        return new MyViewHolder(v, mListener);
-        View v = mInflater.from(context).inflate(R.layout.row_example, null);
+        View v = mInflater.inflate(R.layout.row_example, parent, false);
         return new VehicleMakesAdapter.MyViewHolder(v);
     }
 

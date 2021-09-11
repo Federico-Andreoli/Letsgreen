@@ -23,6 +23,8 @@
         android:scrollbars="vertical">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+</LinearLayout>
     <!--    <AutoCompleteTextView-->
     <!--        android:id="@+id/actv"-->
     <!--        android:layout_width="match_parent"-->
@@ -56,4 +58,3 @@
 
     <!--    </androidx.core.widget.NestedScrollView>-->
 
-</LinearLayout>

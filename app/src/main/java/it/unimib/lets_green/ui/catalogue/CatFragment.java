@@ -79,7 +79,7 @@ public class CatFragment extends Fragment {
     }
 
     public void createRecycleView (@NonNull View view) {
-        RecyclerView recyclerView = view.findViewById(R.id.cat1_view);
+        RecyclerView recyclerView = view.findViewById(R.id.cat_view);
         CatalogueRecyclerViewAdapter catalogRecyclerViewAdapter = new CatalogueRecyclerViewAdapter(getContext(), plants, position -> {
             // creazione dell'elemento che conterrà i paramentri da passare
             Bundle bundle = new Bundle();
