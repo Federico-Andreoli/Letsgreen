@@ -47,7 +47,7 @@ public class UserAdapter1 extends RecyclerView.Adapter<UserAdapter1.UsersHolder>
         holder.score.setText(users.get(position).getScore().toString());
         imgReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://lets-green-b9ddf.appspot.com/profile-image/" + users.get(position).getUserId());
             Log.d(TAG, users.get(position).getUserId());
-            final long ONE_MEGABYTE = 1024 * 1024; // dimensione massima dell'immagine da scaricare
+            final long ONE_MEGABYTE = 4 * 1024 * 1024; // dimensione massima dell'immagine da scaricare
             imgReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(bytes -> {
                 Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 holder.imageProfile.setImageBitmap(bmp);
