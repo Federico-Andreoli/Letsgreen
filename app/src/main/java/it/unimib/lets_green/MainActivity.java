@@ -1,5 +1,7 @@
 package it.unimib.lets_green;
 
+import static it.unimib.lets_green.ui.Login.Login.getIs_logged;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         BottomNavigationView navView = findViewById(R.id.bottom_navigation);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -34,16 +37,16 @@ public class MainActivity extends AppCompatActivity {
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+
         /*
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         tolta perchè entrava in conflitto con la top app bar personalizzata -lori
          */
+
         NavigationUI.setupWithNavController(navView, navController);
 
         mToolbar = findViewById(R.id.topAppBar);
         setSupportActionBar(mToolbar);
-        setActionBarTitle("Home");
-
     }
 
     public void setActionBarTitle(String name) {
@@ -54,14 +57,17 @@ public class MainActivity extends AppCompatActivity {
             int id = item.getItemId();
 
             if (id == R.id.action_leaderboard) {
-
-                NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-                navController.navigate(R.id.leaderboardFragment);
-                return true;
+                if(!getIs_logged()) {
+                    DialogFragment dialogFragment = new DialogFragment();
+                    dialogFragment.show(this.getSupportFragmentManager(), "example");
+                } else {
+                    NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+                    navController.navigate(R.id.leaderboardFragment);
+                }
             }
-
             return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -81,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
             fragment.onActivityResult(requestCode, resultCode, data);
         }
         }
-    }
+
+}
 
 

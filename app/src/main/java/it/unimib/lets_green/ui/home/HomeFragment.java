@@ -21,30 +21,20 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import org.w3c.dom.Text;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 import it.unimib.lets_green.DialogFragment;
 import it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase;
 import it.unimib.lets_green.MainActivity;
-import it.unimib.lets_green.ui.Login.Login;
 import it.unimib.lets_green.R;
+import it.unimib.lets_green.ui.Login.Login;
 
 public class HomeFragment extends Fragment {
 
@@ -111,12 +101,18 @@ public class HomeFragment extends Fragment {
                         if (needUpdate(lastUpdate)) {
                             hpUpdate(root);
                         }
-                        else
-                            createRecyclerView(root);
                     });
         }
 
         return root;
+    }
+
+    @Override
+    public void onStart() {
+
+        super.onStart();
+        ((MainActivity) requireActivity()).setActionBarTitle("Home");
+
     }
 
     public void hpUpdate(View root) {
