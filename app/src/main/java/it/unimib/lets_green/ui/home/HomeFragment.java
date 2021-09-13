@@ -65,6 +65,8 @@ public class HomeFragment extends Fragment {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+//        ((MainActivity) getActivity()).setActionBarTitle("home");
+
         carbonCard = root.findViewById(R.id.cardViewPollution);
         greenHouseCard = root.findViewById(R.id.cardViewPlant);
 
@@ -119,6 +121,8 @@ public class HomeFragment extends Fragment {
                         }
                     });
         }
+
+//
 
         return root;
     }
