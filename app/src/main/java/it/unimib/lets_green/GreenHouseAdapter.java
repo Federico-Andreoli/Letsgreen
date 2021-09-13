@@ -27,6 +27,9 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
+import it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase;
+import it.unimib.lets_green.ui.Login.Login;
+
 public class GreenHouseAdapter extends FirestoreRecyclerAdapter<GreenHouseItem, GreenHouseAdapter.GreenHouseAdapterHolder> {
 
     private ArrayList<GreenHouseItem> mPlantList;
@@ -68,7 +71,11 @@ public class GreenHouseAdapter extends FirestoreRecyclerAdapter<GreenHouseItem, 
         holder.mDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getSnapshots().getSnapshot(holder.getAbsoluteAdapterPosition()).getReference().delete();
+                mListener.onItemClick(getSnapshots().getSnapshot(holder.getBindingAdapterPosition()), holder.getBindingAdapterPosition());
+                FirestoreDatabase.subtractPlantFromScore(Double.parseDouble(getSnapshots().getSnapshot(holder.getBindingAdapterPosition()).get("hp").toString()));
+                getSnapshots().getSnapshot(holder.getBindingAdapterPosition()).getReference().delete();
+
+
             }
         });
     }
@@ -130,7 +137,7 @@ public class GreenHouseAdapter extends FirestoreRecyclerAdapter<GreenHouseItem, 
                     if (mListener != null) {
                         int position = getBindingAdapterPosition();
                         if (position != RecyclerView.NO_POSITION) {
-                            mListener.onItemClick(getSnapshots().getSnapshot(position), position);
+
                         }
                     }
                 }

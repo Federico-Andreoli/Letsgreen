@@ -65,9 +65,9 @@ public class CatalogueFragment extends Fragment {
             case 0:
                 return "trees";
             case 1:
-                return "ferns";
+                return "evergreen";
             case 2:
-                return "mosses";
+                return "fruit";
             default:
                 return "not found";
         }

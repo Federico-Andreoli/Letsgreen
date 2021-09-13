@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_navigation_home_to_navigation_dashboard"
-            app:destination="@id/navigation_dashboard" />
+            app:destination="@id/navigation_catalogue" />
         <action
             android:id="@+id/action_navigation_home_to_navigation_notifications"
             app:destination="@id/navigation_notifications" />
@@ -28,7 +28,7 @@
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_catalogue"
         android:name="it.unimib.lets_green.ui.catalogue.CatalogueFragment"
         android:label="@string/title_catalogue"
         tools:layout="@layout/fragment_catalogue" >
@@ -50,7 +50,7 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_navigation_notifications_to_navigation_dashboard"
-            app:destination="@id/navigation_dashboard" />
+            app:destination="@id/navigation_catalogue" />
         <action
             android:id="@+id/action_navigation_notifications_to_navigation_home"
             app:destination="@id/navigation_home" />

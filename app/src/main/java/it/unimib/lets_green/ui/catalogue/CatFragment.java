@@ -52,10 +52,10 @@ public class CatFragment extends Fragment {
                 category = "tree";
                 break;
             case 1:
-                category = "ferns";
+                category = "evergreen";
                 break;
             case 2:
-                category = "flowering";
+                category = "fruit";
                 break;
             default:
                 category = "not found";

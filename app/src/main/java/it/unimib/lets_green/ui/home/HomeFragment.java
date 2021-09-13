@@ -96,7 +96,7 @@ public class HomeFragment extends Fragment {
                         } else {
                             Log.d(TAG, "get failed with", task.getException());
                         }
-                        //Log.d(TAG, "last update: " + lastUpdate.toString());
+                        Log.d(TAG, "last update: " + lastUpdate.toString());
                         // creazione recycler view e aggiornamento hp se necessario
                         if (needUpdate(lastUpdate)) {
                             hpUpdate(root);

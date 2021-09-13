@@ -49,7 +49,7 @@ public class ScoreRecyclerViewAdapter extends RecyclerView.Adapter<ScoreRecycler
                            score = Integer.parseInt(document.get("score").toString());
                            score += hp;
                            FirestoreDatabase.updateScore(score);
-                           holder.scoreTextView.setText("score: "+score);
+                           holder.scoreTextView.setText("score: "+ score);
                            if(Integer.parseInt(document.get("score").toString())< 0){
                                holder.scoreTextView.setBackgroundColor(ContextCompat.getColor(context, R.color.red));
 

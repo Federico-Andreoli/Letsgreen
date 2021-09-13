@@ -9,6 +9,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -65,6 +66,40 @@ public class FirestoreDatabase {
         FirebaseFirestore.getInstance().collection("User")
                 .document(Login.getUserID())
                 .update("score", score);// aggiorna il punteggio dell'utente
+    }
+
+    public static void addPlantToScore(double hp) {
+        FirebaseFirestore.getInstance().collection("User")
+                .document(Login.getUserID())
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (task.isSuccessful()) {
+                            int score = (int) (Integer.parseInt(document.get("score").toString()) + hp);
+                            FirebaseFirestore.getInstance().collection("User")
+                                    .document(Login.getUserID())
+                                    .update("score", score);
+                        }
+                    }
+                });
+    }
+
+    public static void subtractPlantFromScore(double hp) {
+        FirebaseFirestore.getInstance().collection("User")
+                .document(Login.getUserID())
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (task.isSuccessful()) {
+                            int score = (int) (Integer.parseInt(document.get("score").toString()) - hp);
+                            FirebaseFirestore.getInstance().collection("User")
+                                    .document(Login.getUserID())
+                                    .update("score", score);
+                        }
+                    }
+                });
     }
 
 //   public static void modifyData(String UserID, ArrayList<String> greenHousePlant,ArrayList<String> path){
