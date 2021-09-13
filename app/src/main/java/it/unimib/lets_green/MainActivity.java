@@ -37,16 +37,16 @@ public class MainActivity extends AppCompatActivity {
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+
         /*
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         tolta perchè entrava in conflitto con la top app bar personalizzata -lori
          */
+
         NavigationUI.setupWithNavController(navView, navController);
 
         mToolbar = findViewById(R.id.topAppBar);
         setSupportActionBar(mToolbar);
-
-
     }
 
     public void setActionBarTitle(String name) {
@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
             return super.onOptionsItemSelected(item);
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
             fragment.onActivityResult(requestCode, resultCode, data);
         }
         }
-    }
+
+}
 
 

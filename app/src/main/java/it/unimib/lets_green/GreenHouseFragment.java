@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -31,7 +30,7 @@ public class GreenHouseFragment extends Fragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private static String documentID;
     private ArrayList<GreenHouseItem> plantList = new ArrayList<>();
-    private SwipeRefreshLayout refreshLayout;
+//    private SwipeRefreshLayout refreshLayout;
 
     public GreenHouseFragment() {
 
@@ -49,14 +48,14 @@ public class GreenHouseFragment extends Fragment {
 
         ((MainActivity) requireActivity()).setActionBarTitle(getString(R.string.greenHouse));
 
-        // settaggio refresh della pagina
-        refreshLayout = view.findViewById(R.id.refresh_layout2);
-        refreshLayout.setColorSchemeResources(R.color.green);
-        refreshLayout.setOnRefreshListener(() -> {
-            // TODO: implementare refresh
-            createGreenHouse(view);
-            refreshLayout.setRefreshing(false);
-        });
+//        // settaggio refresh della pagina
+//        refreshLayout = view.findViewById(R.id.refresh_layout2);
+//        refreshLayout.setColorSchemeResources(R.color.green);
+//        refreshLayout.setOnRefreshListener(() -> {
+//            // TODO: implementare refresh
+//            createGreenHouse(view);
+//            refreshLayout.setRefreshing(false);
+//        });
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {// gestisce il pulsante di back
             @Override

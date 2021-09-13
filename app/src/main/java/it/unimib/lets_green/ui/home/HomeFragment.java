@@ -1,19 +1,16 @@
 package it.unimib.lets_green.ui.home;
 
-import static it.unimib.lets_green.ui.Login.Login.getIs_logged;
 import static it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase.TAG;
+import static it.unimib.lets_green.ui.Login.Login.getIs_logged;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -21,30 +18,20 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import org.w3c.dom.Text;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 import it.unimib.lets_green.DialogFragment;
 import it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase;
 import it.unimib.lets_green.MainActivity;
-import it.unimib.lets_green.ui.Login.Login;
 import it.unimib.lets_green.R;
+import it.unimib.lets_green.ui.Login.Login;
 
 public class HomeFragment extends Fragment {
 
@@ -64,14 +51,10 @@ public class HomeFragment extends Fragment {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-//        ((MainActivity) getActivity()).setActionBarTitle("home");
-
         carbonCard = root.findViewById(R.id.cardViewPollution);
         greenHouseCard = root.findViewById(R.id.cardViewPlant);
 
         scoreView = root.findViewById(R.id.scoreView);
-
-        //((MainActivity) requireActivity()).setActionBarTitle("Home");
 
         greenHouseCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,11 +106,16 @@ public class HomeFragment extends Fragment {
                     });
         }
 
-//
-
         return root;
     }
 
+    @Override
+    public void onStart() {
+
+        super.onStart();
+        ((MainActivity) requireActivity()).setActionBarTitle("Home");
+
+    }
 
     public void co2EmissionsUpdate(View root)  {
         /*
