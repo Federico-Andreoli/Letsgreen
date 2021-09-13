@@ -132,7 +132,7 @@ public class VehicleAttributes {
     }
 
     public Integer getCarbonG() {
-        return carbonG;
+        return (int) 3.67 * carbonG;
     }
 
     public void setCarbonG(Integer carbonG) {

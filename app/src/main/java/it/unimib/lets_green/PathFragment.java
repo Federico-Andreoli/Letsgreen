@@ -1,8 +1,11 @@
 package it.unimib.lets_green;
 
+import static it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase.TAG;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,18 +22,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase;
 import it.unimib.lets_green.adapter.PathAdapterFirestore;
 import it.unimib.lets_green.ui.Login.Login;
 
@@ -44,6 +52,7 @@ public class PathFragment extends Fragment  {
     private FirestoreRecyclerAdapter adapter;
     private PathAdapterFirestore pathAdapterFirestore;
     private TextView alternativeMessage;
+    int score = 0;
 
 
     @Override
@@ -202,9 +211,29 @@ public class PathFragment extends Fragment  {
                 .setPositiveButton("yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getParentFragment().getContext(), "Position: " + position + "ID: " + documentSnapshot, Toast.LENGTH_LONG).show();
+                        FirebaseFirestore.getInstance()
+                                .collection("User")
+                                .document(Login.getUserID())
+                                .get()
+                                .addOnCompleteListener(task ->  {
+                            if(task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if(document.exists()) {
+                                    // aggiunta codice per sottrarre vita piante
+                                    score = Integer.parseInt(document.get("score").toString());
+                                    score -= Integer.parseInt(pathAdapterFirestore.getItem(position).getPathCarbon());
+                                    FirestoreDatabase.updateScore(score);
+                                    Navigation.findNavController(getView()).navigate(R.id.navigation_home);
+                                }
+                            } else {
+                                Log.d(TAG, "Error getting documents: ", task.getException());
+                            }
+                    });
+                        Toast.makeText(getParentFragment().getContext(),
+                                "The route " + pathAdapterFirestore.getItem(position).getPathName() + " has been added to the score",
+                                Toast.LENGTH_LONG).show();
 //                        Log.d(TAG, "Email sent.");
-                    }
+                                }
                 })
                 .setNegativeButton("no", new DialogInterface.OnClickListener() {
                     @Override

@@ -16,7 +16,7 @@ import retrofit2.http.Path;
 public interface JsonPlaceHolderApi {
 //    chiamata per restituire tutti i tipi di auto (fiat, dodge,ecc)
     @Headers({
-            "Authorization: Bearer XBrDDBBf0Z7TGn4AsFLquA",
+            "Authorization: Bearer uxw6Z5ZQKR0uRSXBXcUtwQ",
             "Content-Type: application/json"
     })
     @GET("api/v1/vehicle_makes")
@@ -24,14 +24,14 @@ public interface JsonPlaceHolderApi {
 
 //    chiamata per restituire tutti i modelli per una marca(fiat500, panda ecc)
     @Headers({
-            "Authorization: Bearer XBrDDBBf0Z7TGn4AsFLquA",
+            "Authorization: Bearer uxw6Z5ZQKR0uRSXBXcUtwQ",
             "Content-Type: application/json"
     })
     @GET("api/v1/vehicle_makes/{id}/vehicle_models")
     Call<List<VehicleModels>> getModels(@Path("id") String vehicle_id);
 
     @Headers({
-            "Authorization: Bearer XBrDDBBf0Z7TGn4AsFLquA",
+            "Authorization: Bearer uxw6Z5ZQKR0uRSXBXcUtwQ",
             "Content-Type: application/json"
     })
     @POST("api/v1/estimates")
