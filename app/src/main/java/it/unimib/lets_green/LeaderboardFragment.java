@@ -46,6 +46,8 @@ public class LeaderboardFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_leaderboard, container, false);
 
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.leaderboard));
+
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
             public void handleOnBackPressed() {

@@ -44,7 +44,7 @@ public class PlantFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ((MainActivity) getActivity()).setActionBarTitle("Plant");
+        ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.plant));
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_plant, container, false);
     }

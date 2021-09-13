@@ -60,7 +60,6 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        //((MainActivity) requireActivity()).setActionBarTitle("Home");
 
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -71,6 +70,8 @@ public class HomeFragment extends Fragment {
         greenHouseCard = root.findViewById(R.id.cardViewPlant);
 
         scoreView = root.findViewById(R.id.scoreView);
+
+        //((MainActivity) requireActivity()).setActionBarTitle("Home");
 
         greenHouseCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +127,7 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
+
 
     public void co2EmissionsUpdate(View root)  {
         /*
