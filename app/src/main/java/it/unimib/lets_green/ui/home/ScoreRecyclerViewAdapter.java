@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -48,7 +49,14 @@ public class ScoreRecyclerViewAdapter extends RecyclerView.Adapter<ScoreRecycler
                            score = Integer.parseInt(document.get("score").toString());
                            score += hp;
                            FirestoreDatabase.updateScore(score);
-                           holder.scoreTextView.setText("Score: " + score);
+                           holder.scoreTextView.setText("score: "+score);
+                           if(Integer.parseInt(document.get("score").toString())< 0){
+                               holder.scoreTextView.setBackgroundColor(ContextCompat.getColor(context, R.color.red));
+
+                           }else{
+                               holder.scoreTextView.setBackgroundColor(ContextCompat.getColor(context,R.color.green));
+
+                           }
                        }
                    }
                 });
@@ -63,6 +71,7 @@ public class ScoreRecyclerViewAdapter extends RecyclerView.Adapter<ScoreRecycler
     public class ScoreViewHolder extends RecyclerView.ViewHolder {
 
         TextView scoreTextView;
+
 
         public ScoreViewHolder(@NonNull View itemView) {
             super(itemView);
