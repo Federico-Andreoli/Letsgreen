@@ -9,19 +9,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase;
 import it.unimib.lets_green.R;
+import it.unimib.lets_green.ui.Login.Login;
 
 public class ScoreRecyclerViewAdapter extends RecyclerView.Adapter<ScoreRecyclerViewAdapter.ScoreViewHolder> {
 
     private double hp;
-    private double co2;
     private Context context;
+    private int score = 0;
 
-    public ScoreRecyclerViewAdapter(Context context, double hp, double co2) {
+    public ScoreRecyclerViewAdapter(Context context, double hp) {
         this.context = context;
         this.hp = hp;
-        this.co2 = co2;
     }
 
     @NonNull
@@ -34,9 +37,21 @@ public class ScoreRecyclerViewAdapter extends RecyclerView.Adapter<ScoreRecycler
 
     @Override
     public void onBindViewHolder(@NonNull ScoreRecyclerViewAdapter.ScoreViewHolder holder, int position) {
-        int score = (int) (hp - co2);
-        holder.scoreTextView.setText("Score: " + score);
-        FirestoreDatabase.updateScore(score);
+        FirebaseFirestore.getInstance()
+                .collection("User")
+                .document(Login.getUserID())
+                .get()
+                .addOnCompleteListener(task -> {
+                   if (task.isSuccessful()) {
+                       DocumentSnapshot document = task.getResult();
+                       if (document.exists()) {
+                           score = Integer.parseInt(document.get("score").toString());
+                           score += hp;
+                           FirestoreDatabase.updateScore(score);
+                           holder.scoreTextView.setText("Score: " + score);
+                       }
+                   }
+                });
     }
 
     @Override

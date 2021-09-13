@@ -58,7 +58,7 @@ public class FirestoreDatabase {
     public static void updateDate() {
         FirebaseFirestore.getInstance().collection("User")
                 .document(Login.getUserID())
-                .update("lastUpdate", LocalDate.now().minusDays(1).toString());// aggiorna ultimo accesso
+                .update("lastUpdate", LocalDate.now().toString());// aggiorna ultimo accesso
     }
 
     public static void updateScore(int score) {
