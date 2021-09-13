@@ -101,6 +101,8 @@ public class HomeFragment extends Fragment {
                         if (needUpdate(lastUpdate)) {
                             hpUpdate(root);
                         }
+                        else
+                            createRecyclerView(root);
                     });
         }
 
