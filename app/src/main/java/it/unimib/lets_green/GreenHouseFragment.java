@@ -93,6 +93,11 @@ public class GreenHouseFragment extends Fragment {
 
     // TODO: vedere se il refresh è fattibile
     public void createGreenHouse(View view) {
+        int score = GreenHouseFragmentArgs.fromBundle(getArguments()).getHpScore();
+        if (score != null) {
+
+
+        }
         firebaseFirestore = FirebaseFirestore.getInstance();
         Query query = firebaseFirestore.collection("User").document(Login.getUserID()).collection("greenHouse");
         FirestoreRecyclerOptions<GreenHouseItem> options= new FirestoreRecyclerOptions.Builder<GreenHouseItem>().setQuery(query, GreenHouseItem.class).build();

@@ -219,10 +219,14 @@ public class PathFragment extends Fragment  {
                             if(task.isSuccessful()) {
                                 DocumentSnapshot document = task.getResult();
                                 if(document.exists()) {
-                                    // aggiunta codice per sottrarre vita piante
+
                                     score = Integer.parseInt(document.get("score").toString());
                                     score -= Integer.parseInt(pathAdapterFirestore.getItem(position).getPathCarbon());
                                     FirestoreDatabase.updateScore(score);
+                                    // aggiunta codice per sottrarre vita piante
+                                    PathFragmentDirections.ActionPathFragmentToGreenHouseFragment action = PathFragmentDirections.actionPathFragmentToGreenHouseFragment();
+                                    action.setScoreHp(score);
+//                                  al posto della navigation alla home va a quella delle piante!
                                     Navigation.findNavController(getView()).navigate(R.id.navigation_home);
                                 }
                             } else {

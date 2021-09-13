@@ -64,7 +64,7 @@ public class GreenHouseAdapter extends FirestoreRecyclerAdapter<GreenHouseItem, 
 
         holder.setPlantName(model.getNamePlant());
         holder.mNamePlant.setText(model.getNamePlant().substring(0, 1).toUpperCase() + model.getNamePlant().substring(1).toLowerCase());
-
+        holder.hp.setText(model.getHp().toString());
         holder.mDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,6 +89,7 @@ public class GreenHouseAdapter extends FirestoreRecyclerAdapter<GreenHouseItem, 
         private ProgressBar mProgressBar;
         private Button mButton;
         private String plantName;
+        private TextView hp;
 
         public void setPlantName(String plantName) {
             this.plantName = plantName;
@@ -96,6 +97,7 @@ public class GreenHouseAdapter extends FirestoreRecyclerAdapter<GreenHouseItem, 
 
         public GreenHouseAdapterHolder(@NonNull View itemView) {
             super(itemView);
+            hp = itemView.findViewById(R.id.hpPlant);
             mImageView = itemView.findViewById(R.id.imageView2);
             mNamePlant = itemView.findViewById(R.id.namePlant);
             mDelete = itemView.findViewById(R.id.deletePlant);

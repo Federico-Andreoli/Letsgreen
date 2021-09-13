@@ -47,6 +47,13 @@
                 android:contentDescription="@string/plant_name"
                 android:gravity="center_vertical"
                 android:textAppearance="?attr/textAppearanceBody2" />
+            <TextView
+                android:id="@+id/hpPlant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="hpPlant"
+                android:textAppearance="?attr/textAppearanceBody2"/>
+
         </LinearLayout>
 
         <!-- Buttons -->
