@@ -47,7 +47,7 @@ public class GreenHouseFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_green_house, container, false);
 
         ((MainActivity) requireActivity()).setActionBarTitle(getString(R.string.greenHouse));
-
+        mRecyclerView = view.findViewById(R.id.RecyclerView);
 //        // settaggio refresh della pagina
 //        refreshLayout = view.findViewById(R.id.refresh_layout2);
 //        refreshLayout.setColorSchemeResources(R.color.green);
@@ -93,16 +93,25 @@ public class GreenHouseFragment extends Fragment {
 
     // TODO: vedere se il refresh è fattibile
     public void createGreenHouse(View view) {
-        int score = GreenHouseFragmentArgs.fromBundle(getArguments()).getHpScore();
+        setUpRecyclerViewGreenHouse();
+        String score = GreenHouseFragmentArgs.fromBundle(getArguments()).getHpScore();
         if (score != null) {
-
-
+           int sizeList = plantList.size();
+           int singlePlantScore = Integer.parseInt(score)/sizeList;
+           for (GreenHouseItem greenHouseItem : plantList){
+               greenHouseItem.setHp(String.valueOf(Integer.parseInt(greenHouseItem.getHp()) - singlePlantScore));
+           }
+           setUpRecyclerViewGreenHouse();
         }
+
+    }
+
+    public void setUpRecyclerViewGreenHouse(){
         firebaseFirestore = FirebaseFirestore.getInstance();
         Query query = firebaseFirestore.collection("User").document(Login.getUserID()).collection("greenHouse");
         FirestoreRecyclerOptions<GreenHouseItem> options= new FirestoreRecyclerOptions.Builder<GreenHouseItem>().setQuery(query, GreenHouseItem.class).build();
 
-        mRecyclerView = view.findViewById(R.id.RecyclerView);
+
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new GreenHouseAdapter(options,plantList);
 
