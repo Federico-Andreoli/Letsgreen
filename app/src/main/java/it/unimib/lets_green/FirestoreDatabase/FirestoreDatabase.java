@@ -41,7 +41,6 @@ public class FirestoreDatabase {
 
     public static void addPlantToGreenHouse(String namePlant, String hp) {
         Map<String, String> addPlant = new HashMap<>();
-
         addPlant.put("namePlant", namePlant);
         addPlant.put("hp", hp);
         FirebaseFirestore.getInstance().collection("User")
@@ -62,7 +61,7 @@ public class FirestoreDatabase {
                 .update("lastUpdate", LocalDate.now().toString());// aggiorna ultimo accesso
     }
 
-    public static void updateScore(int score) {
+    public static void updateScore(double score) {
         FirebaseFirestore.getInstance().collection("User")
                 .document(Login.getUserID())
                 .update("score", score);// aggiorna il punteggio dell'utente
@@ -76,7 +75,7 @@ public class FirestoreDatabase {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         if (task.isSuccessful()) {
-                            int score = (int) (Integer.parseInt(document.get("score").toString()) + hp);
+                            double score = (Double.parseDouble(document.get("score").toString()) + hp);
                             FirebaseFirestore.getInstance().collection("User")
                                     .document(Login.getUserID())
                                     .update("score", score);
@@ -93,7 +92,7 @@ public class FirestoreDatabase {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         if (task.isSuccessful()) {
-                            int score = (int) (Integer.parseInt(document.get("score").toString()) - hp);
+                            double score = (Double.parseDouble(document.get("score").toString()) - hp);
                             FirebaseFirestore.getInstance().collection("User")
                                     .document(Login.getUserID())
                                     .update("score", score);
