@@ -132,6 +132,9 @@
             app:argType="it.unimib.lets_green.VehiclePath"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_pathFragment_to_greenHouseFragment"
+            app:destination="@id/greenHouseFragment" />
     </fragment>
     <fragment
         android:id="@+id/cat1Fragment"
@@ -145,7 +148,13 @@
     <fragment
         android:id="@+id/greenHouseFragment"
         android:name="it.unimib.lets_green.GreenHouseFragment"
-        android:label="GreenHouseFragment" />
+        android:label="GreenHouseFragment" >
+        <argument
+            android:name="scoreHp"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="default" />
+    </fragment>
     <fragment
         android:id="@+id/leaderboardFragment"
         android:name="it.unimib.lets_green.LeaderboardFragment"
