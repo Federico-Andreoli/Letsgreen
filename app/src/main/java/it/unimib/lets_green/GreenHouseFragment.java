@@ -94,7 +94,8 @@ public class GreenHouseFragment extends Fragment {
     // TODO: vedere se il refresh è fattibile
     public void createGreenHouse(View view) {
         setUpRecyclerViewGreenHouse();
-        String score = GreenHouseFragmentArgs.fromBundle(getArguments()).getHpScore();
+
+        String score = GreenHouseFragmentArgs.fromBundle(getArguments()).getScoreHp();
         if (score != null) {
            int sizeList = plantList.size();
            int singlePlantScore = Integer.parseInt(score)/sizeList;
