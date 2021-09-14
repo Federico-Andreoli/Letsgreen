@@ -29,12 +29,10 @@ public class FirestoreDatabase {
 
     public static void initializeData(String userID) {
 
-
             Map<String, Object> defaultData = new HashMap<>();
-
             defaultData.put("score", 0);
             defaultData.put("userName", userID);
-            defaultData.put("lastUpdate", "1970-01-01");
+            defaultData.put("lastUpdate", LocalDate.now().toString());
 
             FirebaseFirestore.getInstance().collection("User").document(userID).set(defaultData);// inizializzazione score utente
         }

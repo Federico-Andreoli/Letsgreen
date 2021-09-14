@@ -66,7 +66,7 @@ public class LeaderboardFragment extends Fragment {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         Log.d(TAG, document.getId());
                         Log.d(TAG, document.get("score").toString());
-                        UserFirebase userFirebase = new UserFirebase(document.getId(), document.getString("userName"),(Long) document.get("score"));
+                        UserFirebase userFirebase = new UserFirebase(document.getId(), document.getString("userName"), Double.parseDouble(document.get("score").toString()));
                         userFirebaseList.add(userFirebase);
                     }
                     Log.d(TAG, userFirebaseList.toString());
