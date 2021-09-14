@@ -48,7 +48,7 @@ public class PathFragment extends Fragment  {
     private FirestoreRecyclerAdapter adapter;
     private PathAdapterFirestore pathAdapterFirestore;
     private TextView alternativeMessage;
-    int score = 0;
+    Double score = 0.0;
 
 
     @Override
@@ -216,14 +216,19 @@ public class PathFragment extends Fragment  {
                                 DocumentSnapshot document = task.getResult();
                                 if(document.exists()) {
 
-                                    score = Integer.parseInt(document.get("score").toString());
-                                    score -= Integer.parseInt(pathAdapterFirestore.getItem(position).getPathCarbon());
+                                    score = Double.parseDouble(document.get("score").toString());
+                                    score -= Double.parseDouble(pathAdapterFirestore.getItem(position).getPathCarbon());
+                                    String scoreFloat=String.valueOf(score);
                                     FirestoreDatabase.updateScore(score);
                                     // aggiunta codice per sottrarre vita piante
                                     PathFragmentDirections.ActionPathFragmentToGreenHouseFragment action = PathFragmentDirections.actionPathFragmentToGreenHouseFragment();
-                                    action.setScoreHp(String.valueOf(score));
+                                    action.setScoreHp(Float.parseFloat(pathAdapterFirestore.getItem(position).getPathCarbon()));
+                                    Log.d(TAG,pathAdapterFirestore.getItem(position).getPathCarbon());
 //                                  al posto della navigation alla home va a quella delle piante!
-                                    Navigation.findNavController(getView()).navigate(R.id.greenHouseFragment);
+                                    Navigation.findNavController(getView()).navigate(action);
+//                                    MakesFragmentDirections.ActionCarbonFragmentToModelFragment2 action = MakesFragmentDirections.actionCarbonFragmentToModelFragment2();
+//                                    action.setIdMakes(item.getData().getId());
+//                                    Navigation.findNavController(getView()).navigate(action);
                                 }
                             } else {
                                 Log.d(TAG, "Error getting documents: ", task.getException());

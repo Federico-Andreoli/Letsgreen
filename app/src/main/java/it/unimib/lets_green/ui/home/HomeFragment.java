@@ -1,22 +1,18 @@
 package it.unimib.lets_green.ui.home;
 
-import static it.unimib.lets_green.ui.Login.Login.getIs_logged;
 import static it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase.TAG;
+import static it.unimib.lets_green.ui.Login.Login.getIs_logged;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,12 +28,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.List;
 
 import it.unimib.lets_green.DialogFragment;
 import it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase;
-import it.unimib.lets_green.GreenHouseItem;
 import it.unimib.lets_green.MainActivity;
 import it.unimib.lets_green.R;
 import it.unimib.lets_green.ui.Login.Login;
@@ -136,19 +129,29 @@ public class HomeFragment extends Fragment {
 //                    List<GreenHouseItem> greenHouseItemList = new ArrayList<>();
                     for(QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                         firebaseFirestore.collection("User").document(Login.getUserID()).collection("greenHouse").document(documentSnapshot.getId())
-                                .set(firebaseFirestore.collection("plants").document(documentSnapshot.getString("namePlant"))
+//                                .set(firebaseFirestore.collection("plants").document(documentSnapshot.getString("namePlant"))
                                         .get().addOnCompleteListener(task1 -> {
                                             if (task1.isSuccessful()) {
                                                 DocumentSnapshot documentSnapshot1 = task1.getResult();
                                                 if (documentSnapshot1.exists()) {
-                                                    documentSnapshot1.getString("co2_absortion");
+                                                    firebaseFirestore.collection("plants").document(documentSnapshot1.getString("namePlant")).get().addOnCompleteListener(task2 -> {
+                                                       if (task2.isSuccessful()){
+                                                           DocumentSnapshot documentSnapshot2= task2.getResult();
+                                                           if(documentSnapshot2.exists()){
+                                                               firebaseFirestore.collection("User").document(Login.getUserID()).collection("greenHouse")
+                                                                       .document(documentSnapshot.getId()).update("hp", documentSnapshot2.getString("co2_absorption"));
+//
+                                                           }
+                                                       }
+                                                    });
+//                                                    documentSnapshot1.getString("co2_absorption");
                                                 } else {
                                                     Log.d(TAG, "no such document");
                                                 }
                                             } else {
                                                 Log.d(TAG, "get failed with", task1.getException());
                                             }
-                                        }));
+                                        });
                     }
                 }else {
                     Log.d(TAG, "Error getting documents: ", task.getException());

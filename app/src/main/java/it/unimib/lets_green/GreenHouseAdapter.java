@@ -28,7 +28,6 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 
 import it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase;
-import it.unimib.lets_green.ui.Login.Login;
 
 public class GreenHouseAdapter extends FirestoreRecyclerAdapter<GreenHouseItem, GreenHouseAdapter.GreenHouseAdapterHolder> {
 
@@ -48,6 +47,7 @@ public class GreenHouseAdapter extends FirestoreRecyclerAdapter<GreenHouseItem, 
     public GreenHouseAdapter(@NonNull FirestoreRecyclerOptions<GreenHouseItem> options, ArrayList<GreenHouseItem> plantList) {
         super(options);
         mPlantList = plantList;
+        Log.d(TAG, mPlantList.toString());
     }
 
     @Override

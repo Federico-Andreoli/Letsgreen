@@ -151,9 +151,8 @@
         android:label="GreenHouseFragment" >
         <argument
             android:name="scoreHp"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="default" />
+            app:argType="float"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/leaderboardFragment"

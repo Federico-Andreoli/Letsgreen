@@ -1,6 +1,9 @@
 package it.unimib.lets_green;
 
+import static it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase.TAG;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +17,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -28,6 +35,7 @@ public class GreenHouseFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private GreenHouseAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private Task<QuerySnapshot> collectionReference;
     private static String documentID;
     private ArrayList<GreenHouseItem> plantList = new ArrayList<>();
 //    private SwipeRefreshLayout refreshLayout;
@@ -65,7 +73,62 @@ public class GreenHouseFragment extends Fragment {
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
 
-        createGreenHouse(view);
+        setUpRecyclerViewGreenHouse();
+        Float score = GreenHouseFragmentArgs.fromBundle(getArguments()).getScoreHp();
+        Log.d(TAG, score.toString());
+
+        if (score != 0) {
+            firebaseFirestore = FirebaseFirestore.getInstance();
+//            int sizeList = plantList.size();
+            firebaseFirestore.collection("User").document(Login.getUserID()).collection("greenHouse").get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                int count = 0;
+                                for (DocumentSnapshot document : task.getResult()) {
+                                    count++;
+                                }
+
+                                Float singlePlantScore = score / count;
+
+                                collectionReference = firebaseFirestore.collection("User").document(Login.getUserID()).collection("greenHouse").get()
+                                        .addOnCompleteListener(task1 -> {
+                                            if (task1.isSuccessful()) {
+                                                for (QueryDocumentSnapshot documentSnapshot : task1.getResult()) {
+                                                    firebaseFirestore.collection("User").document(Login.getUserID()).collection("greenHouse")
+                                                            .document(documentSnapshot.getId()).get().addOnCompleteListener(task2 -> {
+                                                        if (task2.isSuccessful()) {
+                                                            DocumentSnapshot documentSnapshot1 = task2.getResult();
+                                                            if (documentSnapshot1.exists()) {
+                                                                Log.d(TAG, documentSnapshot1.getString("hp"));
+                                                                Log.d(TAG, singlePlantScore.toString());
+                                                                Float updatedSinglePlantScore = Float.parseFloat(documentSnapshot1.getString("hp")) - singlePlantScore;
+                                                                Log.d(TAG, updatedSinglePlantScore.toString());
+                                                                firebaseFirestore.collection("User").document(Login.getUserID()).collection("greenHouse")
+                                                                        .document(documentSnapshot1.getId()).update("hp", String.valueOf(updatedSinglePlantScore));
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        });
+//            for (GreenHouseItem greenHouseItem : plantList){
+//                greenHouseItem.setHp(String.valueOf(Integer.parseInt(greenHouseItem.getHp()) - singlePlantScore));
+//                Log.d(TAG, greenHouseItem.getHp());
+//            }
+
+                            } else {
+                                Log.d(TAG, "Error getting documents: ", task.getException());
+                            }
+
+                        }
+
+
+                    }); setUpRecyclerViewGreenHouse();
+        }
+//        createGreenHouse(view);
+
 
         return view;
     }
@@ -94,17 +157,6 @@ public class GreenHouseFragment extends Fragment {
     // TODO: vedere se il refresh è fattibile
     public void createGreenHouse(View view) {
         setUpRecyclerViewGreenHouse();
-
-        String score = GreenHouseFragmentArgs.fromBundle(getArguments()).getScoreHp();
-        if (score != null) {
-           int sizeList = plantList.size();
-           int singlePlantScore = Integer.parseInt(score)/sizeList;
-           for (GreenHouseItem greenHouseItem : plantList){
-               greenHouseItem.setHp(String.valueOf(Integer.parseInt(greenHouseItem.getHp()) - singlePlantScore));
-           }
-           setUpRecyclerViewGreenHouse();
-        }
-
     }
 
     public void setUpRecyclerViewGreenHouse(){
