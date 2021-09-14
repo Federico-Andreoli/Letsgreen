@@ -46,7 +46,6 @@ import it.unimib.lets_green.ui.Login.Login;
 public class UserProfileFragment extends Fragment {
     private String userEmail;
     private String userName;
-    private EditText ciao;
     private EditText newUserEmail;
     private EditText newUserName;
     private Button logOutButton;
@@ -57,8 +56,6 @@ public class UserProfileFragment extends Fragment {
     private Button changeEmail;
     private Button changeUserName;
     private Button deleteAccount;
-    public static Uri imageUri;
-    private static final int PICK_IMAGE = 100;
     private StorageReference storageReference;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -103,7 +100,6 @@ public class UserProfileFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-//
             }
         });
 
@@ -122,9 +118,9 @@ public class UserProfileFragment extends Fragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-//
             }
         });
+
         changeUserName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,6 +156,7 @@ public class UserProfileFragment extends Fragment {
                 alertDialog.show(); //mostra alert
             }
         });
+
         changeEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,7 +165,6 @@ public class UserProfileFragment extends Fragment {
                 Toast.makeText(getActivity(), "email changed", Toast.LENGTH_SHORT).show();
             }
         });
-
 
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
