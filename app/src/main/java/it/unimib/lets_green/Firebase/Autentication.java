@@ -64,6 +64,16 @@ public class Autentication {
                 }
             });
 
+        mDocRef.delete() // elimina ogni documento dell'utente da firebase firestore
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "document account deleted.");
+                        }
+                    }
+                });
+
         user.delete() // elimina l'utente da firebase authentication
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -74,15 +84,7 @@ public class Autentication {
                     }
                 });
 
-        mDocRef.delete() // elimina ogni documento dell'utente da firebase firestore
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "document account deleted.");
-                        }
-                    }
-                });
+
     }
     public static void changeDataUserName(String UserName){
         Map<String, Object> defaultData = new HashMap<>();
