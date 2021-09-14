@@ -22,16 +22,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -225,7 +221,7 @@ public class PathFragment extends Fragment  {
                                     FirestoreDatabase.updateScore(score);
                                     // aggiunta codice per sottrarre vita piante
                                     PathFragmentDirections.ActionPathFragmentToGreenHouseFragment action = PathFragmentDirections.actionPathFragmentToGreenHouseFragment();
-                                    action.setScoreHp(score);
+                                    action.setScoreHp(String.valueOf(score));
 //                                  al posto della navigation alla home va a quella delle piante!
                                     Navigation.findNavController(getView()).navigate(R.id.navigation_home);
                                 }
