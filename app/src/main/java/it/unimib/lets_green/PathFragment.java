@@ -223,7 +223,7 @@ public class PathFragment extends Fragment  {
                                     PathFragmentDirections.ActionPathFragmentToGreenHouseFragment action = PathFragmentDirections.actionPathFragmentToGreenHouseFragment();
                                     action.setScoreHp(String.valueOf(score));
 //                                  al posto della navigation alla home va a quella delle piante!
-                                    Navigation.findNavController(getView()).navigate(R.id.navigation_home);
+                                    Navigation.findNavController(getView()).navigate(R.id.greenHouseFragment);
                                 }
                             } else {
                                 Log.d(TAG, "Error getting documents: ", task.getException());
