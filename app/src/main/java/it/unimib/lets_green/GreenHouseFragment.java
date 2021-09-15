@@ -54,6 +54,8 @@ public class GreenHouseFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_green_house, container, false);
 
+        mRecyclerView = view.findViewById(R.id.RecyclerView);
+
         ((MainActivity) requireActivity()).setActionBarTitle(getString(R.string.greenHouse));
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {// gestisce il pulsante di back
@@ -153,7 +155,6 @@ public class GreenHouseFragment extends Fragment {
         firebaseFirestore = FirebaseFirestore.getInstance();
         Query query = firebaseFirestore.collection("User").document(Login.getUserID()).collection("greenHouse");
         FirestoreRecyclerOptions<GreenHouseItem> options= new FirestoreRecyclerOptions.Builder<GreenHouseItem>().setQuery(query, GreenHouseItem.class).build();
-
 
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new GreenHouseAdapter(options,plantList);
