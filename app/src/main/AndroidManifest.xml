@@ -3,7 +3,7 @@
     package="it.unimib.lets_green">
 
     <application
-        android:name=".Authentication_start"
+        android:name=".ui.Login.Authentication_start"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Letsgreen"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".provaImageProfile"
+            android:name=".DefaultProfileImage"
             android:exported="true" />
         <activity
             android:name=".MainActivity"

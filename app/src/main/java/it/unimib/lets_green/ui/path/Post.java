@@ -1,4 +1,4 @@
-package it.unimib.lets_green;
+package it.unimib.lets_green.ui.path;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

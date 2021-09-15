@@ -1,4 +1,4 @@
-package it.unimib.lets_green;
+package it.unimib.lets_green.ui.leaderboard;
 
 import static it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase.TAG;
 
@@ -27,14 +27,16 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import it.unimib.lets_green.adapter.UserAdapter1;
+import it.unimib.lets_green.MainActivity;
+import it.unimib.lets_green.R;
+import it.unimib.lets_green.UserFirebase;
 
 public class LeaderboardFragment extends Fragment {
 
     private RecyclerView recyclerViewLeaderboard;
     private FirebaseFirestore firebaseFirestore;
     private Task<QuerySnapshot> collectionReference;
-    private UserAdapter1 userAdapter1;
+    private LeaderboardAdapter leaderboardAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -102,10 +104,10 @@ public class LeaderboardFragment extends Fragment {
     }
 
     private void setUpRecyclerViewLeaderboard(List<UserFirebase> list) {
-        userAdapter1 = new UserAdapter1(list, getContext());
+        leaderboardAdapter = new LeaderboardAdapter(list, getContext());
         recyclerViewLeaderboard.setHasFixedSize(true);
         recyclerViewLeaderboard.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerViewLeaderboard.setAdapter(userAdapter1);
+        recyclerViewLeaderboard.setAdapter(leaderboardAdapter);
     }
 
 }

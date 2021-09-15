@@ -1,4 +1,4 @@
-package it.unimib.lets_green;
+package it.unimib.lets_green.ui.greenHouse;
 
 public class GreenHouseItem {
     private int mImageResource;

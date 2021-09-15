@@ -86,7 +86,7 @@
         tools:layout="@layout/fragment_plant" />
     <fragment
         android:id="@+id/carbonFragment"
-        android:name="it.unimib.lets_green.MakesFragment"
+        android:name="it.unimib.lets_green.ui.path.MakesFragment"
         android:label="CarbonFragment" >
         <action
             android:id="@+id/action_carbonFragment_to_modelFragment2"
@@ -94,7 +94,7 @@
     </fragment>
     <fragment
         android:id="@+id/modelFragment2"
-        android:name="it.unimib.lets_green.ModelFragment"
+        android:name="it.unimib.lets_green.ui.path.ModelFragment"
         android:label="fragment_model"
         tools:layout="@layout/fragment_model" >
         <action
@@ -107,7 +107,7 @@
     </fragment>
     <fragment
         android:id="@+id/carbonFragment2"
-        android:name="it.unimib.lets_green.CarbonFragment"
+        android:name="it.unimib.lets_green.ui.path.CarbonFragment"
         android:label="fragment_carbon"
         tools:layout="@layout/fragment_carbon" >
         <argument
@@ -121,7 +121,7 @@
     </fragment>
     <fragment
         android:id="@+id/pathFragment"
-        android:name="it.unimib.lets_green.PathFragment"
+        android:name="it.unimib.lets_green.ui.path.PathFragment"
         android:label="fragment_path"
         tools:layout="@layout/fragment_path" >
         <action
@@ -147,7 +147,7 @@
     </fragment>
     <fragment
         android:id="@+id/greenHouseFragment"
-        android:name="it.unimib.lets_green.GreenHouseFragment"
+        android:name="it.unimib.lets_green.ui.greenHouse.GreenHouseFragment"
         android:label="GreenHouseFragment" >
         <argument
             android:name="scoreHp"
@@ -156,6 +156,6 @@
     </fragment>
     <fragment
         android:id="@+id/leaderboardFragment"
-        android:name="it.unimib.lets_green.LeaderboardFragment"
+        android:name="it.unimib.lets_green.ui.leaderboard.LeaderboardFragment"
         android:label="LeaderboardFragment" />
 </navigation>

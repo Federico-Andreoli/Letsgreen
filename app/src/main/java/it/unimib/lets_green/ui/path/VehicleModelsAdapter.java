@@ -1,4 +1,4 @@
-package it.unimib.lets_green.adapter;
+package it.unimib.lets_green.ui.path;
 
 import android.content.Context;
 import android.view.LayoutInflater;

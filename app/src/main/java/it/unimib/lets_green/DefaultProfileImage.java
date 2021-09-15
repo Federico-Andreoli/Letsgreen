@@ -13,13 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
-public class provaImageProfile extends AppCompatActivity {
+public class DefaultProfileImage extends AppCompatActivity {
 
     public Button logOutButton;
     public ImageButton addPhoto;
     public ImageView profilePic;
-    public static Uri imageUri;
-    private static final int PICK_IMAGE = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +31,7 @@ public class provaImageProfile extends AppCompatActivity {
         addPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImagePicker.with(provaImageProfile.this)
-//                        .crop()	    			//Crop image(Optional), Check Customization for more option
-//                        .compress(1024)			//Final image size will be less than 1 MB(Optional)
-//                        .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
+                ImagePicker.with(DefaultProfileImage.this)
                         .start();
             }
         });

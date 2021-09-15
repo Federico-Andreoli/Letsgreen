@@ -1,4 +1,4 @@
-package it.unimib.lets_green;
+package it.unimib.lets_green.ui.greenHouse;
 
 import static it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase.TAG;
 
@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -27,6 +26,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+import it.unimib.lets_green.MainActivity;
+import it.unimib.lets_green.R;
 import it.unimib.lets_green.ui.Login.Login;
 
 

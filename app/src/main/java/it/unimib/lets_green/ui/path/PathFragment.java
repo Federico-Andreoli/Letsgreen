@@ -1,11 +1,10 @@
-package it.unimib.lets_green;
+package it.unimib.lets_green.ui.path;
 
 import static it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase.TAG;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +35,8 @@ import java.util.List;
 import java.util.Map;
 
 import it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase;
-import it.unimib.lets_green.adapter.PathAdapterFirestore;
+import it.unimib.lets_green.MainActivity;
+import it.unimib.lets_green.R;
 import it.unimib.lets_green.ui.Login.Login;
 
 public class PathFragment extends Fragment  {

@@ -1,4 +1,4 @@
-package it.unimib.lets_green.adapter;
+package it.unimib.lets_green.ui.path;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,7 +15,6 @@ import java.util.List;
 
 import it.unimib.lets_green.R;
 import it.unimib.lets_green.vehicleMakes.VehicleMakes;
-import it.unimib.lets_green.vehicleModel.VehicleModels;
 
 public class VehicleMakesAdapter extends RecyclerView.Adapter<VehicleMakesAdapter.MyViewHolder> {
 

@@ -1,4 +1,4 @@
-package it.unimib.lets_green;
+package it.unimib.lets_green.ui.path;
 
 import it.unimib.lets_green.RequestCarbon.CarbonRequest;
 import it.unimib.lets_green.vehicleMakes.VehicleMakes;

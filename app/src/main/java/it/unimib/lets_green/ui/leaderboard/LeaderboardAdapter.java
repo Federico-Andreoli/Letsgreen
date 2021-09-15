@@ -1,4 +1,4 @@
-package it.unimib.lets_green.adapter;
+package it.unimib.lets_green.ui.leaderboard;
 
 import static it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase.TAG;
 
@@ -23,13 +23,13 @@ import java.util.List;
 import it.unimib.lets_green.R;
 import it.unimib.lets_green.UserFirebase;
 
-public class UserAdapter1 extends RecyclerView.Adapter<UserAdapter1.UsersHolder> {
+public class LeaderboardAdapter extends RecyclerView.Adapter<LeaderboardAdapter.UsersHolder> {
 
     private List<UserFirebase> users;
     private Context context;
     private StorageReference imgReference;
 
-    public UserAdapter1(List<UserFirebase> users, Context context) {
+    public LeaderboardAdapter(List<UserFirebase> users, Context context) {
         this.users = users;
         this.context = context;
     }

@@ -1,4 +1,4 @@
-package it.unimib.lets_green.adapter;
+package it.unimib.lets_green.ui.path;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +13,6 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import it.unimib.lets_green.R;
-import it.unimib.lets_green.VehiclePath;
 
 public class PathAdapterFirestore extends FirestoreRecyclerAdapter<VehiclePath, PathAdapterFirestore.PathHolder> {
 

@@ -1,10 +1,9 @@
-package it.unimib.lets_green;
+package it.unimib.lets_green.ui.path;
 
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.transition.TransitionInflater;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +16,10 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unimib.lets_green.RequestCarbon.CarbonRequest;
-import it.unimib.lets_green.adapter.VehicleMakesAdapter;
-import it.unimib.lets_green.vehicleMakes.VehicleMakes;
+import it.unimib.lets_green.R;
 import it.unimib.lets_green.vehicleModel.VehicleModels;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -33,12 +29,13 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MakesFragment extends Fragment {
-    private EditText editTextSearchMakes;
+public class ModelFragment extends Fragment {
+
+    private EditText editTextSearchModels;
     private TextView textViewResult;
     private JsonPlaceHolderApi jsonPlaceHolderApi;
-    private RecyclerView recyclerView;
-    List<VehicleMakes> vehicleMakesList;
+    private RecyclerView recyclerViewModels;
+    List<VehicleModels> vehicleModlesList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,7 +45,7 @@ public class MakesFragment extends Fragment {
         setEnterTransition(transitionInflater.inflateTransition(R.transition.slide_right));
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_makes, container, false);
+        View view = inflater.inflate(R.layout.fragment_model, container, false);
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
@@ -56,17 +53,16 @@ public class MakesFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.pathFragment);
             }
         };
+
         requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
-
-        recyclerView = view.findViewById(R.id.recyclerView);
+        editTextSearchModels = view.findViewById(R.id.searchModel);
+        recyclerViewModels = view.findViewById(R.id.recyclerViewModel);
         textViewResult = view.findViewById(R.id.nametxt);
-        vehicleMakesList = new ArrayList<>();
-        editTextSearchMakes = view.findViewById(R.id.searchMakes);
-
+        vehicleModlesList = new ArrayList<>();
+        String makesId = ModelFragmentArgs.fromBundle(getArguments()).getIdMakes();
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-//        traccia le chiamate all'api
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
                 .build();
@@ -78,9 +74,8 @@ public class MakesFragment extends Fragment {
                 .build();
 
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
-        getVeicle();
-//        metodo che permette di cercare gli elementi nella RecyclerView tramite una EditTextView
-        editTextSearchMakes.addTextChangedListener(new TextWatcher() {
+        getModels(makesId);
+        editTextSearchModels.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -99,50 +94,50 @@ public class MakesFragment extends Fragment {
         return view;
     }
 
-    private void getVeicle() {
-        Call<List<VehicleMakes>> call = jsonPlaceHolderApi.getVeicle();
-        call.enqueue(new Callback<List<VehicleMakes>>() {
+    private void getModels(String makesId){
+        Call<List<VehicleModels>> call = jsonPlaceHolderApi.getModels(makesId);
+
+        call.enqueue(new Callback<List<VehicleModels>>() {
             @Override
-            public void onResponse(Call<List<VehicleMakes>> call, Response<List<VehicleMakes>> response) {
+            public void onResponse(Call<List<VehicleModels>> call, Response<List<VehicleModels>> response) {
 
                 if (response.code() != 200){
                     return;
                 }
 
-                List<VehicleMakes> makes = response.body();
+                List<VehicleModels> models = response.body();
+                for (VehicleModels vehicleModels : models) {
 
-                for (VehicleMakes vehicleMakes : makes) {
-                    vehicleMakesList.add(vehicleMakes);
+                    vehicleModlesList.add(vehicleModels);
                 }
 
-                PutDataIntoRecyclerView(vehicleMakesList);
+                PutDataIntoRecyclerView(vehicleModlesList);
 
             }
 
             @Override
-            public void onFailure(Call<List<VehicleMakes>> call, Throwable t) {
+            public void onFailure(Call<List<VehicleModels>> call, Throwable t) {
                 textViewResult.setText(t.getMessage());
             }
         });
     }
-
-    private void PutDataIntoRecyclerView(List<VehicleMakes> listMakes) {
-        VehicleMakesAdapter vehicleMakesAdapter = new VehicleMakesAdapter(listMakes, getContext(), new VehicleMakesAdapter.OnItemClickListener() {
+    private void PutDataIntoRecyclerView(List<VehicleModels> listModels) {
+        VehicleModelsAdapter vehicleModelsAdapter = new VehicleModelsAdapter(listModels, getContext(), new VehicleModelsAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(VehicleMakes item) {
-                moveToModelFragment(item);
+            public void onItemClick(VehicleModels item) {
+                moveToCarbonFragment(item);
             }
         });
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(vehicleMakesAdapter);
+        recyclerViewModels.setHasFixedSize(true);
+        recyclerViewModels.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewModels.setAdapter(vehicleModelsAdapter);
     }
 
     private void filter(String text){
-        ArrayList<VehicleMakes> filteredList =  new ArrayList<>();
+        ArrayList<VehicleModels> filteredList =  new ArrayList<>();
 
-        for(VehicleMakes item : vehicleMakesList){
-            if(item.getData().getMakesAttributes().getName().toLowerCase().contains(text.toLowerCase())) {
+        for(VehicleModels item : vehicleModlesList){
+            if((item.getData().getAttributes().getName() +" "+ item.getData().getAttributes().getYear().toString()).toLowerCase().contains(text.toLowerCase())) {
                 filteredList.add(item);
             }
         }
@@ -150,10 +145,12 @@ public class MakesFragment extends Fragment {
         PutDataIntoRecyclerView(filteredList);
 
     }
-    public void moveToModelFragment(VehicleMakes item){
-        MakesFragmentDirections.ActionCarbonFragmentToModelFragment2 action = MakesFragmentDirections.actionCarbonFragmentToModelFragment2();
-        action.setIdMakes(item.getData().getId());
-        Navigation.findNavController(getView()).navigate(action);
 
+    public void moveToCarbonFragment(VehicleModels item){
+
+        ModelFragmentDirections.ActionModelFragment2ToCarbonFragment2 action = ModelFragmentDirections.actionModelFragment2ToCarbonFragment2();
+        action.setIdModel(item.getData().getId());
+        Navigation.findNavController(getView()).navigate(action);
     }
+
 }

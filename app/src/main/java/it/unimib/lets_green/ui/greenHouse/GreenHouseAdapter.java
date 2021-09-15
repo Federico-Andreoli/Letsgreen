@@ -1,4 +1,4 @@
-package it.unimib.lets_green;
+package it.unimib.lets_green.ui.greenHouse;
 
 import static it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase.TAG;
 
@@ -28,6 +28,7 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 
 import it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase;
+import it.unimib.lets_green.R;
 
 public class GreenHouseAdapter extends FirestoreRecyclerAdapter<GreenHouseItem, GreenHouseAdapter.GreenHouseAdapterHolder> {
 
