@@ -35,27 +35,10 @@ public class VehicleMakesAdapter extends RecyclerView.Adapter<VehicleMakesAdapte
         this.mListener = listener;
     }
 
-//    public interface OnItemClickListener{
-//        void onItemClick(int position);
-//    }
-//
-//    public void setOnItemClickListener(OnItemClickListener listener) {
-//       mListener = listener;
-//    }
-//
-//
-//    public VehicleMakesAdapter(Context context, List<VehicleMakes> vehicleMakesList) {
-//        this.context = context;
-//        this.vehicleMakesList = vehicleMakesList;
-//    }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        View v;
-//        LayoutInflater layoutInflater = LayoutInflater.from(context);
-//        v = layoutInflater.inflate(R.layout.row_example, parent, false);
-//        return new MyViewHolder(v, mListener);
         View v = mInflater.inflate(R.layout.row_example, parent, false);
         return new VehicleMakesAdapter.MyViewHolder(v);
     }
@@ -88,17 +71,6 @@ public class VehicleMakesAdapter extends RecyclerView.Adapter<VehicleMakesAdapte
 
             makesName = (TextView)itemView.findViewById(R.id.modelName);
             makesNumber =(TextView)itemView.findViewById(R.id.modelNumbers);
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if(listener != null){
-//                        int position = getAdapterPosition();
-//                        if(position != RecyclerView.NO_POSITION){
-//                            listener.onItemClick(position);
-//                        }
-//                    }
-//                }
-//            });
 
         }
     }

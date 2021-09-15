@@ -74,7 +74,7 @@ public class CarbonFragment extends Fragment {
                 .addInterceptor(loggingInterceptor)
                 .build();
 
-//        HttpLoggingInterceptor httpClient = OkHttpClient.Builder()
+
 
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -87,6 +87,7 @@ public class CarbonFragment extends Fragment {
         editTextKm.setFilters(new InputFilter[] { limitFilter });
 
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
+
 
         editTextKm.addTextChangedListener(new TextWatcher() {
             @Override
@@ -139,18 +140,11 @@ public class CarbonFragment extends Fragment {
                     DialogFragment dialogFragment = new DialogFragment();
                     dialogFragment.show(getActivity().getSupportFragmentManager(), "example");
                 } else {
-//                VehiclePath path = new VehiclePath(editTextName.getText().toString(), textViewCO2.getText().toString());
                     VehiclePath pathElement = new VehiclePath(editTextName.getText().toString(), textViewCO2.getText().toString());
                     CarbonFragmentDirections.ActionCarbonFragment2ToPathFragment action = CarbonFragmentDirections.actionCarbonFragment2ToPathFragment();
                     action.setPathObject(pathElement);
                     Navigation.findNavController(getView()).navigate(action);
-////                action.setCarbonPath(textViewCO2.getText().toString());
-////                action.setNamePath(editTextName.getText().toString());
-//                Navigation.findNavController(getView()).navigate(action);
-//                action.
-//                Navigation.findNavController(getView()).navigate(R.id.pathFragment);
-//                CarbonFragmentDirections.actionCarbonFragment2ToPathFragment action = CarbonFragmentDirections.actionCarbonFragment2ToPathFragment();
-//                Navigation.findNavController(getView()).navigate(action);
+
                 }
             }
         });
@@ -158,15 +152,7 @@ public class CarbonFragment extends Fragment {
         return view;
     }
     private void createCarbon(String km, String id) {
-//        Map<String, String> fields = new HashMap<>();
-//        fields.put("type", "vehicle");
-//        fields.put("distance_unit", "mi");
-//        fields.put("distance_value", "100");
-//        fields.put("vehicle_model_id", "7268a9b7-17e8-4c8d-acca-57059252afe9");
-//        final String auth = "Bearer " + getBase64String("XBrDDBBf0Z7TGn4AsFLquA");
-//        jsonPlaceHolderApi.getCarbon(auth, "application/json", "vehicle", "mi", 100, "7268a9b7-17e8-4c8d-acca-57059252afe9");
         Post post1 = new Post("vehicle","km", km, id);
-//        Call<CarbonRequest> call = jsonPlaceHolderApi.getCarbon("Bearer XBrDDBBf0Z7TGn4AsFLquA", "application/json", "vehicle", "mi", 100.0, "7268a9b7-17e8-4c8d-acca-57059252afe9");
         Call<CarbonRequest> call = jsonPlaceHolderApi.carbon(post1);
 
         call.enqueue(new Callback<CarbonRequest>() {
@@ -177,19 +163,8 @@ public class CarbonFragment extends Fragment {
                     textViewCO2.setText("Code: "+ response.code());
                     return;
                 }
-//                Toast.makeText(MainActivity.this, "Data added to API", Toast.LENGTH_SHORT).show();
 
                 CarbonRequest carbonRequest = response.body();
-
-
-//                String content ="";
-//                content += "code: " + response.code() + "\n";
-//                content += "ID: " + carbonRequest.getData().getAttributes().getVehicleModelId() + "\n";
-//                content += "unit: " + carbonRequest.getData().getAttributes().getDistanceUnit()+ "\n";
-//                content += "distance value: " + carbonRequest.getData().getAttributes().getDistanceValue()+ "\n";
-//                content += "vehicle make: " + carbonRequest.getData().getAttributes().getVehicleMake()+ "\n";
-//                content += "vehicle model: " + carbonRequest.getData().getAttributes().getVehicleModel()+ "\n";
-//                content += "carbon(g): " + carbonRequest.getData().getAttributes().getCarbonG()+ "\n\n";
 
                 textViewCO2.setText(carbonRequest.getData().getAttributes().getCarbonG().toString());
                 textViewCO2.setVisibility(View.VISIBLE);
@@ -255,7 +230,7 @@ public class CarbonFragment extends Fragment {
 
                 return null;
             } catch (NumberFormatException nfe) {
-                //LOGE("inputfilter", "parse");
+                //LOG("inputfilter", "parse");
             }
             return "";
         }
@@ -265,15 +240,4 @@ public class CarbonFragment extends Fragment {
         }
     }
 
-//    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//        TextView carbon = view.findViewById(R.id.idmodel);
-//
-//        String model = CarbonFragmentArgs.fromBundle(getArguments()).getIdModel();
-//
-//        carbon.setText(model);
-//
-//
-//    }
 }

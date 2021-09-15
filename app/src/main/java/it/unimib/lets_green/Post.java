@@ -2,7 +2,7 @@ package it.unimib.lets_green;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
+//classe usata per il post alla api
 public class Post {
     @Expose
     @SerializedName("type")

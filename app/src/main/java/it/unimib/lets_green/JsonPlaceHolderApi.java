@@ -14,7 +14,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface JsonPlaceHolderApi {
-//    chiamata per restituire tutti i tipi di auto (fiat, dodge,ecc)
+//    chiamata per restituire tutti le marche automobilistiche(fiat, dodge,ecc)
     @Headers({
             "Authorization: Bearer uxw6Z5ZQKR0uRSXBXcUtwQ",
             "Content-Type: application/json"
@@ -29,30 +29,12 @@ public interface JsonPlaceHolderApi {
     })
     @GET("api/v1/vehicle_makes/{id}/vehicle_models")
     Call<List<VehicleModels>> getModels(@Path("id") String vehicle_id);
-
+//    chiamata per restituire le informazioni relative alla macchina inserita tra cui la il valore di carbonio consumato dal percorso
     @Headers({
             "Authorization: Bearer uxw6Z5ZQKR0uRSXBXcUtwQ",
             "Content-Type: application/json"
     })
     @POST("api/v1/estimates")
     Call<CarbonRequest> carbon(@Body Post post);
-//    Call<CarbonRequest>createCarbon(@Body Post post);
-//    Call<CarbonRequest> createCarbon(@Body Post post);
-//    Call<CarbonRequest> createCarbon(@FieldMap Map<String, String> fields);
-
-//            @Field(value = "type") String type,
-//            @Field(value = "distance_unit") String distanceUnit,
-//            @Field(value ="distance_value") Double distanceValue,
-//            @Field(value="vehicle_model_id") String idModel
-//    );
-//    @FormUrlEncoded
-//    @POST("api/v1/estimates")
-//    Call<CarbonRequest> getCarbon(@Header("Authorization") String authorization,
-//                  @Header(("Content-Type")) String contentType,
-//                  @Field(("type")) String type,
-//                  @Field(("distance_unit")) String distanceUnit,
-//                  @Field(("distance_value")) Double distanceValue,
-//                  @Field(("vehicle_model_id")) String idModel
-//                  );
 
 }
