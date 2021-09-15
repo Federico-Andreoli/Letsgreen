@@ -21,29 +21,22 @@ public class FirestoreDatabase {
     public static final String TAG = " FirestoreDatabase";
 
     public static void initializeData(String userID) {
-
             Map<String, Object> defaultData = new HashMap<>();
             defaultData.put("score", 0);
             defaultData.put("userName", userID);
             defaultData.put("lastUpdate", LocalDate.now().toString());
-
             FirebaseFirestore.getInstance().collection("User").document(userID).set(defaultData);// inizializzazione score utente
         }
 
-    public static void addPlantToGreenHouse(String namePlant, String hp) {
+    public static void addPlantToGreenHouse(String namePlant, String hp, String totalHp) {
         Map<String, String> addPlant = new HashMap<>();
         addPlant.put("namePlant", namePlant);
         addPlant.put("hp", hp);
+        addPlant.put("totalHp", totalHp);
         FirebaseFirestore.getInstance().collection("User")
                 .document(Login.getUserID())
                 .collection("greenHouse")
                 .add(addPlant); // aggiunge la pianta passata come argomento alla serra
-    }
-
-    public static void updateHp(double totalHp) {
-        FirebaseFirestore.getInstance().collection("User")
-                .document(Login.getUserID())
-                .update("totalHp", totalHp); //aggiorna la vita della pianta
     }
 
     public static void updateDate() {

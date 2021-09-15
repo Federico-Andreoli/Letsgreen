@@ -84,4 +84,7 @@
     <string name="addPlantToGreenhouse">plant added to greenhouse</string>
     <string name="text_greenhouse_default">Explore the catalogue to fill the Greenhouse!</string>
     <string name="deletedRoute">Route deleted</string>
+    <string name="hpRemaining"> HP remaining</string>
+    <string name="dailyCo2Absorption">Daily Co2 absorption: </string>
+    <string name="grams">g</string>
 </resources>

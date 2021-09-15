@@ -1,6 +1,5 @@
 package it.unimib.lets_green;
 
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -61,6 +60,5 @@ public class VehiclePath implements Parcelable {
         dest.writeString(pathName);
         dest.writeString(pathCarbon);
     }
-
 
 }

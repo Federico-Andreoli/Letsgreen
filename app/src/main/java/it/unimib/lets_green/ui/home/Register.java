@@ -25,16 +25,13 @@ import it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase;
 import it.unimib.lets_green.R;
 import it.unimib.lets_green.ui.Login.Login;
 
-
 public class Register extends Fragment {
     private static final String TAG = "NewsFragment";
     private FirebaseAuth mAuth;
-    EditText userEmail, userPassword, confirmPassword;
-    Button registerUser;
-    String email,password;
+    private EditText userEmail, userPassword, confirmPassword;
+    private Button registerUser;
+    private String email,password;
     static String UserID= null;
-
-
 
     public static Register newInstance() {
 
@@ -65,33 +62,29 @@ public class Register extends Fragment {
             }
         });
 
-
-
         return view;
+    }
 
-}
+    private void startUserRegistration() {
 
-        private void startUserRegistration() {
-
-        email = userEmail.getText().toString().trim(); //converte il valore del text field in stringa
-        password = userPassword.getText().toString().trim();
-        String password2 = confirmPassword.getText().toString().trim();
+    email = userEmail.getText().toString().trim(); //converte il valore del text field in stringa
+    password = userPassword.getText().toString().trim();
+    String password2 = confirmPassword.getText().toString().trim();
 
 
-        if(email.isEmpty()){  /*controllo che la mail non sia vuota*/
-            Toast.makeText(getActivity(), "insert mail", Toast.LENGTH_SHORT).show();
-        }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){ /*verifica se la mail è ben formulata*/
-            Toast.makeText(getActivity(), "invalid email", Toast.LENGTH_SHORT).show();
-        }else if(password.isEmpty()){   /*verifica che la password non sia vuota*/
-            Toast.makeText(getActivity(), "insert password", Toast.LENGTH_SHORT).show();
-        }else if(password.length()<8){   /*verifica che la password sia almeno di 8 caratteri*/
-            Toast.makeText(getActivity(), "password is too short", Toast.LENGTH_SHORT).show();
-        }else if(password.compareTo(password2)!=0){ /*verifica se le password sono uguali*/
-            Toast.makeText(getActivity(), "password doesn't match", Toast.LENGTH_SHORT).show();
-        }else{
-            Log.d(TAG, "registrazione effettuata");
-            createAccount(email,password);
-
+    if(email.isEmpty()){  /*controllo che la mail non sia vuota*/
+        Toast.makeText(getActivity(), "insert mail", Toast.LENGTH_SHORT).show();
+    } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){ /*verifica se la mail è ben formulata*/
+        Toast.makeText(getActivity(), "invalid email", Toast.LENGTH_SHORT).show();
+    } else if (password.isEmpty()){   /*verifica che la password non sia vuota*/
+        Toast.makeText(getActivity(), "insert password", Toast.LENGTH_SHORT).show();
+    } else if (password.length()<8){   /*verifica che la password sia almeno di 8 caratteri*/
+        Toast.makeText(getActivity(), "password is too short", Toast.LENGTH_SHORT).show();
+    } else if (password.compareTo(password2)!=0){ /*verifica se le password sono uguali*/
+        Toast.makeText(getActivity(), "password doesn't match", Toast.LENGTH_SHORT).show();
+    } else {
+        Log.d(TAG, "registrazione effettuata");
+        createAccount(email,password);
         }
     }
 
@@ -121,7 +114,6 @@ public class Register extends Fragment {
         FirestoreDatabase.initializeImage(getActivity(), R.drawable.image_profile);// riferimento all'immagine iniziale del profilo utente
     }
 
-
     private void taskSuccessful(FirebaseUser user) {
         if (user != null) {
             mAuth.signInWithEmailAndPassword(email, password);//effettua il login automaticamente
@@ -131,4 +123,5 @@ public class Register extends Fragment {
             setDefaultImageProfile();// imposta l'immagine profilo
         }
     }
+
 }

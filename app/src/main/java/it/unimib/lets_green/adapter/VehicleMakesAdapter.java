@@ -35,7 +35,6 @@ public class VehicleMakesAdapter extends RecyclerView.Adapter<VehicleMakesAdapte
         this.mListener = listener;
     }
 
-
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -45,16 +44,15 @@ public class VehicleMakesAdapter extends RecyclerView.Adapter<VehicleMakesAdapte
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final VehicleMakes makes = vehicleMakesList.get(position);
-        holder.makesName.setText(vehicleMakesList.get(position).getData().getMakesAttributes().getName().toString());
-        holder.makesNumber.setText(vehicleMakesList.get(position).getData().getMakesAttributes().getNumberOfModels().toString());
+        final VehicleMakes makes = vehicleMakesList.get(holder.getBindingAdapterPosition());
+        holder.makesName.setText(vehicleMakesList.get(holder.getBindingAdapterPosition()).getData().getMakesAttributes().getName());
+        holder.makesNumber.setText(vehicleMakesList.get(holder.getBindingAdapterPosition()).getData().getMakesAttributes().getNumberOfModels().toString());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onItemClick(vehicleMakesList.get(position));
+                mListener.onItemClick(vehicleMakesList.get(holder.getBindingAdapterPosition()));
             }
         });
-
     }
 
     @Override
@@ -74,4 +72,5 @@ public class VehicleMakesAdapter extends RecyclerView.Adapter<VehicleMakesAdapte
 
         }
     }
+
 }

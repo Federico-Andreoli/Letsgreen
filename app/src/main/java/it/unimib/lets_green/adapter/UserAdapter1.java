@@ -53,7 +53,7 @@ public class UserAdapter1 extends RecyclerView.Adapter<UserAdapter1.UsersHolder>
                 Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 holder.imageProfile.setImageBitmap(bmp);
             }).addOnFailureListener(exception -> {
-                // TODO: Handle any errors
+                Log.d(TAG, "image failure");
             });
         }
 
@@ -66,6 +66,7 @@ public class UserAdapter1 extends RecyclerView.Adapter<UserAdapter1.UsersHolder>
         TextView username;
         TextView score;
         ImageView imageProfile;
+
         public UsersHolder(@NonNull View itemView) {
             super(itemView);
             username = itemView.findViewById(R.id.profileName);
@@ -73,4 +74,5 @@ public class UserAdapter1 extends RecyclerView.Adapter<UserAdapter1.UsersHolder>
             imageProfile = itemView.findViewById(R.id.profileImg);
         }
     }
+
 }

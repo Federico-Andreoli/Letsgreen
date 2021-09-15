@@ -39,7 +39,6 @@ import it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase;
 import it.unimib.lets_green.adapter.PathAdapterFirestore;
 import it.unimib.lets_green.ui.Login.Login;
 
-
 public class PathFragment extends Fragment  {
     private RecyclerView recyclerViewPath;
     private FloatingActionButton createPath;
@@ -50,7 +49,6 @@ public class PathFragment extends Fragment  {
     private PathAdapterFirestore pathAdapterFirestore;
     private TextView alternativeMessage;
     Double score = 0.0;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -212,7 +210,5 @@ public class PathFragment extends Fragment  {
         super.onStop();
         pathAdapterFirestore.stopListening();
     }
-
-
 
 }

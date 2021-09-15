@@ -29,7 +29,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-
 public class ModelFragment extends Fragment {
 
     private EditText editTextSearchModels;
@@ -144,8 +143,6 @@ public class ModelFragment extends Fragment {
         }
 
         PutDataIntoRecyclerView(filteredList);
-
-
 
     }
 

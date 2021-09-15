@@ -43,7 +43,6 @@ public class Login extends Fragment {
         return new Login();
     }
 
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
@@ -53,6 +52,7 @@ public class Login extends Fragment {
         loginButon = view.findViewById(R.id.containedButton);
         resetPassword = view.findViewById(R.id.resetPassword);
 
+        // impostazione titolo action bar
         ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.profile));
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
@@ -64,8 +64,6 @@ public class Login extends Fragment {
         requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
 
         if (is_logged){
-
-
             NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
             navController.navigate(R.id.userProfileFragment);
         }
@@ -110,7 +108,6 @@ public class Login extends Fragment {
         String email = userEmail.getText().toString().trim();
         String password = userPassword.getText().toString().trim();
 
-
         if(email.isEmpty()){  /*controllo che la mail non sia vuota*/
             Toast.makeText(getActivity(), R.string.insertEmail, Toast.LENGTH_SHORT).show();
         }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){ /*verifica se la mail è ben formulata*/
@@ -122,7 +119,6 @@ public class Login extends Fragment {
 
         }
     }
-
 
     public void LoginFirebase(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
@@ -158,7 +154,6 @@ public class Login extends Fragment {
                 });
     }
 
-
     public static String getEmail(){
         user = FirebaseAuth.getInstance().getCurrentUser();
         return user.getEmail();
@@ -177,7 +172,6 @@ public class Login extends Fragment {
     }
 
     public static boolean getIs_logged() {
-
         return is_logged;
     }
     public static void logOutSet() {
@@ -193,11 +187,11 @@ public class Login extends Fragment {
     }
 
     public static String getUserID() {
-
         return UserID;
     }
 
     public static void setUser(FirebaseUser User) {
         user = User;
     }
+
 }

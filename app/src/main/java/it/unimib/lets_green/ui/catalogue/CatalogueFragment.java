@@ -67,7 +67,6 @@ public class CatalogueFragment extends Fragment {
         ).attach();
     }
 
-
     // impostazione del titolo dei tab
     public String setTabName(int position) {
         switch (position) {

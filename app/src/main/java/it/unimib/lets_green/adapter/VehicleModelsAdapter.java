@@ -32,8 +32,6 @@ public class VehicleModelsAdapter extends RecyclerView.Adapter<VehicleModelsAdap
         this.mListener = listener;
     }
 
-
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -44,13 +42,13 @@ public class VehicleModelsAdapter extends RecyclerView.Adapter<VehicleModelsAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.nameModel.setText(vehicleModelsList.get(position).getData().getAttributes().getName());
-        holder.yearModel.setText(vehicleModelsList.get(position).getData().getAttributes().getYear().toString());
+        holder.nameModel.setText(vehicleModelsList.get(holder.getBindingAdapterPosition()).getData().getAttributes().getName());
+        holder.yearModel.setText(vehicleModelsList.get(holder.getBindingAdapterPosition()).getData().getAttributes().getYear().toString());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                mListener.onItemClick(vehicleModelsList.get(position));
+                mListener.onItemClick(vehicleModelsList.get(holder.getBindingAdapterPosition()));
             }
         });
     }
@@ -70,4 +68,5 @@ public class VehicleModelsAdapter extends RecyclerView.Adapter<VehicleModelsAdap
             yearModel = itemView.findViewById(R.id.modelYear);
         }
     }
+
 }

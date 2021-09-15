@@ -46,21 +46,18 @@ public class PathAdapterFirestore extends FirestoreRecyclerAdapter<VehiclePath, 
 
         public PathHolder(@NonNull View itemView) {
             super(itemView);
-            namePath = (TextView)itemView.findViewById(R.id.namePath);
-            carbonPath =(TextView)itemView.findViewById(R.id.carbonNumber);
+            namePath = itemView.findViewById(R.id.namePath);
+            carbonPath = itemView.findViewById(R.id.carbonNumber);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int position = getAdapterPosition();
+                    int position = getBindingAdapterPosition();
                     if (position != RecyclerView.NO_POSITION && listener != null) {
                         listener.inItemClick(getSnapshots().getSnapshot(position), position);
                     }
-
                 }
             });
-
-
         }
     }
 

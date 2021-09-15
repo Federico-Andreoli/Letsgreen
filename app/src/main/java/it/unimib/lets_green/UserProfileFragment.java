@@ -42,7 +42,6 @@ import com.google.firebase.storage.StorageReference;
 import it.unimib.lets_green.Firebase.Autentication;
 import it.unimib.lets_green.ui.Login.Login;
 
-
 public class UserProfileFragment extends Fragment {
     private String userEmail;
     private String userName;
@@ -72,7 +71,6 @@ public class UserProfileFragment extends Fragment {
         newUserName=view.findViewById(R.id.textInputUserNameChange);
         deleteAccount=view.findViewById(R.id.buttonDeleteAccount);
 
-
         storageReference = FirebaseStorage.getInstance().getReference();
 
         setDisplayUserName();
@@ -85,11 +83,9 @@ public class UserProfileFragment extends Fragment {
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
 
-
         newUserName.addTextChangedListener(new TextWatcher() {  // listener impostato sulle modifiche del text field
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
@@ -106,14 +102,12 @@ public class UserProfileFragment extends Fragment {
         newUserEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 userEmail=newUserEmail.getText().toString().trim();
                 changeEmail.setEnabled(!userEmail.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()); // verifica che il pattern del testo inserito coincida con la mail e attiva il bottone cambiamail
-
             }
 
             @Override
@@ -196,8 +190,6 @@ public class UserProfileFragment extends Fragment {
             }
         });
 
-
-
         return view;
     }
 
@@ -214,8 +206,6 @@ public class UserProfileFragment extends Fragment {
         });
     }
 
-
-
     private void getUserImage() {
 
         String pathgetImage= "profile-image/"+ Login.getUserID();// definisce il percorso nello storage in cui é presente l' immagine
@@ -229,7 +219,6 @@ public class UserProfileFragment extends Fragment {
             }
         });
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

@@ -84,7 +84,7 @@ public class HomeFragment extends Fragment {
 
         // metodo per aggiornare il punteggio a seconda delle piante possedute
         // solo se l'ultimo aggiornamento è avvenuto un giorno precedente
-        if(getIs_logged() && totalHp == 0.0) {
+        if(getIs_logged()) {
             // recupero la data dell'ultimo update
             FirebaseFirestore.getInstance()
                     .collection("User")
@@ -101,7 +101,6 @@ public class HomeFragment extends Fragment {
                         } else {
                             Log.d(TAG, "get failed with", task.getException());
                         }
-                        Log.d(TAG, "last update: " + lastUpdate.toString());
                         // creazione recycler view e aggiornamento hp se necessario
                         if (needUpdate(lastUpdate)) {
                             hpGreenHouseSinglePlantReset();
@@ -123,6 +122,8 @@ public class HomeFragment extends Fragment {
 
     }
 
+    // reset della vita di ogni signola pianta (visualizzata nella greenhouse)
+    // tramite chiamate al database
     public void hpGreenHouseSinglePlantReset(){
         firebaseFirestore = FirebaseFirestore.getInstance();
         collectionReference = firebaseFirestore.collection("User")
@@ -161,45 +162,29 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    // metodo per calcolare la vita totale delle piante possedute
+    // metodo per calcolare la vita totale delle piante possedute tramite chiamata al database
     public void hpUpdate(View root) {
         FirebaseFirestore.getInstance()
                 .collection("User")
                 .document(Login.getUserID())
                 .collection("greenHouse")
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                        if (error != null) {
-                            Log.w(TAG, "Listen failed.", error);
-                            return;
-                        }
-                        for(DocumentSnapshot documentSnapshot: value) {
-                            if(documentSnapshot.get("hp") != null)
-                                FirebaseFirestore.getInstance()
-                                .collection("plants")
-                                .document(documentSnapshot.get("namePlant").toString())
-                                .get()
-                                .addOnCompleteListener(task -> {
-                                    if(task.isSuccessful()) {
-                                        DocumentSnapshot documentSnapshot1 = task.getResult();
-                                        if (documentSnapshot1.exists()) {
-                                            totalHp += Double.parseDouble(documentSnapshot1.getString("co2_absorption"));
-                                        }
-                                    }
-                                });
-                        }
-                        createRecyclerView(root);
-                    }
+                .get()
+                .addOnCompleteListener(task -> {
+                   if (task.isSuccessful()) {
+                       for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
+                               totalHp += Double.parseDouble(documentSnapshot.getString("totalHp"));
+                       }
+                       createRecyclerView(root);
+                   }
                 });
     }
 
     // metodo per la creazione della recyclerview
     public void createRecyclerView(View root) {
         scoreView = root.findViewById(R.id.scoreView);
-        // aggiorno i valori di hp e la data nel database
-        FirestoreDatabase.updateHp(totalHp);
+        // aggiornamento la data nel database
         FirestoreDatabase.updateDate();
+        // istanziamento della recyclerview
         scoreRecyclerViewAdapter = new ScoreRecyclerViewAdapter(getContext(), totalHp);
         scoreView.setLayoutManager(new LinearLayoutManager(getActivity()));
         scoreView.setAdapter(scoreRecyclerViewAdapter);

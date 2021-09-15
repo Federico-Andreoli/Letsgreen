@@ -43,11 +43,10 @@ public class GreenHouseAdapter extends FirestoreRecyclerAdapter<GreenHouseItem, 
     public interface onItemClickListener {
         void onItemClick(DocumentSnapshot documentSnapshot, int position);
     }
-//creazione dell'array contenente le piante
+    //creazione dell'array contenente le piante
     public GreenHouseAdapter(@NonNull FirestoreRecyclerOptions<GreenHouseItem> options, ArrayList<GreenHouseItem> plantList) {
         super(options);
         mPlantList = plantList;
-        Log.d(TAG, mPlantList.toString());
     }
 
     @Override
@@ -62,12 +61,12 @@ public class GreenHouseAdapter extends FirestoreRecyclerAdapter<GreenHouseItem, 
             holder.mProgressBar.setVisibility(View.GONE);
             holder.mImageView.setVisibility(View.VISIBLE);
         }).addOnFailureListener(exception -> {
-            // TODO: Handle any errors
+            Log.d(TAG, "image failure");
         });
 
         holder.setPlantName(model.getNamePlant());
         holder.mNamePlant.setText(model.getNamePlant().substring(0, 1).toUpperCase() + model.getNamePlant().substring(1).toLowerCase());
-        holder.hp.setText(model.getHp() + "g of CO2 per day");
+        holder.hp.setText(model.getHp() + " HP remaining");
         holder.mDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,7 +109,7 @@ public class GreenHouseAdapter extends FirestoreRecyclerAdapter<GreenHouseItem, 
             mDelete = itemView.findViewById(R.id.deletePlant);
             mProgressBar = itemView.findViewById(R.id.progressBar2);
             mButton = itemView.findViewById(R.id.viewButton);
-//settaggio pulsante view che rimanda a plant
+            //settaggio pulsante view che rimanda a plant
             mButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -133,7 +132,7 @@ public class GreenHouseAdapter extends FirestoreRecyclerAdapter<GreenHouseItem, 
                     });
                 }
             });
-//settaggio pulsante del cestino
+            //settaggio pulsante del cestino
             mDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

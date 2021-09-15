@@ -80,7 +80,7 @@ public class PlantFragment extends Fragment {
         plantName.setText(receiveBundle.getString("name").substring(0, 1).toUpperCase() + receiveBundle.getString("name").substring(1).toLowerCase());
         plantCommonName.setText(receiveBundle.getString("common_name"));
         plantDescription.setText(receiveBundle.getString("description"));
-        co2Absorption.setText("Co2 absorption: " + receiveBundle.getString("co2_absorption") + "g");
+        co2Absorption.setText(getString(R.string.dailyCo2Absorption) + " " + receiveBundle.getString("co2_absorption") + getString(R.string.grams));
 
         // settaggio refresh della pagina
         refreshLayout = view.findViewById(R.id.plant_refresh_layout);
@@ -107,7 +107,7 @@ public class PlantFragment extends Fragment {
                 DialogFragment dialogFragment = new DialogFragment();
                 dialogFragment.show(getActivity().getSupportFragmentManager(), "login requested");
             } else {
-                FirestoreDatabase.addPlantToGreenHouse(receiveBundle.getString("name"), receiveBundle.getString("co2_absorption"));
+                FirestoreDatabase.addPlantToGreenHouse(receiveBundle.getString("name"), receiveBundle.getString("co2_absorption"), receiveBundle.getString("co2_absorption"));
                 FirestoreDatabase.addPlantToScore(Double.parseDouble(receiveBundle.getString("co2_absorption")));
                 Toast.makeText(getActivity(), R.string.addPlantToGreenhouse, Toast.LENGTH_SHORT).show();
             }

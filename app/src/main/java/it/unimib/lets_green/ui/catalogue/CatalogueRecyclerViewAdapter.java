@@ -82,5 +82,6 @@ public class CatalogueRecyclerViewAdapter extends RecyclerView.Adapter<Catalogue
             progressBar = itemView.findViewById(R.id.progressBar2);
             itemView.setOnClickListener(v -> listener.onItemClick(getBindingAdapterPosition()));
         }
+
     }
 }

@@ -21,7 +21,7 @@ public class ScoreRecyclerViewAdapter extends RecyclerView.Adapter<ScoreRecycler
 
     private double hp;
     private Context context;
-    private double score = 0;
+    private double score;
 
     public ScoreRecyclerViewAdapter(Context context, double hp) {
         this.context = context;
@@ -50,7 +50,7 @@ public class ScoreRecyclerViewAdapter extends RecyclerView.Adapter<ScoreRecycler
                            score += hp;
                            FirestoreDatabase.updateScore(score);
                            holder.scoreTextView.setText("score: "+ (int) score);
-                           if(Double.parseDouble(document.get("score").toString())< 0){
+                           if(score < 0) {
                                holder.scoreTextView.setBackgroundColor(ContextCompat.getColor(context, R.color.gray));
                            } else {
                                holder.scoreTextView.setBackgroundColor(ContextCompat.getColor(context,R.color.green));

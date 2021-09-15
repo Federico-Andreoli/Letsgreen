@@ -29,7 +29,6 @@ import java.util.List;
 
 import it.unimib.lets_green.adapter.UserAdapter1;
 
-
 public class LeaderboardFragment extends Fragment {
 
     private RecyclerView recyclerViewLeaderboard;
@@ -37,11 +36,11 @@ public class LeaderboardFragment extends Fragment {
     private Task<QuerySnapshot> collectionReference;
     private UserAdapter1 userAdapter1;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        // impostazione della transizione in entrata per questo fragment
         TransitionInflater transitionInflater = TransitionInflater.from(getActivity());
         setEnterTransition(transitionInflater.inflateTransition(R.transition.fade));
 
@@ -108,4 +107,5 @@ public class LeaderboardFragment extends Fragment {
         recyclerViewLeaderboard.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewLeaderboard.setAdapter(userAdapter1);
     }
+
 }

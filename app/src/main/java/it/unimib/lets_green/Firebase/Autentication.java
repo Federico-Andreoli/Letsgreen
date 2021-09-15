@@ -42,7 +42,8 @@ public class Autentication {
                     }
                 });
     }
-    public static void deleteAccount(){
+
+    public static void deleteAccount() {
         StorageReference storageReference= FirebaseStorage.getInstance().getReference();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DocumentReference mDocRef = FirebaseFirestore.getInstance().collection("User").document(Login.getUserID());
@@ -83,15 +84,14 @@ public class Autentication {
                         }
                     }
                 });
-
-
     }
+
     public static void changeDataUserName(String UserName){
         Map<String, Object> defaultData = new HashMap<>();
-
 
         defaultData.put("userName",UserName );
 
         FirebaseFirestore.getInstance().collection("User").document(Login.getUserID()).set(defaultData, SetOptions.merge()); // cambia il nome utente
     }
+
 }
