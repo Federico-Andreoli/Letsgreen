@@ -31,6 +31,7 @@ import it.unimib.lets_green.ui.Login.Login;
 
 
 public class GreenHouseFragment extends Fragment {
+    private TextView greenHouseTextView;
     private FirebaseFirestore firebaseFirestore;
     private RecyclerView mRecyclerView;
     private GreenHouseAdapter mAdapter;
@@ -54,6 +55,8 @@ public class GreenHouseFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_green_house, container, false);
 
+
+        greenHouseTextView=view.findViewById(R.id.textViewGreenHouse);
         mRecyclerView = view.findViewById(R.id.RecyclerView);
 
         ((MainActivity) requireActivity()).setActionBarTitle(getString(R.string.greenHouse));
@@ -64,6 +67,7 @@ public class GreenHouseFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.navigation_home);
             }
         };
+
         requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
 
         setUpRecyclerViewGreenHouse();
@@ -78,7 +82,6 @@ public class GreenHouseFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
-                                Log.d(TAG,"ciao");
                                 int count = 0;
                                 for (DocumentSnapshot document : task.getResult()) {
                                     count++;
@@ -155,6 +158,8 @@ public class GreenHouseFragment extends Fragment {
         firebaseFirestore = FirebaseFirestore.getInstance();
         Query query = firebaseFirestore.collection("User").document(Login.getUserID()).collection("greenHouse");
         FirestoreRecyclerOptions<GreenHouseItem> options= new FirestoreRecyclerOptions.Builder<GreenHouseItem>().setQuery(query, GreenHouseItem.class).build();
+
+//        firebaseFirestore.collection("User").document(Login.getUserID()).collection("greenHouse");
 
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new GreenHouseAdapter(options,plantList);

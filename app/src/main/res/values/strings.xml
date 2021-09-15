@@ -82,4 +82,5 @@
     <string name="pathname">pathName</string>
     <string name="pathlength">pathLength</string>
     <string name="addPlantToGreenhouse">plant added to greenhouse</string>
+    <string name="text_greenhouse_default">Explore the catalogue to fill the Greenhouse!</string>
 </resources>
