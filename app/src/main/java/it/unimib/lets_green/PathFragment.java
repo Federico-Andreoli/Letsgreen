@@ -140,7 +140,6 @@ public class PathFragment extends Fragment  {
                 .setQuery(query, VehiclePath.class)
                 .build();
         pathAdapterFirestore = new PathAdapterFirestore(options);
-        recyclerViewPath.setHasFixedSize(true);
         recyclerViewPath.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewPath.setAdapter(pathAdapterFirestore);
         VehiclePath deletedPath = null;

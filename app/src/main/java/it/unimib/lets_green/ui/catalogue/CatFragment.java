@@ -91,6 +91,7 @@ public class CatFragment extends Fragment {
             bundle.putString("species", plants.get(position).getSpecies());
             bundle.putString("description", plants.get(position).getDescription());
             bundle.putString("co2_absorption", plants.get(position).getCo2Absorption());
+            bundle.putString("species", plants.get(position).getSpecies());
             // passaggio al fragment della singola pianta
             Navigation.findNavController(view).navigate(R.id.plantFragment, bundle);
         });

@@ -81,4 +81,5 @@
     <string name="username">userName</string>
     <string name="pathname">pathName</string>
     <string name="pathlength">pathLength</string>
+    <string name="addPlantToGreenhouse">plant added to greenhouse</string>
 </resources>
