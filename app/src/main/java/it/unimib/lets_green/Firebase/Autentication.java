@@ -43,7 +43,7 @@ public class Autentication {
                 });
     }
     public static void deleteAccount(){
-        StorageReference storageReference= FirebaseStorage.getInstance().getReference();;
+        StorageReference storageReference= FirebaseStorage.getInstance().getReference();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         DocumentReference mDocRef = FirebaseFirestore.getInstance().collection("User").document(Login.getUserID());
 
