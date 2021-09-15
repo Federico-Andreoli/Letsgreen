@@ -52,10 +52,8 @@ public class ScoreRecyclerViewAdapter extends RecyclerView.Adapter<ScoreRecycler
                            holder.scoreTextView.setText("score: "+ (int) score);
                            if(Double.parseDouble(document.get("score").toString())< 0){
                                holder.scoreTextView.setBackgroundColor(ContextCompat.getColor(context, R.color.gray));
-
-                           }else{
+                           } else {
                                holder.scoreTextView.setBackgroundColor(ContextCompat.getColor(context,R.color.green));
-
                            }
                        }
                    }

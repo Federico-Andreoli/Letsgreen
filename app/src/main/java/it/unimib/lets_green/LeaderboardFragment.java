@@ -32,9 +32,6 @@ import it.unimib.lets_green.adapter.UserAdapter1;
 
 public class LeaderboardFragment extends Fragment {
 
-//    private EditText editTextUser;
-//    private EditText editTextScore;
-//    private ImageView imageViewUser;
     private RecyclerView recyclerViewLeaderboard;
     private FirebaseFirestore firebaseFirestore;
     private Task<QuerySnapshot> collectionReference;
@@ -51,8 +48,10 @@ public class LeaderboardFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_leaderboard, container, false);
 
+        // impostazione titolo action bar
         ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.leaderboard));
 
+        // impostazione della transizione in entrata per questo fragment
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
             public void handleOnBackPressed() {
@@ -62,6 +61,7 @@ public class LeaderboardFragment extends Fragment {
         requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
 
         recyclerViewLeaderboard = view.findViewById(R.id.recyclerViewLeaderboard);
+
         firebaseFirestore = FirebaseFirestore.getInstance();
         collectionReference = firebaseFirestore.collection("User").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -83,12 +83,10 @@ public class LeaderboardFragment extends Fragment {
             }
         });
 
-
         return view;
     }
 
-    private void orderArray(List<UserFirebase> scoreList){
-
+    private void orderArray(List<UserFirebase> scoreList) {
         Collections.sort(scoreList, new Comparator<UserFirebase>() {
             @Override
             public int compare(UserFirebase o1, UserFirebase o2) {
@@ -103,11 +101,6 @@ public class LeaderboardFragment extends Fragment {
     }
 
     private void setUpRecyclerViewLeaderboard(List<UserFirebase> list) {
-//        Query query = collectionReference;
-//        FirestoreRecyclerOptions<UserFirebase> options = new FirestoreRecyclerOptions.Builder<VehiclePath>()
-//                .setQuery(query, VehiclePath.class)
-//                .build();
-
         userAdapter1 = new UserAdapter1(list, getContext());
         recyclerViewLeaderboard.setHasFixedSize(true);
         recyclerViewLeaderboard.setLayoutManager(new LinearLayoutManager(getContext()));

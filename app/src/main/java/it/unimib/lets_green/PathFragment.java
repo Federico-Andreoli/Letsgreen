@@ -157,12 +157,12 @@ public class PathFragment extends Fragment  {
 //                        break;
 //                }
 //                ItemTouchHelper.LEFT
-                   int position = viewHolder.getAdapterPosition();
+                   int position = viewHolder.getBindingAdapterPosition();
                     VehiclePath tmp = pathAdapterFirestore.getItem(position);
 //                    DocumentSnapshot id = pathAdapterFirestore.getSnapshots().getSnapshot(position);
 //                    VehiclePath deletedPath = pathAdapterFirestore.getItem(viewHolder.getAdapterPosition()).toString();
-                    pathAdapterFirestore.deleteItem(viewHolder.getAdapterPosition());
-                    Snackbar.make(recyclerViewPath, "tmp", Snackbar.LENGTH_LONG)
+                    pathAdapterFirestore.deleteItem(viewHolder.getBindingAdapterPosition());
+                    Snackbar.make(recyclerViewPath, R.string.deletedRoute, Snackbar.LENGTH_LONG)
                             .setAction("Undo", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {

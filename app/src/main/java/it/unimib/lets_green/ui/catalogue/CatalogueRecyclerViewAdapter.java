@@ -1,9 +1,12 @@
 package it.unimib.lets_green.ui.catalogue;
 
 
+import static it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase.TAG;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +54,6 @@ public class CatalogueRecyclerViewAdapter extends RecyclerView.Adapter<Catalogue
 
         // scaricamento e settaggio immagine
         gsReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://lets-green-b9ddf.appspot.com/" + plants.get(position).getName() + ".png");
-
         final long ONE_MEGABYTE = 1024 * 1024; // dimensione massima dell'immagine da scaricare
         gsReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(bytes -> {
             Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
@@ -59,7 +61,7 @@ public class CatalogueRecyclerViewAdapter extends RecyclerView.Adapter<Catalogue
             holder.progressBar.setVisibility(View.GONE);
             holder.imageView.setVisibility(View.VISIBLE);
         }).addOnFailureListener(exception -> {
-            // TODO: Handle any errors
+            Log.d(TAG, "image failure");
         });
     }
 

@@ -20,8 +20,6 @@ public class FirestoreDatabase {
 
     public static final String TAG = " FirestoreDatabase";
 
-
-
     public static void initializeData(String userID) {
 
             Map<String, Object> defaultData = new HashMap<>();
@@ -95,7 +93,6 @@ public class FirestoreDatabase {
     }
 
     public static void initializeImage(Context context, int drawableId){
-
         Uri imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
                 "://" + context.getResources().getResourcePackageName(drawableId)
                 + '/' + context.getResources().getResourceTypeName(drawableId)

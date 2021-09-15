@@ -26,7 +26,7 @@ public class PathAdapterFirestore extends FirestoreRecyclerAdapter<VehiclePath, 
     @Override
     protected void onBindViewHolder(@NonNull PathHolder holder, int position, @NonNull VehiclePath model) {
         holder.namePath.setText(model.getPathName());
-        holder.carbonPath.setText(model.getPathCarbon());
+        holder.carbonPath.setText(model.getPathCarbon() + " g");
     }
 
     @NonNull

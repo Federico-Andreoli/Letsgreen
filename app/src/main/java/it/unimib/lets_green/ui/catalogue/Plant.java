@@ -2,6 +2,8 @@ package it.unimib.lets_green.ui.catalogue;
 
 public class Plant {
 
+    // classe per definire l'elemento pianta
+
     private String name;
     private String commonName;
     private String species;
@@ -32,27 +34,12 @@ public class Plant {
         this.name = name;
     }
 
-    public void setCommonName(String commonName) {
-        this.commonName = commonName;
-    }
-
-    public void setSpecies(String species) {
-        this.species = species;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getCo2Absorption() {
         return co2Absorption;
     }
 
-    public void setCo2Absorption(String co2Absorption) {
-        this.co2Absorption = co2Absorption;
-    }
 }

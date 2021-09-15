@@ -31,22 +31,13 @@ import it.unimib.lets_green.ui.Login.Login;
 
 
 public class GreenHouseFragment extends Fragment {
-    private TextView greenHouseTextView;
     private FirebaseFirestore firebaseFirestore;
     private RecyclerView mRecyclerView;
     private GreenHouseAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private Task<QuerySnapshot> collectionReference;
-    private static String documentID;
     private ArrayList<GreenHouseItem> plantList = new ArrayList<>();
-//    private SwipeRefreshLayout refreshLayout;
 
     public GreenHouseFragment() {
 
-    }
-
-    public static String getDocumentID() {
-        return documentID;
     }
 
     @Override
@@ -55,19 +46,18 @@ public class GreenHouseFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_green_house, container, false);
 
-
-        greenHouseTextView=view.findViewById(R.id.textViewGreenHouse);
         mRecyclerView = view.findViewById(R.id.RecyclerView);
 
+        // impostazione titolo action bar
         ((MainActivity) requireActivity()).setActionBarTitle(getString(R.string.greenHouse));
 
+        // impostazione della transizione in entrata per questo fragment
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {// gestisce il pulsante di back
             @Override
             public void handleOnBackPressed() {
                 Navigation.findNavController(view).navigate(R.id.navigation_home);
             }
         };
-
         requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
 
         setUpRecyclerViewGreenHouse();
@@ -76,7 +66,6 @@ public class GreenHouseFragment extends Fragment {
 
         if (score != 0) {
             firebaseFirestore = FirebaseFirestore.getInstance();
-//            int sizeList = plantList.size();
             firebaseFirestore.collection("User").document(Login.getUserID()).collection("greenHouse").get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
@@ -87,8 +76,7 @@ public class GreenHouseFragment extends Fragment {
                                     count++;
                                 }
                                 Float singlePlantScore = score / count;
-
-                                collectionReference = firebaseFirestore.collection("User").document(Login.getUserID()).collection("greenHouse").get()
+                                firebaseFirestore.collection("User").document(Login.getUserID()).collection("greenHouse").get()
                                         .addOnCompleteListener(task1 -> {
                                             if (task1.isSuccessful()) {
                                                 for (QueryDocumentSnapshot documentSnapshot : task1.getResult()) {
@@ -109,33 +97,15 @@ public class GreenHouseFragment extends Fragment {
                                                 }
                                             }
                                         });
-//            for (GreenHouseItem greenHouseItem : plantList){
-//                greenHouseItem.setHp(String.valueOf(Integer.parseInt(greenHouseItem.getHp()) - singlePlantScore));
-//                Log.d(TAG, greenHouseItem.getHp());
-//            }
-
                             } else {
                                 Log.d(TAG, "Error getting documents: ", task.getException());
                             }
-
                         }
-
-
-                    }); setUpRecyclerViewGreenHouse();
+                    });
+            setUpRecyclerViewGreenHouse();
         }
-//        createGreenHouse(view);
-
 
         return view;
-    }
-
-    private class plantViewHolder extends RecyclerView.ViewHolder{
-
-        private TextView namePlant;
-        public plantViewHolder(@NonNull View itemView) {
-            super(itemView);
-            namePlant=itemView.findViewById(R.id.namePlant);
-        }
     }
 
     @Override
@@ -150,16 +120,10 @@ public class GreenHouseFragment extends Fragment {
         mAdapter.startListening();
     }
 
-    public void createGreenHouse(View view) {
-        setUpRecyclerViewGreenHouse();
-    }
-
     public void setUpRecyclerViewGreenHouse(){
         firebaseFirestore = FirebaseFirestore.getInstance();
         Query query = firebaseFirestore.collection("User").document(Login.getUserID()).collection("greenHouse");
         FirestoreRecyclerOptions<GreenHouseItem> options= new FirestoreRecyclerOptions.Builder<GreenHouseItem>().setQuery(query, GreenHouseItem.class).build();
-
-//        firebaseFirestore.collection("User").document(Login.getUserID()).collection("greenHouse");
 
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new GreenHouseAdapter(options,plantList);
@@ -167,8 +131,8 @@ public class GreenHouseFragment extends Fragment {
         mAdapter.setOnItemClickListener(new GreenHouseAdapter.onItemClickListener(){
             @Override
             public void onItemClick(DocumentSnapshot documentSnapshot, int position) {
-                GreenHouseItem itemPlant=documentSnapshot.toObject(GreenHouseItem.class);
-                String documentID=documentSnapshot.getId();
+                GreenHouseItem itemPlant = documentSnapshot.toObject(GreenHouseItem.class);
+                String documentID = documentSnapshot.getId();
             }
         });
 

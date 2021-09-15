@@ -67,13 +67,15 @@ public class GreenHouseAdapter extends FirestoreRecyclerAdapter<GreenHouseItem, 
 
         holder.setPlantName(model.getNamePlant());
         holder.mNamePlant.setText(model.getNamePlant().substring(0, 1).toUpperCase() + model.getNamePlant().substring(1).toLowerCase());
-        holder.hp.setText(model.getHp().toString());
+        holder.hp.setText(model.getHp() + "g of CO2 per day");
         holder.mDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mListener.onItemClick(getSnapshots().getSnapshot(holder.getBindingAdapterPosition()), holder.getBindingAdapterPosition());
-                FirestoreDatabase.subtractPlantFromScore(Double.parseDouble(getSnapshots().getSnapshot(holder.getBindingAdapterPosition()).get("hp").toString()));
-                getSnapshots().getSnapshot(holder.getBindingAdapterPosition()).getReference().delete();
+                if (Double.parseDouble(model.getHp()) > 0) {
+                    FirestoreDatabase.subtractPlantFromScore(Double.parseDouble(getSnapshots().getSnapshot(holder.getBindingAdapterPosition()).get("hp").toString()));
+                }
+                    getSnapshots().getSnapshot(holder.getBindingAdapterPosition()).getReference().delete();
             }
         });
     }

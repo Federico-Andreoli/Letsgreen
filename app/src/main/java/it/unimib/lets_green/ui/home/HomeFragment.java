@@ -56,6 +56,7 @@ public class HomeFragment extends Fragment {
 
         scoreView = root.findViewById(R.id.scoreView);
 
+        // passaggio al fragment relativo alla greenhouse
         greenHouseCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,6 +69,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        // passaggio al fragment relativo ai percorsi
         carbonCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,6 +82,8 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        // metodo per aggiornare il punteggio a seconda delle piante possedute
+        // solo se l'ultimo aggiornamento è avvenuto un giorno precedente
         if(getIs_logged() && totalHp == 0.0) {
             // recupero la data dell'ultimo update
             FirebaseFirestore.getInstance()
@@ -102,7 +106,6 @@ public class HomeFragment extends Fragment {
                         if (needUpdate(lastUpdate)) {
                             hpGreenHouseSinglePlantReset();
                             hpUpdate(root);
-//                            metodo che resetta la vita
                         }
                         else
                             createRecyclerView(root);
@@ -114,52 +117,51 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onStart() {
-
         super.onStart();
+        // impostazione titolo action bar
         ((MainActivity) requireActivity()).setActionBarTitle("Home");
 
     }
 
     public void hpGreenHouseSinglePlantReset(){
         firebaseFirestore = FirebaseFirestore.getInstance();
-        collectionReference = firebaseFirestore.collection("User").document(Login.getUserID()).collection("greenHouse").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        collectionReference = firebaseFirestore.collection("User")
+                .document(Login.getUserID()).collection("greenHouse")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
-//                    List<GreenHouseItem> greenHouseItemList = new ArrayList<>();
                     for(QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                         firebaseFirestore.collection("User").document(Login.getUserID()).collection("greenHouse").document(documentSnapshot.getId())
-//                                .set(firebaseFirestore.collection("plants").document(documentSnapshot.getString("namePlant"))
-                                        .get().addOnCompleteListener(task1 -> {
-                                            if (task1.isSuccessful()) {
-                                                DocumentSnapshot documentSnapshot1 = task1.getResult();
-                                                if (documentSnapshot1.exists()) {
-                                                    firebaseFirestore.collection("plants").document(documentSnapshot1.getString("namePlant")).get().addOnCompleteListener(task2 -> {
-                                                       if (task2.isSuccessful()){
-                                                           DocumentSnapshot documentSnapshot2= task2.getResult();
-                                                           if(documentSnapshot2.exists()){
-                                                               firebaseFirestore.collection("User").document(Login.getUserID()).collection("greenHouse")
-                                                                       .document(documentSnapshot.getId()).update("hp", documentSnapshot2.getString("co2_absorption"));
-//
-                                                           }
-                                                       }
-                                                    });
-//                                                    documentSnapshot1.getString("co2_absorption");
-                                                } else {
-                                                    Log.d(TAG, "no such document");
-                                                }
-                                            } else {
-                                                Log.d(TAG, "get failed with", task1.getException());
-                                            }
+                            .get().addOnCompleteListener(task1 -> {
+                                if (task1.isSuccessful()) {
+                                    DocumentSnapshot documentSnapshot1 = task1.getResult();
+                                    if (documentSnapshot1.exists()) {
+                                        firebaseFirestore.collection("plants").document(documentSnapshot1.getString("namePlant")).get().addOnCompleteListener(task2 -> {
+                                           if (task2.isSuccessful()){
+                                               DocumentSnapshot documentSnapshot2= task2.getResult();
+                                               if(documentSnapshot2.exists()){
+                                                   firebaseFirestore.collection("User").document(Login.getUserID()).collection("greenHouse")
+                                                    .document(documentSnapshot.getId()).update("hp", documentSnapshot2.getString("co2_absorption"));
+                                               }
+                                           }
                                         });
+                                    } else {
+                                        Log.d(TAG, "no such document");
+                                    }
+                                } else {
+                                    Log.d(TAG, "get failed with", task1.getException());
+                                }
+                            });
                     }
-                }else {
+                } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
                 }
             }
         });
     }
 
+    // metodo per calcolare la vita totale delle piante possedute
     public void hpUpdate(View root) {
         FirebaseFirestore.getInstance()
                 .collection("User")
@@ -172,15 +174,27 @@ public class HomeFragment extends Fragment {
                             Log.w(TAG, "Listen failed.", error);
                             return;
                         }
-                        for(DocumentSnapshot document: value) {
-                            if(document.get("hp") != null)
-                                totalHp += Double.parseDouble(document.getString("hp"));
+                        for(DocumentSnapshot documentSnapshot: value) {
+                            if(documentSnapshot.get("hp") != null)
+                                FirebaseFirestore.getInstance()
+                                .collection("plants")
+                                .document(documentSnapshot.get("namePlant").toString())
+                                .get()
+                                .addOnCompleteListener(task -> {
+                                    if(task.isSuccessful()) {
+                                        DocumentSnapshot documentSnapshot1 = task.getResult();
+                                        if (documentSnapshot1.exists()) {
+                                            totalHp += Double.parseDouble(documentSnapshot1.getString("co2_absorption"));
+                                        }
+                                    }
+                                });
                         }
                         createRecyclerView(root);
                     }
                 });
     }
 
+    // metodo per la creazione della recyclerview
     public void createRecyclerView(View root) {
         scoreView = root.findViewById(R.id.scoreView);
         // aggiorno i valori di hp e la data nel database
@@ -195,10 +209,12 @@ public class HomeFragment extends Fragment {
         return LocalDate.now();
     }
 
+    // verifica del cambiamento di giorno
     public boolean needUpdate(LocalDate lastUpdate) {
         if (Period.between(lastUpdate, getDate()).getDays() >= 1)
             return true;
         else
             return false;
     }
+
 }

@@ -80,7 +80,7 @@ public class PlantFragment extends Fragment {
         plantName.setText(receiveBundle.getString("name").substring(0, 1).toUpperCase() + receiveBundle.getString("name").substring(1).toLowerCase());
         plantCommonName.setText(receiveBundle.getString("common_name"));
         plantDescription.setText(receiveBundle.getString("description"));
-        co2Absorption.setText("Co2 absorption: " + receiveBundle.getString("co2_absorption"));
+        co2Absorption.setText("Co2 absorption: " + receiveBundle.getString("co2_absorption") + "g");
 
         // settaggio refresh della pagina
         refreshLayout = view.findViewById(R.id.plant_refresh_layout);

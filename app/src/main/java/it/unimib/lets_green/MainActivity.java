@@ -20,9 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "ciao";
     private Toolbar mToolbar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,17 +29,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         BottomNavigationView navView = findViewById(R.id.bottom_navigation);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_catalogue, R.id.navigation_notifications)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-
-        /*
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        tolta perchè entrava in conflitto con la top app bar personalizzata -lori
-         */
 
         NavigationUI.setupWithNavController(navView, navController);
 
@@ -59,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             if (id == R.id.action_leaderboard) {
                 if(!getIs_logged()) {
                     DialogFragment dialogFragment = new DialogFragment();
-                    dialogFragment.show(this.getSupportFragmentManager(), "example");
+                    dialogFragment.show(this.getSupportFragmentManager(), "user not logged");
                 } else {
                     NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
                     navController.navigate(R.id.leaderboardFragment);
@@ -74,10 +66,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.top_bar_menu, menu);
         return true;
-    }
-
-    public Activity getActivityReference(){
-        return this;
     }
 
     @Override

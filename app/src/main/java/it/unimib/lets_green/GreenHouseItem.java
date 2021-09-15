@@ -5,21 +5,14 @@ public class GreenHouseItem {
     private String namePlant;
     private String hp;
 
-
     public GreenHouseItem(){
 
     }
 
     public GreenHouseItem(int ImageResource, String text1, String hp) {
-//        mImageResource = ImageResource;
-//        mText1 = text1;
         this.mImageResource=ImageResource;
         this.namePlant=text1;
         this.hp = hp;
-    }
-
-    public int getImageResource() {
-        return mImageResource;
     }
 
     public String getNamePlant() {
@@ -28,5 +21,4 @@ public class GreenHouseItem {
 
     public String getHp() { return hp; }
 
-    public void setHp(String hp) { this.hp = hp; }
 }
