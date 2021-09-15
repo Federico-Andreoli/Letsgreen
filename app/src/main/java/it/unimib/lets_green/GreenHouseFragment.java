@@ -1,6 +1,7 @@
 package it.unimib.lets_green;
 
 import android.os.Bundle;
+import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -48,15 +50,6 @@ public class GreenHouseFragment extends Fragment {
 
         ((MainActivity) requireActivity()).setActionBarTitle(getString(R.string.greenHouse));
 
-//        // settaggio refresh della pagina
-//        refreshLayout = view.findViewById(R.id.refresh_layout2);
-//        refreshLayout.setColorSchemeResources(R.color.green);
-//        refreshLayout.setOnRefreshListener(() -> {
-//            // TODO: implementare refresh
-//            createGreenHouse(view);
-//            refreshLayout.setRefreshing(false);
-//        });
-
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {// gestisce il pulsante di back
             @Override
             public void handleOnBackPressed() {
@@ -69,6 +62,7 @@ public class GreenHouseFragment extends Fragment {
 
         return view;
     }
+
 
     private class plantViewHolder extends RecyclerView.ViewHolder{
 
@@ -91,7 +85,6 @@ public class GreenHouseFragment extends Fragment {
         mAdapter.startListening();
     }
 
-    // TODO: vedere se il refresh è fattibile
     public void createGreenHouse(View view) {
         firebaseFirestore = FirebaseFirestore.getInstance();
         Query query = firebaseFirestore.collection("User").document(Login.getUserID()).collection("greenHouse");

@@ -3,6 +3,7 @@ package it.unimib.lets_green.ui.catalogue;
 import static it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase.TAG;
 
 import android.os.Bundle;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +44,7 @@ public class CatFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
         // settaggio della variabile realativa alla categoria per prendere le piante giuste
         // dal database
 
