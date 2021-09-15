@@ -1,6 +1,7 @@
 package it.unimib.lets_green.ui.catalogue;
 
 import android.os.Bundle;
+import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +40,7 @@ public class CatalogueFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
         demoCollectionAdapter = new DemoCollectionAdapter(this, 3);
         viewPager = view.findViewById(R.id.view_pager);
         viewPager.setAdapter(demoCollectionAdapter);

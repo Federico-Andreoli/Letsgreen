@@ -74,8 +74,6 @@ public class GreenHouseAdapter extends FirestoreRecyclerAdapter<GreenHouseItem, 
                 mListener.onItemClick(getSnapshots().getSnapshot(holder.getBindingAdapterPosition()), holder.getBindingAdapterPosition());
                 FirestoreDatabase.subtractPlantFromScore(Double.parseDouble(getSnapshots().getSnapshot(holder.getBindingAdapterPosition()).get("hp").toString()));
                 getSnapshots().getSnapshot(holder.getBindingAdapterPosition()).getReference().delete();
-
-
             }
         });
     }

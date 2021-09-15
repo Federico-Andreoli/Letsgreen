@@ -3,6 +3,7 @@ package it.unimib.lets_green;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.transition.TransitionInflater;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,6 +65,10 @@ public class MakesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        TransitionInflater transitionInflater = TransitionInflater.from(requireContext());
+        setEnterTransition(transitionInflater.inflateTransition(R.transition.slide_right));
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_makes, container, false);
 

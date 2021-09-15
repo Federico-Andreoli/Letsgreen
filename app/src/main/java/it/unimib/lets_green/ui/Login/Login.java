@@ -93,12 +93,12 @@ public class Login extends Fragment {
                 String email = userEmail.getText().toString().trim();
                 String password = userPassword.getText().toString().trim();
                 if(email.isEmpty()) {  /*controllo che la mail non sia vuota*/
-                    Toast.makeText(getActivity(), "inserisci mail", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.insertEmail, Toast.LENGTH_SHORT).show();
                 }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){ /*verifica se la mail è ben formulata*/
-                    Toast.makeText(getActivity(), "inserire un'email valida", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.InsertValidEmail, Toast.LENGTH_SHORT).show();
                 }else {
                     resetPassword(email);
-                    Toast.makeText(getActivity(),  "send email to change password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(),  R.string.sentEmailToChangePassword, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -112,9 +112,9 @@ public class Login extends Fragment {
 
 
         if(email.isEmpty()){  /*controllo che la mail non sia vuota*/
-            Toast.makeText(getActivity(), "inserisci mail", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.insertEmail, Toast.LENGTH_SHORT).show();
         }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){ /*verifica se la mail è ben formulata*/
-            Toast.makeText(getActivity(), "inserire un'email valida", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.InsertValidEmail, Toast.LENGTH_SHORT).show();
         }else if(password.isEmpty()){   /*verifica che la password non sia vuota*/
             Toast.makeText(getActivity(), "inserisci una password valida", Toast.LENGTH_SHORT).show();
         }else{

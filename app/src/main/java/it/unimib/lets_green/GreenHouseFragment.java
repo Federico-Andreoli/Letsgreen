@@ -3,6 +3,7 @@ package it.unimib.lets_green;
 import static it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase.TAG;
 
 import android.os.Bundle;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -55,15 +57,6 @@ public class GreenHouseFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_green_house, container, false);
 
         ((MainActivity) requireActivity()).setActionBarTitle(getString(R.string.greenHouse));
-        mRecyclerView = view.findViewById(R.id.RecyclerView);
-//        // settaggio refresh della pagina
-//        refreshLayout = view.findViewById(R.id.refresh_layout2);
-//        refreshLayout.setColorSchemeResources(R.color.green);
-//        refreshLayout.setOnRefreshListener(() -> {
-//            // TODO: implementare refresh
-//            createGreenHouse(view);
-//            refreshLayout.setRefreshing(false);
-//        });
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {// gestisce il pulsante di back
             @Override
@@ -154,7 +147,6 @@ public class GreenHouseFragment extends Fragment {
         mAdapter.startListening();
     }
 
-    // TODO: vedere se il refresh è fattibile
     public void createGreenHouse(View view) {
         setUpRecyclerViewGreenHouse();
     }

@@ -27,7 +27,7 @@
     <string name="password">password</string>
     <string name="repeatPassword">insert password again</string>
     <string name="email">email</string>
-    <string name="textViewForgotPassword">Forgotten Password?</string>
+    <string name="textViewForgotPassword">Forgot Password?</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main2">MainActivity</string>
     <string name="title_activity_prova_home">MainActivity</string>
@@ -75,4 +75,10 @@
     <string name="greenHouse">GreenHouse</string>
     <string name="catalogue">Catalogue</string>
     <string name="plant">Plant</string>
+    <string name="insertEmail">Insert email</string>
+    <string name="InsertValidEmail">Insert valid email</string>
+    <string name="sentEmailToChangePassword">Sent email to change password</string>
+    <string name="username">userName</string>
+    <string name="pathname">pathName</string>
+    <string name="pathlength">pathLength</string>
 </resources>
