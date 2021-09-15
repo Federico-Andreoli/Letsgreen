@@ -86,7 +86,6 @@ public class LeaderboardFragment extends Fragment {
         return view;
     }
 
-    private void orderArray(List<UserFirebase> scoreList) {
 //    metodo per ordinare gli utenti (della recyclerView) in base al loro score (ordine decrescente)
     private void orderArray(List<UserFirebase> scoreList){
 
