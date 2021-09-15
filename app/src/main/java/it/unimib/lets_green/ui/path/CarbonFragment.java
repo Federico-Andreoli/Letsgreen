@@ -23,6 +23,7 @@ import androidx.navigation.Navigation;
 import it.unimib.lets_green.DialogFragment;
 import it.unimib.lets_green.R;
 import it.unimib.lets_green.RequestCarbon.CarbonRequest;
+import it.unimib.lets_green.VehiclePath;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;

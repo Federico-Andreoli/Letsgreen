@@ -1,4 +1,4 @@
-package it.unimib.lets_green.ui.path;
+package it.unimib.lets_green;
 
 import android.os.Parcel;
 import android.os.Parcelable;

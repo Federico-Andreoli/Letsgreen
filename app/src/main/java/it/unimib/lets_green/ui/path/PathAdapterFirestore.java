@@ -13,6 +13,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import it.unimib.lets_green.R;
+import it.unimib.lets_green.VehiclePath;
 
 public class PathAdapterFirestore extends FirestoreRecyclerAdapter<VehiclePath, PathAdapterFirestore.PathHolder> {
 

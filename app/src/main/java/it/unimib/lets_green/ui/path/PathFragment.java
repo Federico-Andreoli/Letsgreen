@@ -37,6 +37,7 @@ import java.util.Map;
 import it.unimib.lets_green.FirestoreDatabase.FirestoreDatabase;
 import it.unimib.lets_green.MainActivity;
 import it.unimib.lets_green.R;
+import it.unimib.lets_green.VehiclePath;
 import it.unimib.lets_green.ui.Login.Login;
 
 public class PathFragment extends Fragment  {
