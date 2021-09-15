@@ -1,9 +1,5 @@
 package it.unimib.lets_green.FirestoreDatabase;
 
-import android.util.Log;
-
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
@@ -13,7 +9,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -99,22 +94,6 @@ public class FirestoreDatabase {
                 });
     }
 
-//   public static void modifyData(String UserID, ArrayList<String> greenHousePlant,ArrayList<String> path){
-//        Map<String, ArrayList> ChangedData = new HashMap<>();
-//
-//        ChangedData.clear();
-//        ChangedData.put("changedplant", greenHousePlant);
-//        ChangedData.put("changedpath", path);
-//
-//       FirebaseFirestore.getInstance().collection("User").document(UserID)
-//               .set(ChangedData)
-//               .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void unused) {
-//                        Log.d(TAG, "document has been changed");
-//                    }
-//               });
-//}
     public static void initializeImage(Context context, int drawableId){
 
         Uri imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +

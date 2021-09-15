@@ -1,7 +1,6 @@
 package it.unimib.lets_green.ui.Login;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -37,23 +36,13 @@ public class Login extends Fragment {
     Button loginButon;
     Button resetPassword;
     MainActivity objMyClass = new MainActivity();
-    Activity reference = objMyClass.getActivityReference();
     static FirebaseUser user=null;
     static String UserID= null;
 
     public static Login newInstance() {
-
         return new Login();
     }
 
-//    public void onStart() {
-//        super.onStart();
-//        // verifica che l'utente sia
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        if (currentUser != null) {
-//            reload();
-//        }
-//    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
@@ -169,9 +158,7 @@ public class Login extends Fragment {
                 });
     }
 
-    private void reload() {
 
-    }
     public static String getEmail(){
         user = FirebaseAuth.getInstance().getCurrentUser();
         return user.getEmail();

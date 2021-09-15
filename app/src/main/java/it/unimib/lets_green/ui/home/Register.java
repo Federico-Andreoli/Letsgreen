@@ -71,15 +71,6 @@ public class Register extends Fragment {
 
 }
 
-//    public void onStart() {
-//        super.onStart();
-//        // Check if user is signed in (non-null) and update UI accordingly.
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        if (currentUser != null) {
-//            reload();
-//        }
-//    }
-
         private void startUserRegistration() {
 
         email = userEmail.getText().toString().trim(); //converte il valore del text field in stringa
@@ -140,7 +131,4 @@ public class Register extends Fragment {
             setDefaultImageProfile();// imposta l'immagine profilo
         }
     }
-//    private void reload(){
-//
-//    }
 }

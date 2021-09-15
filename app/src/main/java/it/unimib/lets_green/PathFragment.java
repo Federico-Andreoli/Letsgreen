@@ -23,16 +23,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,7 +49,7 @@ public class PathFragment extends Fragment  {
     private FirestoreRecyclerAdapter adapter;
     private PathAdapterFirestore pathAdapterFirestore;
     private TextView alternativeMessage;
-    int score = 0;
+    Double score = 0.0;
 
 
     @Override
@@ -221,11 +217,20 @@ public class PathFragment extends Fragment  {
                             if(task.isSuccessful()) {
                                 DocumentSnapshot document = task.getResult();
                                 if(document.exists()) {
-                                    // aggiunta codice per sottrarre vita piante
-                                    score = Integer.parseInt(document.get("score").toString());
-                                    score -= Integer.parseInt(pathAdapterFirestore.getItem(position).getPathCarbon());
+
+                                    score = Double.parseDouble(document.get("score").toString());
+                                    score -= Double.parseDouble(pathAdapterFirestore.getItem(position).getPathCarbon());
+                                    String scoreFloat=String.valueOf(score);
                                     FirestoreDatabase.updateScore(score);
-                                    Navigation.findNavController(getView()).navigate(R.id.navigation_home);
+                                    // aggiunta codice per sottrarre vita piante
+                                    PathFragmentDirections.ActionPathFragmentToGreenHouseFragment action = PathFragmentDirections.actionPathFragmentToGreenHouseFragment();
+                                    action.setScoreHp(Float.parseFloat(pathAdapterFirestore.getItem(position).getPathCarbon()));
+                                    Log.d(TAG,pathAdapterFirestore.getItem(position).getPathCarbon());
+//                                  al posto della navigation alla home va a quella delle piante!
+                                    Navigation.findNavController(getView()).navigate(action);
+//                                    MakesFragmentDirections.ActionCarbonFragmentToModelFragment2 action = MakesFragmentDirections.actionCarbonFragmentToModelFragment2();
+//                                    action.setIdMakes(item.getData().getId());
+//                                    Navigation.findNavController(getView()).navigate(action);
                                 }
                             } else {
                                 Log.d(TAG, "Error getting documents: ", task.getException());
