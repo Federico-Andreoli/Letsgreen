@@ -39,7 +39,6 @@ public class GreenHouseFragment extends Fragment {
     private Task<QuerySnapshot> collectionReference;
     private static String documentID;
     private ArrayList<GreenHouseItem> plantList = new ArrayList<>();
-//    private SwipeRefreshLayout refreshLayout;
 
     public GreenHouseFragment() {
 
@@ -153,7 +152,7 @@ public class GreenHouseFragment extends Fragment {
     public void createGreenHouse(View view) {
         setUpRecyclerViewGreenHouse();
     }
-
+//collegamento con il database
     public void setUpRecyclerViewGreenHouse(){
         firebaseFirestore = FirebaseFirestore.getInstance();
         Query query = firebaseFirestore.collection("User").document(Login.getUserID()).collection("greenHouse");
