@@ -1,10 +1,10 @@
 package it.unimib.lets_green.RequestCarbon;
 
-//import javax.annotation.Generated;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-//@Generated("jsonschema2pojo")
+// classe usata per la risposta dalla request all'api
 public class CarbonRequest {
     @SerializedName("data")
     @Expose
@@ -14,8 +14,6 @@ public class CarbonRequest {
      * No args constructor for use in serialization
      *
      */
-//    public CarbonRequest() {
-//    }
 
     /**
      *

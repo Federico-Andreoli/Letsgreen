@@ -45,7 +45,6 @@ public class LeaderboardFragment extends Fragment {
         TransitionInflater transitionInflater = TransitionInflater.from(getActivity());
         setEnterTransition(transitionInflater.inflateTransition(R.transition.fade));
 
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_leaderboard, container, false);
 
         // impostazione titolo action bar
@@ -63,6 +62,7 @@ public class LeaderboardFragment extends Fragment {
         recyclerViewLeaderboard = view.findViewById(R.id.recyclerViewLeaderboard);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
+//        ottiene tutti i documenti dentro la cartella User, ogni elemento e' salvato in una lista sulla quale verra' costruita la recycler view
         collectionReference = firebaseFirestore.collection("User").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -87,6 +87,9 @@ public class LeaderboardFragment extends Fragment {
     }
 
     private void orderArray(List<UserFirebase> scoreList) {
+//    metodo per ordinare gli utenti (della recyclerView) in base al loro score (ordine decrescente)
+    private void orderArray(List<UserFirebase> scoreList){
+
         Collections.sort(scoreList, new Comparator<UserFirebase>() {
             @Override
             public int compare(UserFirebase o1, UserFirebase o2) {

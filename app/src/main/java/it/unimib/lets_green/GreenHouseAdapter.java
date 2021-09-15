@@ -43,7 +43,7 @@ public class GreenHouseAdapter extends FirestoreRecyclerAdapter<GreenHouseItem, 
     public interface onItemClickListener {
         void onItemClick(DocumentSnapshot documentSnapshot, int position);
     }
-
+//creazione dell'array contenente le piante
     public GreenHouseAdapter(@NonNull FirestoreRecyclerOptions<GreenHouseItem> options, ArrayList<GreenHouseItem> plantList) {
         super(options);
         mPlantList = plantList;
@@ -110,7 +110,7 @@ public class GreenHouseAdapter extends FirestoreRecyclerAdapter<GreenHouseItem, 
             mDelete = itemView.findViewById(R.id.deletePlant);
             mProgressBar = itemView.findViewById(R.id.progressBar2);
             mButton = itemView.findViewById(R.id.viewButton);
-
+//settaggio pulsante view che rimanda a plant
             mButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -118,6 +118,7 @@ public class GreenHouseAdapter extends FirestoreRecyclerAdapter<GreenHouseItem, 
                     FirebaseFirestore.getInstance().collection("plants").document(plantName).get().addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
+                            //controllo dei parametri
                             if (document.exists()) {
                                 bundle.putString("name", document.getId());
                                 bundle.putString("common_name", document.getData().get("common_name").toString());
@@ -132,7 +133,7 @@ public class GreenHouseAdapter extends FirestoreRecyclerAdapter<GreenHouseItem, 
                     });
                 }
             });
-
+//settaggio pulsante del cestino
             mDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

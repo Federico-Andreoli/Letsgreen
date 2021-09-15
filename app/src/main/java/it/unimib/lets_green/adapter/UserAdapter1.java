@@ -45,6 +45,7 @@ public class UserAdapter1 extends RecyclerView.Adapter<UserAdapter1.UsersHolder>
     public void onBindViewHolder(@NonNull UsersHolder holder, int position) {
         holder.username.setText(users.get(position).getUsername());
         holder.score.setText(String.valueOf((int) users.get(position).getScore()));
+        // scaricamento e settaggio immagine
         imgReference = FirebaseStorage.getInstance().getReferenceFromUrl("gs://lets-green-b9ddf.appspot.com/profile-image/" + users.get(position).getUserId());
             Log.d(TAG, users.get(position).getUserId());
             final long ONE_MEGABYTE = 4 * 1024 * 1024; // dimensione massima dell'immagine da scaricare

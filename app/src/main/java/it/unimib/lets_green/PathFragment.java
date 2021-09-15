@@ -72,7 +72,7 @@ public class PathFragment extends Fragment  {
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
 
-//                ModelFragmentArgs.fromBundle(getArguments()).getIdMakes();
+
         recyclerViewPath = view.findViewById(R.id.recyclerViewPath);
         createPath = view.findViewById(R.id.floatingActionButton);
 
@@ -83,58 +83,28 @@ public class PathFragment extends Fragment  {
             }
         });
         setUpRecyclerView();
+        //riceve il valore passato dal CarbonFragment(l'oggetto Path)
         PathFragmentArgs args = PathFragmentArgs.fromBundle(getArguments());
         VehiclePath vehiclePath = args.getPathObject();
 
+//        se l'oggetto ricevuto e' diverso da null vuol dire che si e' arrivati da CarbonFragment e quindi va aggiornata la recyclerView con
+//        l'oggetto appena creato
         if(vehiclePath != null) {
             Map<String, Object> data = new HashMap<>();
             data.put("pathName", vehiclePath.getPathName());
             data.put("pathCarbon", vehiclePath.getPathCarbon());
             firebaseFirestore.collection("User").document(Login.getUserID()).collection("percorsi").add(data);
 //          aggiungi l'elemento nel database
-
+//          aggiorna la recyclerview
             setUpRecyclerView();
 
-            //aggiungo nella lista l'elemento creato
-            //pusho
-            // metto nella recycler
-
-
-//            vehiclePathList.add(vehiclePath);
-//            PutDataIntoRecyclerView(vehiclePathList);
         }
-
-        //fare la query e mettere nella lista
-
-//        adapter = new FirestoreRecyclerAdapter<VehiclePath, PathViewHolder>(options) {
-//            @NonNull
-//            @Override
-//            public PathViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//                View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_path, parent, false);
-//                return new PathViewHolder(v);
-//            }
-//
-//            @Override
-//            protected void onBindViewHolder(@NonNull PathViewHolder holder, int position, @NonNull VehiclePath model) {
-//                holder.namePath.setText(model.getPathName());
-//                holder.carbonPath.setText(model.getPathCarbon());
-//            }
-//        };
 
         return view;
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//
-////        String pathInfo = CarbonFragmentArgs.fromBundle(getArguments()).getIdModel();
-////        CarbonFragmentArgs cardPath = CarbonFragmentArgs.fromBundle(getArguments());
-////        vehiclePathList.add(cardPath);
-////        PutDataIntoRecyclerView((List<VehiclePath>) cardPath);
-//
-//    }
     private void setUpRecyclerView() {
+//        RecyclerView costruita con la classe di firestore, fa la query al database e la costruisce con i dati nel database
         Query query = collectionReference;
         FirestoreRecyclerOptions<VehiclePath> options = new FirestoreRecyclerOptions.Builder<VehiclePath>()
                 .setQuery(query, VehiclePath.class)
@@ -143,6 +113,7 @@ public class PathFragment extends Fragment  {
         recyclerViewPath.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewPath.setAdapter(pathAdapterFirestore);
         VehiclePath deletedPath = null;
+//        metodo per eliminzazione dell'elemento della recycler view tramite lo slide
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT) {
             @Override
@@ -152,15 +123,10 @@ public class PathFragment extends Fragment  {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-//                switch (direction){
-//                    case ItemTouchHelper.LEFT:
-//                        break;
-//                }
-//                ItemTouchHelper.LEFT
-                   int position = viewHolder.getBindingAdapterPosition();
+
+                   int position = viewHolder.getAdapterPosition();
                     VehiclePath tmp = pathAdapterFirestore.getItem(position);
-//                    DocumentSnapshot id = pathAdapterFirestore.getSnapshots().getSnapshot(position);
-//                    VehiclePath deletedPath = pathAdapterFirestore.getItem(viewHolder.getAdapterPosition()).toString();
+//                    aggiunta di uno Snackbar che annulla la cancellazione del percorso
                     pathAdapterFirestore.deleteItem(viewHolder.getBindingAdapterPosition());
                     Snackbar.make(recyclerViewPath, R.string.deletedRoute, Snackbar.LENGTH_LONG)
                             .setAction("Undo", new View.OnClickListener() {
@@ -175,38 +141,29 @@ public class PathFragment extends Fragment  {
                             }).show();
             }
 
-//            AGGIUNGERE LO SWIPE COLORATO ED UNDO creaore pure l'onclik con pop up di aggiunta allo score
         }).attachToRecyclerView(recyclerViewPath);
 
         pathAdapterFirestore.setOnItemClickListener(new PathAdapterFirestore.OnItemClickListener() {
             @Override
             public void inItemClick(DocumentSnapshot documentSnapshot, int position) {
                 VehiclePath vehiclePath = documentSnapshot.toObject(VehiclePath.class);
-//                id dell'oggetto nel database!!!!
+//                id dell'oggetto nel database
                 String id = documentSnapshot.getId();
                 openDialog(documentSnapshot.getId(), position);
-//                Toast.makeText(getContext(), "Position: " + position + "ID: " + id, Toast.LENGTH_SHORT).show();
-//                qua metto codice per startare un nuovo fragment e passare i vari dati!
-//                se voglio passare l'intero oggetto String path = documentSnapshot.getReference().getPath()
+
             }
         });
 
-////        List<VehiclePath> listPath
-////        PathAdapter pathAdapter = new PathAdapter(getContext(), listPath);
-//        recyclerViewPath.setHasFixedSize(true);
-//        recyclerViewPath.setLayoutManager(new LinearLayoutManager(getContext()));
-////        recyclerViewPath.setAdapter(pathAdapter);
-//        recyclerViewPath.setAdapter(adapter);
     }
-
+//  metodo per aprire al onclick dell'item un alert dialog
     private void openDialog(String documentSnapshot, int position){
-//        DialogAddPath dialogAddPath = new DialogAddPath();
-//        dialogAddPath.show(getParentFragmentManager(), "exaple dialog");
         AlertDialog.Builder addBuilder = new AlertDialog.Builder(getContext());
         addBuilder.setMessage("Do you want to add the Path to your score?")
                 .setCancelable(false)
                 .setPositiveButton("yes", new DialogInterface.OnClickListener() {
                     @Override
+//                    se cliccato su "yes" si aggiorna lo score dell'utente sottraendo il valore del percorso selezionato, inoltre
+//                    si passa il valore del percorso selezionato al GreenHouseFragment che si occupera' di sottrarre alle piante
                     public void onClick(DialogInterface dialog, int which) {
                         FirebaseFirestore.getInstance()
                                 .collection("User")
@@ -219,17 +176,11 @@ public class PathFragment extends Fragment  {
 
                                     score = Double.parseDouble(document.get("score").toString());
                                     score -= Double.parseDouble(pathAdapterFirestore.getItem(position).getPathCarbon());
-                                    String scoreFloat=String.valueOf(score);
                                     FirestoreDatabase.updateScore(score);
-                                    // aggiunta codice per sottrarre vita piante
                                     PathFragmentDirections.ActionPathFragmentToGreenHouseFragment action = PathFragmentDirections.actionPathFragmentToGreenHouseFragment();
                                     action.setScoreHp(Float.parseFloat(pathAdapterFirestore.getItem(position).getPathCarbon()));
                                     Log.d(TAG,pathAdapterFirestore.getItem(position).getPathCarbon());
-//                                  al posto della navigation alla home va a quella delle piante!
                                     Navigation.findNavController(getView()).navigate(action);
-//                                    MakesFragmentDirections.ActionCarbonFragmentToModelFragment2 action = MakesFragmentDirections.actionCarbonFragmentToModelFragment2();
-//                                    action.setIdMakes(item.getData().getId());
-//                                    Navigation.findNavController(getView()).navigate(action);
                                 }
                             } else {
                                 Log.d(TAG, "Error getting documents: ", task.getException());
@@ -238,7 +189,6 @@ public class PathFragment extends Fragment  {
                         Toast.makeText(getParentFragment().getContext(),
                                 "The route " + pathAdapterFirestore.getItem(position).getPathName() + " has been added to the score",
                                 Toast.LENGTH_LONG).show();
-//                        Log.d(TAG, "Email sent.");
                                 }
                 })
                 .setNegativeButton("no", new DialogInterface.OnClickListener() {
@@ -251,17 +201,6 @@ public class PathFragment extends Fragment  {
         addBuilder.show();
     }
 
-//    private class PathViewHolder extends RecyclerView.ViewHolder {
-//
-//        TextView namePath;
-//        TextView carbonPath;
-//
-//        public PathViewHolder(@NonNull View itemView) {
-//            super(itemView);
-//            namePath = (TextView)itemView.findViewById(R.id.namePath);
-//            carbonPath =(TextView)itemView.findViewById(R.id.carbonNumber);
-//        }
-//    }
     @Override
     public void onStart() {
         super.onStart();

@@ -120,6 +120,10 @@ public class GreenHouseFragment extends Fragment {
         mAdapter.startListening();
     }
 
+    public void createGreenHouse(View view) {
+        setUpRecyclerViewGreenHouse();
+    }
+//collegamento con il database
     public void setUpRecyclerViewGreenHouse(){
         firebaseFirestore = FirebaseFirestore.getInstance();
         Query query = firebaseFirestore.collection("User").document(Login.getUserID()).collection("greenHouse");
