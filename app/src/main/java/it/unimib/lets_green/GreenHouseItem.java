@@ -26,7 +26,7 @@ public class GreenHouseItem {
         return namePlant;
     }
 
-    public String getHp() { return String.valueOf((Float.parseFloat(hp) * 1000)/365); }
+    public String getHp() { return hp; }
 
     public void setHp(String hp) { this.hp = hp; }
 }

@@ -85,11 +85,11 @@ public class GreenHouseFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
+                                Log.d(TAG,"ciao");
                                 int count = 0;
                                 for (DocumentSnapshot document : task.getResult()) {
                                     count++;
                                 }
-
                                 Float singlePlantScore = score / count;
 
                                 collectionReference = firebaseFirestore.collection("User").document(Login.getUserID()).collection("greenHouse").get()

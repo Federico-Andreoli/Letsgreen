@@ -79,15 +79,15 @@ public class Register extends Fragment {
 
 
         if(email.isEmpty()){  /*controllo che la mail non sia vuota*/
-            Toast.makeText(getActivity(), "inserisci mail", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "insert mail", Toast.LENGTH_SHORT).show();
         }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){ /*verifica se la mail è ben formulata*/
-            Toast.makeText(getActivity(), "inserire un'email valida", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "invalid email", Toast.LENGTH_SHORT).show();
         }else if(password.isEmpty()){   /*verifica che la password non sia vuota*/
-            Toast.makeText(getActivity(), "inserisci una password valida", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "insert password", Toast.LENGTH_SHORT).show();
         }else if(password.length()<8){   /*verifica che la password sia almeno di 8 caratteri*/
-            Toast.makeText(getActivity(), "password troppo corta", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "password is too short", Toast.LENGTH_SHORT).show();
         }else if(password.compareTo(password2)!=0){ /*verifica se le password sono uguali*/
-            Toast.makeText(getActivity(), "le password sono diverse", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "password doesn't match", Toast.LENGTH_SHORT).show();
         }else{
             Log.d(TAG, "registrazione effettuata");
             createAccount(email,password);
