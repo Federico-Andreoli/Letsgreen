@@ -1,7 +1,6 @@
 package it.unimib.lets_green.ui.catalogue;
 
 import android.os.Bundle;
-import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,7 @@ import it.unimib.lets_green.R;
 
 public class CatalogueFragment extends Fragment {
 
-    DemoCollectionAdapter demoCollectionAdapter;
+    private PlantsCollectionAdapter plantsCollectionAdapter;
     private ViewPager2 viewPager;
 
     @Override
@@ -34,19 +33,26 @@ public class CatalogueFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_catalogue, container, false);
+
+        // impostazione titolo action bar
         ((MainActivity) getActivity()).setActionBarTitle(getString(R.string.catalogue));
+
         return root;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        demoCollectionAdapter = new DemoCollectionAdapter(this, 3);
+        // istanziamento dell'adapter relativo alle tre categorie
+        plantsCollectionAdapter = new PlantsCollectionAdapter(this);
+
+        // istanziamento del viewPager necessario alla visualizzazione delle tre categorie
         viewPager = view.findViewById(R.id.view_pager);
-        viewPager.setAdapter(demoCollectionAdapter);
-        FragmentStateAdapter pagerAdapter = new DemoCollectionAdapter(this, 3);
+        viewPager.setAdapter(plantsCollectionAdapter);
+
         TabLayout tabLayout = view.findViewById(R.id.tabs);
 
+        // gestione del ritorno al fragment precedente
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
             public void handleOnBackPressed() {
@@ -55,13 +61,14 @@ public class CatalogueFragment extends Fragment {
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getActivity(), callback);
 
+        // istanziamento gestore dei tre tab
         new TabLayoutMediator(tabLayout, viewPager,
                 (tab, position) -> tab.setText(setTabName(position))
         ).attach();
     }
 
 
-
+    // impostazione del titolo dei tab
     public String setTabName(int position) {
         switch (position) {
             case 0:
@@ -74,11 +81,12 @@ public class CatalogueFragment extends Fragment {
                 return "not found";
         }
     }
+
 }
 
-class DemoCollectionAdapter extends FragmentStateAdapter {
+class PlantsCollectionAdapter extends FragmentStateAdapter {
 
-    public DemoCollectionAdapter(Fragment fragment, int tabsNum) {
+    public PlantsCollectionAdapter(Fragment fragment) {
         super(fragment);
     }
 
@@ -92,4 +100,5 @@ class DemoCollectionAdapter extends FragmentStateAdapter {
     public int getItemCount() {
         return 3;
     }
+
 }
