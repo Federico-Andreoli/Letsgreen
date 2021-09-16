@@ -38,6 +38,7 @@
                 android:layout_height="48dp"
                 android:background="#00000000"
                 android:src="@drawable/ic_icons8_add_image_48"
+                android:contentDescription="@string/addphoto"
                 app:layout_constraintBottom_toBottomOf="@+id/profile_image"
                 app:layout_constraintEnd_toEndOf="@+id/profile_image" />
 
@@ -114,19 +115,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/newEmailTextField" />
-
-            <!-->
-            <TextView
-                android:id="@+id/textconfirmcangepassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="20dp"
-                android:text="@string/changePasswordTitle"
-                app:layout_constraintBottom_toTopOf="@+id/buttonPassword"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/buttonChangeEmail" />
-            <-->
 
             <Button
                 android:id="@+id/buttonPassword"

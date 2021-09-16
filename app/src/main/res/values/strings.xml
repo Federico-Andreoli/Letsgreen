@@ -96,4 +96,5 @@
     <string name="insertValidPassword">Insert valid password</string>
     <string name="authenticationFailed">Authentication failed</string>
     <string name="loginDone">Login Done</string>
+    <string name="addphoto">addPhoto</string>
 </resources>

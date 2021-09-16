@@ -86,21 +86,6 @@
             app:iconTint="#FFFFFF" />
     </LinearLayout>
 
-    <!-->
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="54dp"
-        android:layout_marginBottom="24dp"
-        android:text="@string/title_Login"
-        android:textAppearance="?attr/textAppearanceHeadline6"
-        app:layout_constraintBottom_toTopOf="@+id/textFieldemail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <-->
-
     <Button
         android:id="@+id/containedButton"
         android:layout_width="0dp"
