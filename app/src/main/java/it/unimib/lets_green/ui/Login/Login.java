@@ -113,7 +113,7 @@ public class Login extends Fragment {
         }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){ /*verifica se la mail è ben formulata*/
             Toast.makeText(getActivity(), R.string.InsertValidEmail, Toast.LENGTH_SHORT).show();
         }else if(password.isEmpty()){   /*verifica che la password non sia vuota*/
-            Toast.makeText(getActivity(), "inserisci una password valida", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.insertValidPassword, Toast.LENGTH_SHORT).show();
         }else{
             LoginFirebase(email,password);
 
@@ -133,7 +133,7 @@ public class Login extends Fragment {
                             changeUI();//carica il fragment del profilo utente
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(getActivity(), "Authentication failed.",
+                            Toast.makeText(getActivity(), R.string.authenticationFailed,
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
@@ -148,7 +148,7 @@ public class Login extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG, "Email sent.");
+                            Log.d(TAG, "Email sent");
                         }
                     }
                 });
@@ -168,12 +168,13 @@ public class Login extends Fragment {
     public void changeUI(){
 
         Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.userProfileFragment);
-        Toast.makeText(getActivity(), "login effettuato con successo", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), R.string.loginDone, Toast.LENGTH_SHORT).show();
     }
 
     public static boolean getIs_logged() {
         return is_logged;
     }
+
     public static void logOutSet() {
         is_logged=false;
     }

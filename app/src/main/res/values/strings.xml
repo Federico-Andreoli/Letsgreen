@@ -87,4 +87,13 @@
     <string name="hpRemaining"> HP remaining</string>
     <string name="dailyCo2Absorption">Daily Co2 absorption: </string>
     <string name="grams">g</string>
+    <string name="logout">Logout done</string>
+    <string name="emailChanged">Email changed</string>
+    <string name="usernameChanged">Username changed</string>
+    <string name="yes">Yes</string>
+    <string name="userDeleted">User deleted</string>
+    <string name="no">No</string>
+    <string name="insertValidPassword">Insert valid password</string>
+    <string name="authenticationFailed">Authentication failed</string>
+    <string name="loginDone">Login Done</string>
 </resources>

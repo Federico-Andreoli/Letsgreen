@@ -1,4 +1,4 @@
-package it.unimib.lets_green;
+package it.unimib.lets_green.ui.profile;
 
 import static android.app.Activity.RESULT_OK;
 import static it.unimib.lets_green.Firebase.Autentication.changeEmailAddress;
@@ -40,6 +40,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import it.unimib.lets_green.Firebase.Autentication;
+import it.unimib.lets_green.R;
 import it.unimib.lets_green.ui.Login.Login;
 
 public class UserProfileFragment extends Fragment {
@@ -119,7 +120,7 @@ public class UserProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Autentication.changeDataUserName(newUserName.getText().toString().trim()); //richiama il metodo con il nome utente da inserire
-                Toast.makeText(getActivity(), "user name changed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.usernameChanged, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -129,17 +130,17 @@ public class UserProfileFragment extends Fragment {
                 AlertDialog.Builder builder= new AlertDialog.Builder(getActivity()); // crea un alert
                 builder.setTitle(R.string.delete_account_alert_title);
                 builder.setMessage(R.string.delete_account_alert_message);
-                builder.setPositiveButton("yes", new DialogInterface.OnClickListener() // gestione interazione con pulsante yes
+                builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() // gestione interazione con pulsante yes
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.navigation_notifications);
                         deleteAccount();
                         logOutUser();
-                        Toast.makeText(getActivity(), "user deleted", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), R.string.userDeleted, Toast.LENGTH_SHORT).show();
                     }
                 });
-                builder.setNegativeButton("no", new DialogInterface.OnClickListener() // gestione interazione con pulsante no
+                builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() // gestione interazione con pulsante no
                 {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -156,7 +157,7 @@ public class UserProfileFragment extends Fragment {
             public void onClick(View v) {
                 userEmail=newUserEmail.getText().toString().trim(); //converte il valore nel text field in stringa
                 changeEmailAddress(userEmail);
-                Toast.makeText(getActivity(), "email changed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.emailChanged, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -164,7 +165,7 @@ public class UserProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
             Login.resetPassword(Login.getEmail());  // richiama il metodo per resettare la password
-                Toast.makeText(getActivity(), "sand email change password", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.sentEmailToChangePassword, Toast.LENGTH_SHORT).show();
                 Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.navigation_notifications);// sposta l'utente nella sezione login
                 logOutUser();  // effettua il logout per rieffettuare l'autenticazione
             }
@@ -174,7 +175,7 @@ public class UserProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 logOutUser();
-                Toast.makeText(getActivity(), "logout effettuato", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.logout, Toast.LENGTH_SHORT).show();
                 Navigation.findNavController(getActivity(), R.id.nav_host_fragment).navigate(R.id.navigation_notifications);
             }
         });

@@ -72,7 +72,7 @@
     </fragment>
     <fragment
         android:id="@+id/userProfileFragment"
-        android:name="it.unimib.lets_green.UserProfileFragment"
+        android:name="it.unimib.lets_green.ui.profile.UserProfileFragment"
         android:label="fragment_user_profile"
         tools:layout="@layout/fragment_user_profile" >
         <action
